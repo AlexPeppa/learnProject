@@ -1,25 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import { Routes, Route, NavLink } from "react-router-dom";
+import Home from "./Home/Home";
+import Hooks from "./Hooks/Hooks";
+import MyRouter from "./MyRouter/MyRouter";
+import a from "./App.module.css";
+import "./App.css";
+import UseState from "./Hooks/useState/UseState";
+import UseEffect from "./Hooks/useEffect/UseEffect";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="wrapper">
+      <div className={a.navLink}>
+        <NavLink className={a.link} to="/">Home</NavLink>
+      </div>
+      <Routes>
+        <Route path="/myRouter" element={<MyRouter />} />
+        <Route path="/hooks/*" element={<Hooks />} />
+        <Route path="/" element={<Home />} />      
+      </Routes>
     </div>
   );
-}
+};
 
 export default App;
