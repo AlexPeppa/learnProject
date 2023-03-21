@@ -1,16 +1,16 @@
 import { Routes,Route } from 'react-router';
 import { NavLink } from 'react-router-dom';
-import g from './hooks.module.css';
+import styles from './hooks.module.css';
 import UseEffect from './useEffect/UseEffect';
 import UseState from './useState/UseState';
 
 const Hooks =() => {
     return (
       
-        <div className={g.wrapper} >
+        <div className={styles.wrapper} >
           <ul>
-            <li><NavLink className={g.link} to={"*/useState"}>UseState</NavLink></li>
-            <li><NavLink className={g.link} to={'*/useEffect'}>UseEffect</NavLink></li>
+            <li><NavLink className={styles.link} to={"*/useState"}>UseState</NavLink></li>
+            <li><NavLink className={styles.link} to={'*/useEffect'}>UseEffect</NavLink></li>
           </ul>
 
           <Routes>
