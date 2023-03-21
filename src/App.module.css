@@ -1,3 +1,10 @@
+.wrapper {
+    height: 500px;
+    margin: auto;
+    max-width: 1400px;
+    background-color: rgba(187, 151, 151, 0.151);
+    border-radius: 10px;
+}
 
 .navLink{
     padding-top: 10px;
