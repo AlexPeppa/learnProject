@@ -1,0 +1,28 @@
+.wrapper {
+    height: 500px;
+    margin: auto;
+    max-width: 1400px;
+    background-color: rgba(187, 151, 151, 0.151);
+    border-radius: 10px;
+}
+
+.navLink{
+    padding-top: 10px;
+    text-align: center;
+    font-size: 22px;
+}
+
+.link{
+   
+    text-decoration: none;
+    text-align: center;
+    letter-spacing: 2px;
+    color:rgba(0, 0, 0, 0.889)
+}
+
+.link:hover {
+    color: rgba(0, 0, 0, 0.368)
+}
+.link:active {
+    color:rgba(0, 0, 0, 0.889)
+}
