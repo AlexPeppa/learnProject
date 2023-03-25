@@ -9,6 +9,13 @@
     font-size: 20px
 }
 
-li {
+.li {
     margin: 20px;
+    cursor: pointer;
+    letter-spacing: 1px;
+}
+
+.select{
+    font-size: larger;
+    text-decoration: underline;
 }
