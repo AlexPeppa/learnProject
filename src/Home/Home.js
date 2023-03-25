@@ -7,7 +7,7 @@ const Home = () => {
       <div className={styles.navLink}>
         <NavLink className={styles.link} to="/myRouter">MyRouter</NavLink>
       </div>
-      <div className={styles.navLink}><NavLink className={styles.link} to="/cars/*">Машины</NavLink>
+      <div className={styles.navLink}><NavLink className={styles.link} to="/hooks/*">Hooks</NavLink>
       </div>
     </div>
   );

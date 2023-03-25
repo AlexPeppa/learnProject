@@ -1,9 +1,8 @@
 import { Routes, Route, NavLink } from "react-router-dom";
 import Home from "./Home/Home";
+import Hooks from "./Hooks/Hooks";
 import MyRouter from "./MyRouter/MyRouter";
 import styles from "./App.module.css";
-import Cars from "./Cars/Cars";
-
 
 
 
@@ -15,7 +14,7 @@ const App = () => {
       </div>
       <Routes>
         <Route path="/myRouter" element={<MyRouter />} />
-        <Route path="/cars/*" element={<Cars />} />
+        <Route path="/hooks/*" element={<Hooks />} />
         <Route path="/" element={<Home />} />      
       </Routes>
     </div>
