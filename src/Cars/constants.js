@@ -1,10 +1,6 @@
-import { useState } from "react";
-import { Car } from "./Car/Car";
-import styles from "./cars.module.css";
 
-export const Cars = () => {
-  const cars = [
-    {
+ export const cars = {
+   'BMW': {
       id: 1,
       code: "BMW",
       name: "Bmw",
@@ -15,7 +11,7 @@ export const Cars = () => {
         founded: 1916,
       },
     },
-    {
+    'PORSCHE' : {
       id: 2,
       code: "PORSCHE",
       name: "Porsche",
@@ -26,7 +22,7 @@ export const Cars = () => {
         founded: 1931,
       },
     },
-    {
+    'LADA':{
       id: 3,
       code: "LADA",
       name: "Lada",
@@ -37,19 +33,8 @@ export const Cars = () => {
         founded: 1966,
       },
     },
-  ];
+}
 
-  const [state, setState] = useState({ code: "BMW" });
+ 
 
-  return (
-    <div className={styles.wrapper}>
 
-      {cars.map((i) => (
-        <ul key={i.id}><li  onClick={() => {setState({ code: i.code })}} className={`${styles.li} ${state.code === i.code ? styles.select : null}`}  >{i.name}</li></ul>
-      ))}
-
-      <Car state={state} cars={cars} />
-
-    </div>
-  );
-};

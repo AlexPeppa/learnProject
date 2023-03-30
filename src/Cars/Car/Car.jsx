@@ -1,15 +1,9 @@
 import styles from "./car.module.css";
-import {Timer} from '../Timer/Timer';
+import { Timer } from '../Timer/Timer';
 
 
 export const Car = (props) => {
-  const car = props.cars.reduce((selectCar, currentCar) => {
-    if (props.state.code === currentCar.code) {
-      return currentCar;
-    }
-    return selectCar;
-  }, {});
-
+  const car = props.car
   return (
     <div className={styles.wrapper}>
       <div >
@@ -17,7 +11,7 @@ export const Car = (props) => {
         <hr />
         <div className={styles.text}>
           <p>State : {car.description.state}</p>
-          <div className={styles.timer}><Timer props={props} /></div> 
+          <div className={styles.timer}><Timer props={props} /></div>
           <p>Founded : {car.description.founded}</p>
         </div>
         <div>
@@ -25,11 +19,9 @@ export const Car = (props) => {
         </div>
         <div className={styles.marks}>
           <h3>Marks :</h3>
-          {car.description.models.map((i) => (
-            <ul key={i.code}>
-              <li key={i.code} className={styles.li}>
-                {i}
-              </li>
+          {car.description.models.map((model) => (
+            <ul key={model}>
+              <li  className={styles.li}>{model}</li>
             </ul>
           ))}
         </div>
