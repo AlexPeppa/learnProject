@@ -4,17 +4,17 @@ import { cars } from "./constants";
 import styles from "./cars.module.css";
 
 export const Cars = () => {
-  const [state, setState] = useState("BMW");
+  const [selectCar, setSelectCar] = useState("BMW");
   const carsArr = useMemo(() => Object.values(cars), [])
 
   return (
     <div className={styles.wrapper}>
 
       {carsArr.map((car) => (
-        <ul key={car.id}><li  onClick={()=>setState(car.code)} className={`${styles.li} ${state === car.code ? styles.select : null}`}>{car.name}</li></ul>
+        <ul key={car.id}><li  onClick={()=>setSelectCar(car.code)} className={`${styles.li} ${selectCar === car.code ? styles.select : null}`}>{car.name}</li></ul>
       ))}
 
-      <Car car={cars[state]} />
+      <Car {...cars[selectCar]} />
 
     </div>
   );

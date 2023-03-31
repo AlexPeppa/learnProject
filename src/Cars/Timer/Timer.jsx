@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export const Timer = ({car}) => {
+export const Timer = ({carCode}) => {
   const [seconds, setSeconds] = useState(0);
   const [minutes, setMinutes] = useState(0);
 
@@ -14,7 +14,7 @@ export const Timer = ({car}) => {
       setSeconds(0)
       setMinutes(0)
     };
-  }, [car]);
+  }, [carCode]);
 
   return (
     <div>
