@@ -12,7 +12,8 @@ export const Cars = () => {
 
 
 
-  
+console.log(carsState)
+
  
   return (
     <div styles = {{color:'red'}} className={styles.wrapper}>
@@ -21,7 +22,7 @@ export const Cars = () => {
         <ul key={car.id}><li  onClick={()=>setSelectedCar(car.code)} className={`${styles.li} ${selectedCar === car.code ? styles.select : null}`}>{car.name}</li></ul>
       ))}
 
-      <Car  {...cars[selectedCar]} setCarsState={setCarsState} selectedCar={selectedCar} carMode={carMode}  setCarMode={setCarMode} carsState={carsState} />
+      <Car  {...cars[selectedCar]} setCarsState={setCarsState}  carMode={carMode}  setCarMode={setCarMode}  />
 
     </div>
   );
