@@ -1,11 +1,17 @@
+
 import styles from "./car.module.css";
 import { Timer } from '../Timer/Timer';
 import { Box, Button, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
+import DeleteIcon from '@mui/icons-material/Delete';
 
-export const Car = ({ description, name, code, carMode, setCarMode, setCarsState }) => {
 
+export const Car = ({ description, name, code, carMode, setCarMode, setCarsState, }) => {
+
+  const canEdit = carMode === 'READ';
   const [draftCar, setDraftCar] = useState({ draftName: name, draftDescription: description })
+  const models = description.models;
+  const [draftModels, setDraftModels] = useState({ models, draftModel: ' ' })
 
   const addChange = () => {
     setCarsState((prevState) => ({
@@ -28,13 +34,40 @@ export const Car = ({ description, name, code, carMode, setCarMode, setCarsState
 
   useEffect(() => {
     setDraftCar({ draftName: name, draftDescription: description })
+    setDraftModels({ models, draftModel: ' ' })
     setCarMode('READ')
   }, [code])
 
   const editCar = () => {
     setCarMode('EDIT')
   }
-  const canEdit = carMode === 'READ';
+
+  const settingCarState = ()=> {
+    setCarsState((prevState) => ({
+      ...prevState,
+      [code]: {
+        ...prevState[code],
+        description: {
+          ...description,
+          models: draftModels.models
+        }
+      }
+    }))
+  }
+
+  const addModel = () => {
+    draftModels.models.push(draftModels.draftModel)
+    settingCarState()
+    setDraftModels((prevState) => ({ ...prevState, draftModel: '' }))
+
+  }
+
+  const deleteModel = (model) => {
+    const newModels = draftModels.models.filter((mark) => mark !== model)
+    draftModels.models = newModels;
+    settingCarState()
+  }
+
 
   return (
     <div className={styles.wrapper}>
@@ -43,10 +76,10 @@ export const Car = ({ description, name, code, carMode, setCarMode, setCarsState
       }
 
       <div className={styles.name} >
-        {canEdit ? <h1 >{name}</h1> : <TextField onChange={event => setDraftCar(prevState => ({ ...prevState, draftName: event.currentTarget.value }))}
+        {canEdit ? <h1 >{name}</h1> : <TextField onChange={event => setDraftCar(prevState => ({ ...prevState, draftName: event.target.value }))}
           required
           label='Car name'
-          value={draftCar.draftName}
+          defaultValue={draftCar.draftName}
         />}
         <hr />
         <div className={styles.text} >
@@ -60,6 +93,7 @@ export const Car = ({ description, name, code, carMode, setCarMode, setCarsState
           {canEdit ? <p>Founded : {description.founded}</p> : <TextField onChange={(event) => setDraftCar((prevState) => ({ ...prevState, draftDescription: { ...draftCar.draftDescription, founded: event.target.value } }))}
             label="Founded"
             defaultValue={draftCar.draftDescription.founded}
+
           />}
         </div>
 
@@ -76,17 +110,17 @@ export const Car = ({ description, name, code, carMode, setCarMode, setCarsState
             </Box>
           }
         </div>}
+        <hr />
 
-        <div className={styles.marks}>
-          <h3>Marks :</h3>
-          {description.models.map((model) => (
-            <ul key={model}>
-              <li className={styles.li}>
-                {model}
-
-              </li>
-            </ul>
-          ))}
+        <div>
+          <div className={styles.marksTitle}>
+            <h3>Models :</h3>
+            <div className={canEdit ? styles.hiddenMarks : styles.addMarks}>
+              <TextField id="outlined-required" label="Add Mark" value={draftModels.draftModel} onChange={(event) => setDraftModels((prevState) => ({ ...prevState, draftModel: event.target.value }))} />
+              <Button size="large" onClick={addModel}>Add Model</Button>
+            </div>
+          </div>
+          <div>  <ul className={styles.models}> {description.models.map(model => <li key={model} className={canEdit ? styles.model : styles.modelActive}> {model} {canEdit ? '' : <DeleteIcon className={styles.icon} onClick={() => deleteModel(model)} />} </li>)} </ul>  </div>
         </div>
       </div>
     </div>

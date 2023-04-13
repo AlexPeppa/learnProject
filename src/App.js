@@ -4,12 +4,7 @@ import MyRouter from "./MyRouter/MyRouter";
 import styles from "./App.module.css";
 import { Cars } from "./Cars";
 
-
-
-
-
-
-const App = () => {
+export const App = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.navLink}>
@@ -18,10 +13,8 @@ const App = () => {
       <Routes>
         <Route path="/myRouter" element={<MyRouter />} />
         <Route path="/cars/*" element={<Cars />} />
-        <Route path="/" element={<Home />} />      
+        <Route path="/" element={<Home />} />
       </Routes>
     </div>
   );
 };
-
-export default App;
