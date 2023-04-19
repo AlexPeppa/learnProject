@@ -1,11 +1,12 @@
-.wrapper{
+.wrapper {
     padding-top: 10px;
     margin: 20px;
+  
 }
 
 .link {
     text-decoration: none;
-    color:rgba(0, 0, 0, 0.77);
+    color: rgba(0, 0, 0, 0.77);
     font-size: 20px
 }
 
@@ -15,7 +16,18 @@
     letter-spacing: 1px;
 }
 
-.select{
+.select {
     font-size: larger;
     text-decoration: underline;
+}
+
+.carInfo {
+  display:inline-flexbox;
+    
+}
+
+.car {
+
+ top:10px;
+
 }
