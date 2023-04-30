@@ -16,16 +16,15 @@ export const CreateCar = ({ setCarsState, setCarMode }) => {
         }
     })
     const [newCarInputModels, setNewCarInputModels] = useState('')
-
-    const newCar = {
-        [newDataCar.name.toLocaleUpperCase()]: {
-            ...newDataCar,
-            code: newDataCar.name.toLocaleUpperCase(),
-            id: uuid4(),
-        }
-    }
-
+    
     const addCar = () => {
+        const newCar = {
+            [newDataCar.name.toLocaleUpperCase()]: {
+                ...newDataCar,
+                code: newDataCar.name.toLocaleUpperCase(),
+                id: uuid4(),
+            }
+        }
         setCarsState((prevState) => ({
             ...prevState,
             ...newCar,

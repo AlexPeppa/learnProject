@@ -1,24 +1,28 @@
 .wrapper {
     margin: 20px;
+    padding: 10px;
 }
 
 .navLink {
-   margin: 40px;
+    width: 120px;
+    display: flex;
+    flex-direction: column;
 }
 
-.link{
+.link {
     padding: 10px;
-    border:1px solid  rgba(187, 151, 151, 0.742);
+    margin: 5px;
+    border: 1px solid rgba(187, 151, 151, 0.742);
     border-radius: 5px;
     text-decoration: none;
-    color:rgba(0, 0, 0, 0.889);
+    color: rgba(0, 0, 0, 0.889);
     font-size: 20px;
 }
 
-.link:hover{
-color:rgb(142, 52, 52);
-}
-.link:active{
-color:rgba(142, 11, 11, 0.262);
+.link:hover {
+    color: rgb(142, 52, 52);
 }
 
+.link:active {
+    color: rgba(142, 11, 11, 0.262);
+}
