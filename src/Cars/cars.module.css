@@ -52,3 +52,19 @@ ul {
     width: 100%;
     padding: 30px;
 }
+
+.carPhotoText {
+    text-align: center;
+}
+
+.carPhotoText_text {
+    padding-bottom: 20px;
+    margin: 0;
+    color: rgba(102, 103, 104, 0.848);
+}
+
+.carPhotoText_photo {
+    width: 670px;
+    border-radius: 10px;
+    border: 2px solid rgba(102, 103, 104, 0.641);
+}

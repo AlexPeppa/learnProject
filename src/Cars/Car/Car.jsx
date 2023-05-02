@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import DeleteIcon from '@mui/icons-material/Delete';
 
 
-export const Car = ({ car, carMode, setCarMode, setCarsState, }) => {
+export const Car = ({ car, carMode, setCarMode, setCarsState }) => {
 
   const canEdit = carMode === 'READ';
   const [draftCar, setDraftCar] = useState(car)

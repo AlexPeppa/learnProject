@@ -4,7 +4,7 @@ import CarStyles from "./createCar.module.css";
 import { v4 as uuid4 } from 'uuid';
 import { Box } from "@mui/system";
 
-export const CreateCar = ({ setCarsState, setCarMode }) => {
+export const CreateCar = ({ setCarsState, setCarMode , setSelectedCar }) => {
 
     const [newDataCar, setNewDataCar] = useState({
         name: "",
@@ -30,7 +30,9 @@ export const CreateCar = ({ setCarsState, setCarMode }) => {
             ...newCar,
         })
         )
+        setSelectedCar(newCar[newDataCar.name.toLocaleUpperCase()].code)
         setCarMode('READ')
+      
     }
     const addModels = () => {
         setNewDataCar((prevState) => ({
@@ -46,7 +48,7 @@ export const CreateCar = ({ setCarsState, setCarMode }) => {
     return (
         <div>
 
-            <div className={CarStyles.addCarButtonDiv} > <Button className={CarStyles.addCarButton} onClick={addCar} > Add Car </Button></div>
+            <div className={CarStyles.addCarButtonDiv} > <Button disabled={!newDataCar.name} className={CarStyles.addCarButton} onClick={addCar} > Add Car </Button></div>
             <div className={CarStyles.dataCar}>
                 <div className={CarStyles.nameFoundState} ><div className={CarStyles.name} ><TextField required label='Car name' onChange={(event) => setNewDataCar((prevState) => ({ ...prevState, name: event.target.value }))} defaultValue='' /></div>
                     <div className={CarStyles.founded}><TextField required label='Car founded' onChange={(event) => setNewDataCar((prevState) => ({ ...prevState, description: { ...prevState.description, founded: event.target.value } }))} defaultValue='' /></div>

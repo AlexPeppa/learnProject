@@ -1,6 +1,8 @@
 .wrapper {
     margin: 20px;
     padding: 10px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .navLink {
@@ -25,4 +27,11 @@
 
 .link:active {
     color: rgba(142, 11, 11, 0.262);
+}
+
+.helloPicture {
+    margin-right: 200px;
+    border-radius: 20px;
+    margin-bottom: 30px;
+    border: 1px solid rgba(0, 0, 0, 0.889);
 }

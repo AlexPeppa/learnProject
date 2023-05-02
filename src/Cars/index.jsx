@@ -1,10 +1,11 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { Car } from "./Car/Car";
 import { cars } from "./constants";
 import styles from "./cars.module.css";
 import { Button } from "@mui/material";
 import { CreateCar } from "./CreateCar/CreateCar";
 import DeleteIcon from '@mui/icons-material/Delete';
+import CarPhoto from './photo/CarPhoto.jpg'
 
 
 export const Cars = () => {
@@ -19,9 +20,14 @@ export const Cars = () => {
     setCarMode('CREATE')
   }
 
-  const deleteCar = (carCode) => {
+  const deleteCar = (carCode, event) => {
+    event.stopPropagation()
     setCarsState((prevState) => {
-      if (carCode) {
+      if (carCode === selectedCar) {
+        delete prevState[carCode]
+        setSelectedCar(Object.keys(prevState)[0])
+      }
+      else if (carCode) {
         delete prevState[carCode]
       }
       return {
@@ -30,19 +36,21 @@ export const Cars = () => {
     })
   }
 
+  console.log(carsState)
   return (
     <div styles={{ color: 'red' }} className={styles.wrapper}>
 
-      {canCreate ? <div> <CreateCar setCarsState={setCarsState} setCarMode={setCarMode} /> </div> :
+      {canCreate ? <div> <CreateCar setCarsState={setCarsState} setCarMode={setCarMode} setSelectedCar={setSelectedCar} /> </div> :
         <div className={styles.carInfo} >
           <div className={styles.carSideBar}> <div className={styles.createCarBtn}> <Button style={{ color: 'black', border: '1px solid black' }} onClick={createCar} variant="outlined" >Create car</Button> </div>
             {carsArr.map((car) => (
-              <ul key={car.id}><li onClick={() => setSelectedCar(car.code)} className={`${styles.li} ${selectedCar === car.code ? styles.select : null}`} >{car.name} {carMode === 'READ' ? '' : <DeleteIcon className={styles.deleteIcon} onClick={() => deleteCar(car.code)} />} </li></ul>
+              <ul key={car.id}><li onClick={() => setSelectedCar(car.code)} className={`${styles.li} ${selectedCar === car.code ? styles.select : null}`} >{car.name} {carMode === 'READ' ? null : <DeleteIcon className={styles.deleteIcon} onClick={(event) => deleteCar(car.code, event)} />} </li></ul>
             ))}
           </div>
 
           <div className={styles.car} >
-            <Car car={carsState[selectedCar]} setCarsState={setCarsState} carMode={carMode} setCarMode={setCarMode} />
+            {carsArr.length ? <Car car={carsState[selectedCar]} setCarsState={setCarsState} carMode={carMode} setCarMode={setCarMode} /> : <div className={styles.carPhotoText} > <h1 className={styles.carPhotoText_text}>Coздай Машину</h1> <img className={styles.carPhotoText_photo} src={CarPhoto} alt="createCar" /></div>}
+
           </div>
         </div>}
     </div>
