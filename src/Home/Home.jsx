@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import styles from "./home.module.css";
 import helloPicture from '../Cars/photo/helloPicture.jpg'
+
 const Home = () => {
   return (
     <div className={styles.wrapper}>

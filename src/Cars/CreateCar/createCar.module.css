@@ -1,10 +1,12 @@
-.addCarButtonDiv {
+.addCancelCarButtonDiv {
+  margin-top: 40px;
   text-align: center;
   margin-bottom: 30px;
+  display: flex;
+  justify-content: space-around;
 }
 
 .addCarButton {
-  font-size: 18px;
   letter-spacing: 1px;
   font-weight: 400;
 }

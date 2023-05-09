@@ -21,6 +21,11 @@ export const Car = ({ car, carMode, setCarMode, setCarsState }) => {
     setCarMode('READ')
   }
 
+  const cancelChange = () => {
+    setCarMode('READ')
+    setDraftCar(car)
+  }
+
   useEffect(() => {
     setDraftCar(car)
     setModelInput('')
@@ -57,7 +62,10 @@ export const Car = ({ car, carMode, setCarMode, setCarsState }) => {
   return (
     <div className={styles.wrapper}>
       {canEdit ? <div className={styles.aditButton}><Button style={{ color: 'black', border: '1px solid black' }} onClick={editCar} variant="outlined" >Edit</Button></div> :
-        <div className={styles.aditButton}><Button onClick={addChange} variant="outlined" >Save</Button></div>
+        <div className={styles.aditSaveButtons}>
+          <Button className={styles.saveBtn} onClick={addChange} variant="outlined" >Save</Button>
+          <Button onClick={cancelChange} variant="outlined" >Cancel</Button>
+        </div>
       }
 
       <div className={styles.name} >

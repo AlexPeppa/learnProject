@@ -52,6 +52,17 @@
     margin-right: 200px;
 }
 
+.aditSaveButtons {
+    display: flex;
+    justify-content: space-between;
+    text-align: right;
+    margin-right: 200px;
+}
+
+.saveBtn {
+    margin-right: 10px;
+}
+
 .marksTitle {
     align-items: center;
     display: flex;
