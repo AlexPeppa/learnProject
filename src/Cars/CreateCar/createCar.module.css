@@ -1,0 +1,50 @@
+.addCancelCarButtonDiv {
+  margin-top: 40px;
+  text-align: center;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.addCarButton {
+  letter-spacing: 1px;
+  font-weight: 400;
+}
+
+.dataCar {
+  justify-content: space-around;
+}
+
+.nameFoundState {
+  display: flex;
+  justify-content: space-around;
+}
+
+.textModels {
+  display: flex;
+  justify-content: space-around;
+}
+
+.text {
+  margin-left: 120px;
+  margin-top: 30px;
+
+}
+
+.models {
+  display: flex;
+  margin-left: 115px;
+  margin-top: 30px;
+}
+
+.liModels {
+  display: flex;
+  flex-direction: row;
+  letter-spacing: 1px;
+  margin-left: 95px;
+  margin-top: 10px;
+}
+
+.addModelButton {
+  text-align: center;
+}
