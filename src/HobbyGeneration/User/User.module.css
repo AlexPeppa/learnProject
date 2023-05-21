@@ -1,0 +1,40 @@
+.wrapper {
+    margin-top: 20px;
+    /* border: 1px solid grey; */
+    padding: 10px;
+}
+
+.userInfo {
+    display: flex;
+    align-items: center;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}
+
+.userInfoText {
+    display: flex;
+    letter-spacing: 2px;
+    font-size: 15px;
+}
+
+.userData {
+    margin-right: 80px;
+    margin-left: 100px;
+}
+
+.location {
+    display: flex;
+}
+.ul{
+    margin: 0;
+}
+
+.userPhoto  {
+    margin-left: 170px;
+    width: 100px;
+    height: 100px;
+}
+.img {
+    margin-left: 170px;
+    width: 100px;
+    height: 100px;
+}

@@ -1,0 +1,38 @@
+.wrapper {
+    margin-top: 10px;
+    /* border:1px solid grey; */
+    padding: 10px;
+
+}
+
+.activity {
+    font-size: 20px;
+    letter-spacing: 2px;
+}
+
+.activityName {
+    text-align: center;
+    margin-bottom: 35px;
+    font-weight: 700;
+    text-decoration: underline;
+}
+
+.activityOpportunity {
+    margin-left: 180px;
+    margin-top: 20px;
+}
+
+.accessibility {
+    margin-bottom: 20px;
+    display: flex;
+}
+.price{
+    display: flex;
+}
+.accessibilitySlider{
+    margin-left: 50px;
+}
+
+.priceSlider{
+    margin-left: 130px;
+}
