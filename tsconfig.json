@@ -31,7 +31,7 @@
        "./src",
        "./test",
        "./*",
-       "./config" 
-, "src/HobbyGeneration/Icon/.tsx"       
+       "./config",
+        "src/HobbyGeneration/Icon/index.tsx"       
      ]
    }

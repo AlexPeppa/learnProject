@@ -1,4 +1,3 @@
-
 export interface UserData {
   gender: string;
   name: {
@@ -24,12 +23,3 @@ export type UserActivityData = {
   price: number;
   accessibility: number;
 };
-
-export interface OwnPropsUser {
-  user: UserData;
-  
-}
-
-export interface OwnPropsActivity {
-    activity: UserActivityData;
-}

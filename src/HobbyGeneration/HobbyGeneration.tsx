@@ -8,32 +8,32 @@ import axios from "axios";
 
 export const HobbyGeneration: React.FC = () => {
   const [userState, setUserInfo] = useState<UserData>({
-    gender: "men",
+    gender: "",
     name: {
-      title: "Mr",
-      first: "Punkin",
-      last: "John",
+      title: "",
+      first: "",
+      last: "",
     },
-    picture: { medium: "string" },
-    email: "string.@mail.ru",
-    phone: "8933333323",
+    picture: { medium: "" },
+    email: "",
+    phone: "",
     location: {
-      city: "Kotlin",
-      state: "Nebraska",
-      country: "USA",
+      city: "",
+      state: "",
+      country: "",
       timezone: {
-        offset: "+ 4/00",
+        offset: "",
       },
     },
   });
 
   const [userActivityState, setUserActivity] = useState<UserActivityData>({
-    activity: "Swim",
-    price: 0.05,
-    accessibility: 0.05,
+    activity: "",
+    price: 0,
+    accessibility: 0,
   });
 
-  const [loadingStatusData, setLoadingStatusData] = useState<string>("");
+  const [loadingStatusData, setLoadingStatusData] = useState<string>("LOADING");
   const [loadingStatusActivity, setLoadingStatusActivity] =
     useState<string>("");
   const loading: boolean = loadingStatusActivity === "LOADING";
@@ -43,11 +43,12 @@ export const HobbyGeneration: React.FC = () => {
     axios
       .get<{ results: UserData[] }>("https://randomuser.me/api/")
       .then((response) => {
-        // throw new Error()
-        setLoadingStatusData("");
+      
+        setLoadingStatusData("SUCCESS");
         setUserInfo(response.data.results[0]);
       })
       .catch((error) => {
+        setLoadingStatusData('FAILED')
         console.log(error);
       });
   }
@@ -57,10 +58,11 @@ export const HobbyGeneration: React.FC = () => {
     axios
       .get<UserActivityData>("https:www.boredapi.com/api/activity")
       .then((response) => {
-        setLoadingStatusActivity("");
+        setLoadingStatusActivity("SUCCESS");
         setUserActivity(response.data);
       })
       .catch((error)=>{
+        setLoadingStatusData('FAILED')
         console.log(error)
       })
   };
@@ -75,7 +77,7 @@ export const HobbyGeneration: React.FC = () => {
   };
 
   useEffect(() => {
-    generateData();
+    access();
   }, []);
 
   const renderUserDataWithLoadingStatusValidation = () => {
@@ -89,12 +91,14 @@ export const HobbyGeneration: React.FC = () => {
           </div>
         );
       case "FAILED":
-        return "Picture Failed";
+        return( 
+          <img className={styles.errorPicture} src="https://thumbs.dreamstime.com/b/error-rubber-stamp-word-error-inside-illustration-109026446.jpg"/>
+        )
       default:
         return (
           <div>
-            <User user={userState} />
-            <Activity activity={userActivityState} />
+            <User {...userState} />
+            <Activity {...userActivityState} />
           </div>
         );
     }
