@@ -6,6 +6,7 @@ import { Box, Button, CircularProgress } from "@mui/material";
 import { UserData, UserActivityData } from "./models";
 import axios from "axios";
 
+
 export const HobbyGeneration: React.FC = () => {
   const [userState, setUserInfo] = useState<UserData>({
     gender: "",
@@ -33,22 +34,29 @@ export const HobbyGeneration: React.FC = () => {
     accessibility: 0,
   });
 
-  const [loadingStatusData, setLoadingStatusData] = useState<string>("LOADING");
+  const [loadingStatusData, setLoadingStatusData] = useState<string>("");
   const [loadingStatusActivity, setLoadingStatusActivity] =
     useState<string>("");
   const loading: boolean = loadingStatusActivity === "LOADING";
 
+  function sleep(ms: number) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
   function generateUser() {
     setLoadingStatusData("LOADING");
-    axios
-      .get<{ results: UserData[] }>("https://randomuser.me/api/")
+
+    sleep(2000)
+      .then(() =>
+        axios.get<{ results: UserData[] }>("https://randomuser.me/api/")
+      )
       .then((response) => {
-      
         setLoadingStatusData("SUCCESS");
         setUserInfo(response.data.results[0]);
       })
+
       .catch((error) => {
-        setLoadingStatusData('FAILED')
+        setLoadingStatusData("FAILED");
         console.log(error);
       });
   }
@@ -61,23 +69,23 @@ export const HobbyGeneration: React.FC = () => {
         setLoadingStatusActivity("SUCCESS");
         setUserActivity(response.data);
       })
-      .catch((error)=>{
-        setLoadingStatusData('FAILED')
-        console.log(error)
-      })
+      .catch((error) => {
+        setLoadingStatusData("FAILED");
+        console.log(error);
+      });
   };
 
-  const generateData = () => {
+  const generateActivityData = () => {
     generateActivity();
   };
 
-  const access = () => {
+  const generateData = () => {
     generateActivity();
     generateUser();
   };
 
   useEffect(() => {
-    access();
+    generateData();
   }, []);
 
   const renderUserDataWithLoadingStatusValidation = () => {
@@ -85,15 +93,27 @@ export const HobbyGeneration: React.FC = () => {
       case "LOADING":
         return (
           <div className={styles.spinner}>
-            <Box component="span"sx={{width: "200px",height: "200px",display: "flex",justifyContent: "center",alignItems: "center",}}>
+            <Box
+              component="span"
+              sx={{
+                width: "200px",
+                height: "200px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
               <CircularProgress sx={{ color: "#efafaff5" }} />
             </Box>
           </div>
         );
       case "FAILED":
-        return( 
-          <img className={styles.errorPicture} src="https://thumbs.dreamstime.com/b/error-rubber-stamp-word-error-inside-illustration-109026446.jpg"/>
-        )
+        return (
+          <img
+            className={styles.errorPicture}
+            src="https://thumbs.dreamstime.com/b/error-rubber-stamp-word-error-inside-illustration-109026446.jpg"
+          />
+        );
       default:
         return (
           <div>
@@ -108,10 +128,19 @@ export const HobbyGeneration: React.FC = () => {
       {renderUserDataWithLoadingStatusValidation()}
       <div className={styles.btn}>
         <div>
-          <Button variant="outlined" disabled={loading} onClick={generateData}> Generate</Button>
+          <Button
+            variant="outlined"
+            disabled={loading}
+            onClick={generateActivityData}
+          >
+            {" "}
+            Generate
+          </Button>
         </div>
         <div>
-          <Button variant="outlined" disabled={loading} onClick={access}>Access</Button>
+          <Button variant="outlined" disabled={loading} onClick={generateData}>
+            Access
+          </Button>
         </div>
       </div>
     </div>

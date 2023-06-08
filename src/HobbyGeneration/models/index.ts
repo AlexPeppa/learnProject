@@ -23,3 +23,4 @@ export type UserActivityData = {
   price: number;
   accessibility: number;
 };
+

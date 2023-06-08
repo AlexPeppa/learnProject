@@ -2,58 +2,11 @@ import React, { useMemo } from "react";
 import styles from "./Activity.module.css";
 import { Box, Slider } from "@mui/material";
 import { UserActivityData } from "../models";
+import { generateDefaultPoints } from "../utils";
 
 interface OwnProps extends UserActivityData {}
-export const Activity: React.FC<OwnProps> = ({activity,price,accessibility}) => {
-  const marks =
-  //  useMemo(()=>{
-    [
-      {
-        value: 0,
-        label: "0",
-      },
-      {
-        value: 10,
-        label: "0.1",
-      },
-      {
-        value: 20,
-        label: "0.2",
-      },
-      {
-        value: 30,
-        label: "0.3",
-      },
-      {
-        value: 40,
-        label: "0.4",
-      },
-      {
-        value: 50,
-        label: "0.5",
-      },
-      {
-        value: 60,
-        label: "0.6",
-      },
-      {
-        value: 70,
-        label: "0.7",
-      },
-      {
-        value: 80,
-        label: "0.8",
-      },
-      {
-        value: 90,
-        label: "0.9",
-      },
-      {
-        value: 100,
-        label: "1",
-      },
-    ];
-    // },[])
+export const Activity: React.FC<OwnProps> = ({activity,price,accessibility,}) => {
+  const marks = useMemo(() => generateDefaultPoints(), []);
 
   return (
     <div className={styles.wrapper}>
