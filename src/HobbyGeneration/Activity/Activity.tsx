@@ -17,14 +17,7 @@ export const Activity: React.FC<OwnProps> = ({activity,price,accessibility,}) =>
             Accessibility :
             <div className={styles.accessibilitySlider}>
               <Box sx={{ width: 700 }}>
-                {" "}
-                <Slider
-                  aria-label="Restricted values"
-                  value={accessibility * 100}
-                  defaultValue={0}
-                  step={0.0001}
-                  marks={marks}
-                />
+                <Slider aria-label="Restricted values"value={accessibility * 100}defaultValue={0}step={0.0001}marks={marks}/>
               </Box>
             </div>
           </div>
@@ -32,14 +25,7 @@ export const Activity: React.FC<OwnProps> = ({activity,price,accessibility,}) =>
             Price :
             <div className={styles.priceSlider}>
               <Box sx={{ width: 700 }}>
-                {" "}
-                <Slider
-                  aria-label="Restricted values"
-                  value={price * 100}
-                  defaultValue={0}
-                  step={0.0001}
-                  marks={marks}
-                />
+                <Slider aria-label="Restricted values"value={price * 100}defaultValue={0}step={0.0001}marks={marks}/>
               </Box>
             </div>
           </div>

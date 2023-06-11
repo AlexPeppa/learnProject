@@ -2,7 +2,6 @@
     height: 500px;
     max-width: 1200px;
     margin: auto;
-
 }
 
 .btn {
@@ -10,24 +9,42 @@
     margin-top: 50px;
     display: flex;
     justify-content: space-around;
-
 }
 
 .spinner {
     margin-top: 20px;
+    padding: 10px;
     display: flex;
-    justify-content: center;
     align-items: center;
-    height: 337px;
+    height: 100px;
+    margin-left: 160px;
 }
 
-.errorPicture {
+.loadingLine {
+    margin-top: 10px;
+    padding: 10px;
+    display: flex;
+    height: 187px;
+    align-items: center;
+    margin-left: 160px;
+}
+
+.errorMessage {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    margin-left: 160px;
+    border: 1px solid rgba(255, 0, 0, 0.267);
+    border-radius: 10px;
+    max-width: 950px;
+}
+
+.errorUserMessage {
     margin-top: 20px;
-    width: 600px;
-    height: 337px;
-    text-align: center;
-    border: 1px solid rgba(137, 137, 137, 0.495);
-    border-radius: 30px;
-    margin-left: 260px;
-    
+    height: 99px;
+}
+
+.errorActivityMessage {
+    margin-top: 10px;
+    height: 186px;
 }
