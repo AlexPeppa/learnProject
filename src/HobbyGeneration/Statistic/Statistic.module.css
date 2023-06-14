@@ -1,0 +1,70 @@
+.wrapper {
+    width: 95%;
+    height: 450px;
+    margin-left: 80px;
+    margin-top: 20px;
+}
+
+.usersInfo {
+    border: 1px solid rgba(0, 0, 0, 0.167);
+    border-radius: 10px;
+    width: 100%;
+    display: flex;
+    overflow-y: scroll;
+    height: 250px;
+}
+
+ol {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+ul {
+    list-style: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.userStatistic {
+    display: block;
+    border: 1px solid rgba(0, 0, 0, 0.167);
+    width: 190px;
+    padding: 5px;
+    margin-top: 40px;
+    border-radius: 10px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-left: 150px;
+}
+
+.statisticBox {
+    display: flex;
+
+}
+
+h4 {
+    text-align: center;
+    margin: 0px;
+    margin-top: 4px;
+}
+
+.userStatisticNumbers {
+    display: flex;
+}
+
+.userStatistic ul {
+    padding-left: 20px;
+    margin-top: 5px;
+}
+
+.average {
+    display: block;
+    border: 1px solid rgba(0, 0, 0, 0.167);
+    width: 190px;
+    padding: 5px;
+    margin-top: 40px;
+    border-radius: 10px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-left: 350px;
+}
+
+.averageAccessibility {
+    margin-bottom: 10px;
+}

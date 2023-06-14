@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import styles from "./HobbyGeneration.module.css";
 import { User } from "./User/User";
 import { Activity } from "./Activity/Activity";
-import { Alert, Box, Button, CircularProgress, LinearProgress } from "@mui/material";
-import { UserData, UserActivityData } from "./models";
+import { Alert, Box, Button, LinearProgress } from "@mui/material";
+import { UserData, UserActivity, userAndActivity } from "./models";
 import axios from "axios";
+import { Statistic } from "./Statistic/Statistic";
 
 export const HobbyGeneration: React.FC = () => {
   const [userState, setUserInfo] = useState<UserData>({
@@ -27,30 +28,43 @@ export const HobbyGeneration: React.FC = () => {
     },
   });
 
-  const [userActivityState, setUserActivity] = useState<UserActivityData>({
+  const [userActivityState, setUserActivity] = useState<UserActivity>({
     activity: "",
     price: 0,
     accessibility: 0,
   });
 
-  const [loadingStatusData, setLoadingStatusData] = useState<string>("LOADING");
+ 
+
+
+  const [loadingStatusUser, setLoadingStatusUser] = useState<string>("LOADING");
   const [loadingStatusActivity, setLoadingStatusActivity] =useState<string>("LOADING");
-  const loading: boolean = loadingStatusActivity === "LOADING";
+  const disabled: boolean = (loadingStatusActivity !== "SUCCESS") || (loadingStatusUser !== "SUCCESS")
+
+  const [listOfUsers,setListOfUsers] = useState<userAndActivity[]>([])
+  const [statisticToggle, setStatisticToggle] = useState<string>('HIDE')
+  const statisticShow: boolean =  (statisticToggle === 'SHOW')
+
 
   //оставлю здесь как подсказку function sleep(ms: number) {
   //   return new Promise((resolve) => setTimeout(resolve, ms));
   // }
+  const userDataForStatistic:userAndActivity = {[`${userState.name.first} ${userState.name.last}`]:{
+    gender: userState.gender,
+    activity: userActivityState.activity,
+    accessibility: userActivityState.accessibility,
+    price: userActivityState.price
+}}
 
-  function generateUser() {
-    setLoadingStatusData("LOADING");
+  const generateUser = () => {
+    setLoadingStatusUser("LOADING");
         axios.get<{ results: UserData[] }>("https://randomuser.me/api/")
       .then((response) => {
-        setLoadingStatusData("SUCCESS");
+        setLoadingStatusUser("SUCCESS");
         setUserInfo(response.data.results[0]);
       })
-
       .catch((error) => {
-        setLoadingStatusData("FAILED");
+        setLoadingStatusUser("FAILED");
         console.log(error);
       });
   }
@@ -58,7 +72,7 @@ export const HobbyGeneration: React.FC = () => {
   const generateActivity = () => {
     setLoadingStatusActivity("LOADING")
     axios
-      .get<UserActivityData>("https:www.boredapi.com/api/activity")
+      .get<UserActivity>("https:www.boredapi.com/api/activity")
       .then((response) => {
         setLoadingStatusActivity("SUCCESS");
         setUserActivity(response.data);
@@ -67,15 +81,13 @@ export const HobbyGeneration: React.FC = () => {
         setLoadingStatusActivity("FAILED");
         console.log(error);
       });
-  };
-
-  const generateActivityData = () => {
-    generateActivity();
+  
   };
 
   const generateData = () => {
     generateActivity();
     generateUser();
+    setListOfUsers([...listOfUsers ,userDataForStatistic])
   };
 
   useEffect(() => {
@@ -83,7 +95,7 @@ export const HobbyGeneration: React.FC = () => {
   }, []);
 
   const renderUserDataWithLoadingStatusValidation = () => {
-    switch (loadingStatusData) {
+    switch (loadingStatusUser) {
       case "LOADING":
         return (
           <div className={styles.spinner}>
@@ -131,17 +143,30 @@ export const HobbyGeneration: React.FC = () => {
     }
   };
   return (
+    
     <div className={styles.wrapper}>
+      { statisticShow ? <Statistic  listOfUsers = {listOfUsers} /> : ( 
+        <div>
       {renderUserDataWithLoadingStatusValidation()}
       {renderUserActivityWithLoadingStatusValidation()}
       <div className={styles.btn}>
         <div>
-          <Button variant="outlined"disabled={loading}onClick={generateActivityData}>Generate</Button>
+          <Button variant="outlined" disabled={disabled} onClick={generateActivity}>Generate</Button>
         </div>
         <div>
-          <Button variant="outlined" disabled={loading} onClick={generateData}>Access</Button>
+          <Button variant="outlined" disabled={disabled} onClick={generateData}>Access</Button>
         </div>
       </div>
+      </div>)}
+      { statisticShow ?  
+        <div className={styles.showBtn}>
+          <Button variant="outlined"  onClick={()=> setStatisticToggle('HIDE')}> Back </Button>
+        </div>:
+        <div className={styles.showBtn}>
+          <Button variant="outlined" onClick={()=> setStatisticToggle('SHOW')}> Show statistics  </Button>
+        </div>}
     </div>
   );
 };
+
+

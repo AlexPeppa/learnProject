@@ -18,9 +18,18 @@ export interface UserData {
   };
 }
 
-export type UserActivityData = {
+export type UserActivity = {
   activity: string;
   price: number;
   accessibility: number;
 };
+
+export type userAndActivity = {[name:string]:{
+    gender:string
+    activity:string
+    accessibility :number
+    price:number
+}}
+
+
 
