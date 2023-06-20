@@ -6,12 +6,14 @@
 }
 
 .usersInfo {
-    border: 1px solid rgba(0, 0, 0, 0.167);
-    border-radius: 10px;
     width: 100%;
     display: flex;
-    overflow-y: scroll;
     height: 250px;
+}
+
+.usersInfo h3 {
+    margin: 2px;
+    color: rgba(0, 0, 0, 0.718);
 }
 
 ol {
@@ -36,13 +38,13 @@ ul {
 
 .statisticBox {
     display: flex;
-
 }
 
 h4 {
     text-align: center;
     margin: 0px;
     margin-top: 4px;
+    color: rgba(0, 0, 0, 0.718);
 }
 
 .userStatisticNumbers {

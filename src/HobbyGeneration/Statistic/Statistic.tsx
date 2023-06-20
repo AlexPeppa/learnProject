@@ -1,112 +1,85 @@
-import React from "react";
+import React, { useMemo } from "react";
 import styles from "./Statistic.module.css";
-import { userAndActivity } from "../models";
+import { Total, UserAndActivity } from "../models";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
 
 interface OwnProps {
-  listOfUsers: userAndActivity[];
+  listOfUsers: UserAndActivity[];
 }
 
-export const Statistic: React.FC<OwnProps> = (listOfUsers) => {
-  const users = listOfUsers.listOfUsers;
+export const Statistic: React.FC<OwnProps> = ({ listOfUsers }) => {
+  const usersData = useMemo(
+    () =>
+      listOfUsers.map((user) => {
+        for (const name in user) {
+          return {
+            name: name,
+            gender: user[name].gender,
+            activity: user[name].activity,
+            accessibility: user[name].accessibility,
+            price: user[name].price,
+            id: user[name].id,
+          };
+        }}),[]);
 
-  const userNames = users.map((user) => {
-    for (const name in user) {
-      return name;
-    }
-  });
-  const userData = users.map((user) => {
-    for (const name in user) {
-      return {
-        gender: user[name].gender,
-        activity: user[name].activity,
-        accessibility: user[name].accessibility,
-        price: user[name].price,
-      };
-    }
-  });
-  const gender = userData
-    .filter((user) => user?.gender !== "")
-    .map((user) => user?.gender);
-  const activities = userData
-    .filter((user) => user?.activity !== "")
-    .map((user) => user?.activity);
-  const accessibility = userData
-    .filter((user) => user?.gender !== "")
-    .map((user) => user?.accessibility);
-  const prices = userData
-    .filter((user) => user?.gender !== "")
-    .map((user) => user?.price);
-
+  const gender = usersData.map((user) => user?.gender);
   const numberOfMale: number = gender.filter((user) => user == "male").length;
   const numberOfUsers: number = gender.length;
   const numberOfFemale: number = numberOfUsers - numberOfMale;
-  const percentOfMale: number = Math.floor(
-    (numberOfMale * 100) / numberOfUsers
-  );
+  const percentOfMale: number = Math.floor((numberOfMale * 100) / numberOfUsers);
   const percentOfFemale: number = 100 - percentOfMale;
 
-  const add = function (arr: any[]) {
-    return arr.reduce((a: any, b: any) => a + b, 0);
-  };
-  const sumOfAccessibility = add(accessibility);
-  const averageAccessibility: string = (
-    sumOfAccessibility / accessibility.length
-  ).toFixed(2);
+  const { accessibilityTotal, priceTotal } = useMemo<Total>(
+    () => usersData.reduce<{ accessibilityTotal: number; priceTotal: number }>(
+        ({ accessibilityTotal, priceTotal }, { ...user }) => ({
+          accessibilityTotal: accessibilityTotal + user.accessibility,
+          priceTotal: priceTotal + user.price}),
+        { accessibilityTotal: 0, priceTotal: 0 }
+      ),[]);
 
-  const sumOfPrices = add(prices);
-  const averagePrices = (sumOfPrices / prices.length).toFixed(2);
+  const quantityOfAccessibility: number = usersData.map((user) => user?.accessibility).length;
+  const quantityOfPrices: number = usersData.map((user) => user?.price).length;
+
+  const averageAccessibility: string = (accessibilityTotal / quantityOfAccessibility).toFixed(2);
+  const averagePrices: string = (priceTotal / quantityOfPrices).toFixed(2);
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.usersInfo}>
-        <div className={styles.names}>
-          <ol>
-            <h4>Names</h4>
-            {userNames
-              .filter((userName) => userName !== " ")
-              .map((userName) => (
-                <li key={userName}>{userName}</li>
+        <TableContainer
+          sx={{ bgcolor: "rgba(187, 151, 151, 0.030)" }}
+          component={Paper}
+        >
+          <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
+            <TableHead>
+              <TableRow>
+                <TableCell><h3>Name</h3></TableCell>
+                <TableCell align="right"><h3>Gender</h3></TableCell>
+                <TableCell align="right"><h3>Activity</h3></TableCell>
+                <TableCell align="right"><h3>Accessibility</h3></TableCell>
+                <TableCell align="right"><h3>Price</h3></TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {usersData.map((user) => (
+                <TableRow key={user?.id} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                  <TableCell component="th" scope="row">{user?.name}</TableCell>
+                  <TableCell align="right">{user?.gender}</TableCell>
+                  <TableCell align="right">{user?.activity}</TableCell>
+                  <TableCell align="right">{user?.accessibility}</TableCell>
+                  <TableCell align="right">{user?.price}</TableCell>
+                </TableRow>
               ))}
-          </ol>
-        </div>
-
-        <div className={styles.gender}>
-          <ul>
-            <h4>Gender</h4>
-            {gender.map((gender) => (
-              <li key={Math.random()}>{gender}</li>
-            ))}
-          </ul>
-        </div>
-
-        <div className={styles.activity}>
-          <ul>
-            <h4>Activity</h4>
-            {activities.map((activity) => (
-              <li key={Math.random()}>{activity}</li>
-            ))}
-          </ul>
-        </div>
-
-        <div className={styles.accessibility}>
-          <ul>
-            <h4>Accessibility</h4>
-            {accessibility.map((accessibility) => (
-              <li key={Math.random()}>{accessibility}</li>
-            ))}
-          </ul>
-        </div>
-
-        <div className={styles.price}>
-          <ul>
-            <h4>Prices</h4>
-            {prices.map((price) => (
-              <li key={Math.random()}>{price}</li>
-            ))}
-          </ul>
-        </div>
+            </TableBody>
+          </Table>
+        </TableContainer>
       </div>
-
       <div className={styles.statisticBox}>
         <div className={styles.userStatistic}>
           <h4>User Info</h4>
@@ -120,9 +93,9 @@ export const Statistic: React.FC<OwnProps> = (listOfUsers) => {
             </div>
             <div>
               <ul className={styles.percent}>
-                <li> - 100%</li>
-                <li> - {percentOfMale}%</li>
-                <li> - {percentOfFemale}%</li>
+                <li> - 100 %</li>
+                <li> - {percentOfMale} %</li>
+                <li> - {percentOfFemale} %</li>
               </ul>
             </div>
           </div>
@@ -132,9 +105,7 @@ export const Statistic: React.FC<OwnProps> = (listOfUsers) => {
           <h4>Average index </h4>
           <div>
             <ul>
-              <li className={styles.averageAccessibility}>
-                Accessibility : {averageAccessibility}
-              </li>
+              <li className={styles.averageAccessibility}> Accessibility : {averageAccessibility}</li>
               <li>Prices : {averagePrices}</li>
             </ul>
           </div>

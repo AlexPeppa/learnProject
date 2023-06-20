@@ -24,12 +24,27 @@ export type UserActivity = {
   accessibility: number;
 };
 
-export type userAndActivity = {[name:string]:{
-    gender:string
-    activity:string
-    accessibility :number
-    price:number
-}}
+export type UserStatistic = {
+  id:string;
+  gender: string;
+  activity: string;
+  accessibility: number;
+  price: number;
+};
 
+export type UserAndActivity = Record<string, UserStatistic>;
 
+export enum StatusToggle {
+  hide = "HIDE",
+  show = "SHOW",
+}
+export enum LoadingStatus {
+  success = "SUCCESS",
+  loading = "LOADING",
+  failed = "FAILED",
+}
 
+export type Total = {
+  accessibilityTotal:number;
+  priceTotal:number;
+}
