@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import styles from "./Statistic.module.css";
-import { Total, UserAndActivity } from "../models";
+import { Total, UserStatistic } from "../models";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -9,26 +9,11 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
-interface OwnProps {
-  listOfUsers: UserAndActivity[];
-}
+interface OwnProps {listOfUsers: UserStatistic[]}
 
 export const Statistic: React.FC<OwnProps> = ({ listOfUsers }) => {
-  const usersData = useMemo(
-    () =>
-      listOfUsers.map((user) => {
-        for (const name in user) {
-          return {
-            name: name,
-            gender: user[name].gender,
-            activity: user[name].activity,
-            accessibility: user[name].accessibility,
-            price: user[name].price,
-            id: user[name].id,
-          };
-        }}),[]);
 
-  const gender = usersData.map((user) => user?.gender);
+  const gender = listOfUsers.map((user) => user.gender);
   const numberOfMale: number = gender.filter((user) => user == "male").length;
   const numberOfUsers: number = gender.length;
   const numberOfFemale: number = numberOfUsers - numberOfMale;
@@ -36,26 +21,30 @@ export const Statistic: React.FC<OwnProps> = ({ listOfUsers }) => {
   const percentOfFemale: number = 100 - percentOfMale;
 
   const { accessibilityTotal, priceTotal } = useMemo<Total>(
-    () => usersData.reduce<{ accessibilityTotal: number; priceTotal: number }>(
-        ({ accessibilityTotal, priceTotal }, { ...user }) => ({
-          accessibilityTotal: accessibilityTotal + user.accessibility,
-          priceTotal: priceTotal + user.price}),
-        { accessibilityTotal: 0, priceTotal: 0 }
+    ()=> listOfUsers.reduce<{ accessibilityTotal: number ; priceTotal:number}>(
+        ({ accessibilityTotal,priceTotal },{...user}) => {
+
+          if(user.accessibility && user.price){
+           accessibilityTotal = accessibilityTotal + user.accessibility 
+           priceTotal= priceTotal + user.price 
+            } 
+             return {accessibilityTotal , priceTotal}
+        }
+        
+        ,{ accessibilityTotal: 0, priceTotal: 0 }
       ),[]);
 
-  const quantityOfAccessibility: number = usersData.map((user) => user?.accessibility).length;
-  const quantityOfPrices: number = usersData.map((user) => user?.price).length;
-
-  const averageAccessibility: string = (accessibilityTotal / quantityOfAccessibility).toFixed(2);
-  const averagePrices: string = (priceTotal / quantityOfPrices).toFixed(2);
+  const quantityOfAccessibility= listOfUsers.map((user) => user.accessibility).length;
+  const quantityOfPrices = listOfUsers.map((user) => user.price).length;
+  const averageAccessibility = (accessibilityTotal / quantityOfAccessibility).toFixed(2)
+  const averagePrices =(priceTotal / quantityOfPrices).toFixed(2)  
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.usersInfo}>
         <TableContainer
           sx={{ bgcolor: "rgba(187, 151, 151, 0.030)" }}
-          component={Paper}
-        >
+          component={Paper}>
           <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
             <TableHead>
               <TableRow>
@@ -67,13 +56,13 @@ export const Statistic: React.FC<OwnProps> = ({ listOfUsers }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {usersData.map((user) => (
-                <TableRow key={user?.id} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                  <TableCell component="th" scope="row">{user?.name}</TableCell>
-                  <TableCell align="right">{user?.gender}</TableCell>
-                  <TableCell align="right">{user?.activity}</TableCell>
-                  <TableCell align="right">{user?.accessibility}</TableCell>
-                  <TableCell align="right">{user?.price}</TableCell>
+              {listOfUsers.map((user) => (
+                <TableRow key={user.id} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                  <TableCell component="th" scope="row">{user.name}</TableCell>
+                  <TableCell align="right">{user.gender}</TableCell>
+                  <TableCell align="right">{user.activity}</TableCell>
+                  <TableCell align="right">{user.accessibility}</TableCell>
+                  <TableCell align="right">{user.price}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
