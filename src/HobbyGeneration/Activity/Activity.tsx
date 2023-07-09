@@ -1,10 +1,10 @@
 import React, { useMemo } from "react";
 import styles from "./Activity.module.css";
 import { Box, Slider } from "@mui/material";
-import { UserActivityData } from "../models";
+import { UserActivity } from "../models";
 import { generateDefaultPoints } from "../utils";
 
-interface OwnProps extends UserActivityData {}
+interface OwnProps extends UserActivity {}
 export const Activity: React.FC<OwnProps> = ({activity,price,accessibility,}) => {
   const marks = useMemo(() => generateDefaultPoints(), []);
 
