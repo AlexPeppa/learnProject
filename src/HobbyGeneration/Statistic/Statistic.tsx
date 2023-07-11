@@ -22,15 +22,10 @@ export const Statistic: React.FC<OwnProps> = ({ listOfUsers }) => {
 
   const { accessibilityTotal, priceTotal } = useMemo<Total>(
     ()=> listOfUsers.reduce<{ accessibilityTotal: number ; priceTotal:number}>(
-        ({ accessibilityTotal,priceTotal },{...user}) => {
-
-          if(user.accessibility && user.price){
-           accessibilityTotal = accessibilityTotal + user.accessibility 
-           priceTotal= priceTotal + user.price 
-            } 
-             return {accessibilityTotal , priceTotal}
-        }
-        
+        ({ accessibilityTotal,priceTotal },{accessibility,price}) => ({
+           accessibilityTotal:accessibilityTotal + accessibility, 
+           priceTotal: priceTotal + price 
+        })
         ,{ accessibilityTotal: 0, priceTotal: 0 }
       ),[]);
 

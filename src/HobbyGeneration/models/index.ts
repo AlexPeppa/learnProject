@@ -24,14 +24,14 @@ export type UserActivity = {
   accessibility: number;
 };
 
-export type UserStatistic = Partial<{
+export type UserStatistic = {
   name:string,
   id:string;
   gender: string;
   activity: string;
   accessibility: number;
   price: number;
-}>;
+};
 
 export enum StatusToggle {
   HIDE = "HIDE",
