@@ -7,7 +7,8 @@ const Home = () => {
     <div className={styles.wrapper}>
       <div className={styles.navLink}>
         <NavLink className={styles.link} to="/myRouter">MyRouter</NavLink>
-        <NavLink className={styles.link} to="/cars/*">Машины</NavLink>
+        <NavLink className={styles.link} to="/cars/*">Cars</NavLink>
+        <NavLink className={styles.link} to="/hobbyGeneration">Hobby Generation</NavLink>
       </div>
       <div>
         <img className={styles.helloPicture} src={helloPicture} alt="helloPicture" />
