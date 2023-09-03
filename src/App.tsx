@@ -5,6 +5,7 @@ import  styles from "./App.module.css";
 import { Cars } from "./Cars";
 import React from "react";
 import { HobbyGeneration } from "./HobbyGeneration/HobbyGeneration";
+import { Characters } from "./Rick&Morty/Characters";
 
 export const App: React.FC = () => {
   return (
@@ -17,6 +18,7 @@ export const App: React.FC = () => {
         <Route path="/cars/*" element={<Cars />} />
         <Route path="/hobbyGeneration" element={<HobbyGeneration />} />
         <Route path="/" element={<Home />} />
+        <Route path="/characters" element={<Characters />} />
       </Routes>
     </div>
   );
