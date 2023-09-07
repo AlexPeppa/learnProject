@@ -1,5 +1,13 @@
 .wrapper {
-    height: 500px;
-    max-width: 1200px;
-    margin: auto;
+    height: 565px;
+    
+}
+.title{
+    margin-top :10px;
+    margin-bottom :15px;
+    text-align: center;
+    font-size: 40px;
+    font-family:fantasy;
+    color:rgba(33, 32, 32, 0.856);
+    letter-spacing: 1px;
 }

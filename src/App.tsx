@@ -1,6 +1,7 @@
 import { Routes, Route, NavLink } from "react-router-dom";
 import styles from "./App.module.css";
-import { Cars, HobbyGeneration, Home, Characters, MyRouter } from "./containers";
+import { Cars, HobbyGeneration, Home, MyRouter } from "./containers";
+import RickMorty from "./containers/RickMorty/index";
 import React from "react";
 
 export const App: React.FC = () => {
@@ -16,7 +17,7 @@ export const App: React.FC = () => {
         <Route path="/cars/*" element={<Cars />} />
         <Route path="/hobbyGeneration" element={<HobbyGeneration />} />
         <Route path="/" element={<Home />} />
-        <Route path="/Characters" element={<Characters />} />
+        <Route path="/characters" element={<RickMorty />} />
       </Routes>
     </div>
   );

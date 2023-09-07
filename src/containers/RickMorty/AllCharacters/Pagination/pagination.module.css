@@ -1,0 +1,7 @@
+.pagination {
+    max-width: 1300px;
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+    color: #858184;
+}
