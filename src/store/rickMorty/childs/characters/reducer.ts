@@ -1,47 +1,34 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { name } from "../../constants";
+import { ApiRequestData } from "./models/index";
+// import { ApiRequestData } from "./../../models/index";
+// import { ApiRequestData } from "src/store/rickMorty/childs/characters/models";
+import { PayloadAction, combineReducers, createSlice } from "@reduxjs/toolkit";
+import { ApiRequestStatus, RickMortyStorePath } from "../../constants";
 import { getAllCharacters } from "./actions";
-import { Character, CharactersState, PaginationState } from "../../models";
+import { CharactersState } from "./models";
 
 const charactersState: CharactersState = {
   charactersInfo: [],
-  isLoading: true,
-  error: "",
-};
-
-const paginationState: PaginationState = {
-  page: 1,
+  loadingStatus: ApiRequestStatus.Pending,
+  nextPagePath: "",
 };
 
 export const characters = createSlice({
-  name: name.characters,
+  name: RickMortyStorePath.Characters,
   initialState: charactersState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getAllCharacters.fulfilled, (state, action: PayloadAction<Character[]>) => {
-      state.charactersInfo = action.payload;
-      state.isLoading = false;
+    builder.addCase(getAllCharacters.fulfilled, (state, action: PayloadAction<ApiRequestData>) => {
+      state.charactersInfo = action.payload.results;
+      state.loadingStatus = ApiRequestStatus.Fulfilled;
+      state.nextPagePath = action.payload.info.next;
     });
     builder.addCase(getAllCharacters.pending, (state) => {
-      state.isLoading = true;
+      state.loadingStatus = ApiRequestStatus.Pending;
     });
-    builder.addCase(getAllCharacters.rejected, (state, action: PayloadAction<any>) => {
-      state.isLoading = false;
-      state.error = action.payload;
+    builder.addCase(getAllCharacters.rejected, (state) => {
+      state.loadingStatus = ApiRequestStatus.Rejected;
     });
-  },
-});
-
-export const pagination = createSlice({
-  name: name.pagination,
-  initialState: paginationState,
-  reducers: {
-    setPage: (state, action: PayloadAction<number>) => {
-      state.page = action.payload;
-    },
   },
 });
 
 export const charactersReducer = characters.reducer;
-export const paginationReducer = pagination.reducer;
-export const { setPage } = pagination.actions;

@@ -2,10 +2,9 @@ import React from "react";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { useDispatch } from "react-redux";
-import { setPage } from "src/store/rickMorty/childs/characters";
 import style from "./pagination.module.css";
 
-export const RickMortyPagination = () => {
+export const RickMortyPagination = ({ getCharacters }) => {
   const dispatch = useDispatch();
   return (
     <div className={style.pagination}>
@@ -14,7 +13,7 @@ export const RickMortyPagination = () => {
           count={42}
           color="secondary"
           onChange={(_, num) => {
-            dispatch(setPage(num));
+            dispatch(getCharacters(num));
           }}
         />
       </Stack>

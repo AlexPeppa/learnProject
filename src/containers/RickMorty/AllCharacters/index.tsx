@@ -1,28 +1,26 @@
 import React, { FC, useEffect } from "react";
 import style from "./allCharacters.module.css";
-import { PropsAllCharacters } from "src/store/rickMorty/models";
 import { RickMortyPagination } from "./Pagination/pagination";
 import { Preloader } from "../Preloader/Preloader";
+import { PropsAllCharacters } from "src/models/rickMorty/index";
+import { ApiRequestStatus } from "src/store/rickMorty/constants";
 
 export const AllCharacters: FC<PropsAllCharacters> = ({
   characters,
-  page,
-  isLoading,
-  error,
+  loadingStatus,
   getCharacters,
 }) => {
   useEffect(() => {
-    getCharacters(page);
-  }, [page]);
+    getCharacters(1);
+  }, []);
 
   return (
     <div>
-      {isLoading && (
+      {loadingStatus === ApiRequestStatus.Pending && (
         <div>
           <Preloader />
         </div>
       )}
-      {error && <div>Error</div>}
       <div className={style.infoWrapper}>
         {characters.map((character) => (
           <div key={character.id}>
@@ -36,13 +34,13 @@ export const AllCharacters: FC<PropsAllCharacters> = ({
                 </div>
               </div>
               <div>
-                <img className={style.img} src={character.image} />
+                <img className={style.img} src={character.image} alt="characterPicture" />
               </div>
             </div>
           </div>
         ))}
       </div>
-      <RickMortyPagination />
+      <RickMortyPagination getCharacters={getCharacters} />
     </div>
   );
 };
