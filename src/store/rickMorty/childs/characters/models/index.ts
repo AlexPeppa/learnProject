@@ -24,11 +24,13 @@ export interface CharactersState {
   charactersInfo: Character[];
   loadingStatus: ApiRequestStatus;
   nextPagePath: string;
+  countPages: number;
+  errorText: string;
 }
 
 export interface ApiRequestData {
   results: Character[];
-  info: { next: string };
+  info: { next: string; pages: number };
 }
 
 export interface Users {

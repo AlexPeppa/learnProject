@@ -1,19 +1,22 @@
-import React from "react";
+import React, { FC } from "react";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { useDispatch } from "react-redux";
 import style from "./pagination.module.css";
+import { RickMortyPaginationProps } from "src/models/rickMorty";
 
-export const RickMortyPagination = ({ getCharacters }) => {
-  const dispatch = useDispatch();
+export const RickMortyPagination: FC<RickMortyPaginationProps> = ({
+  countPages,
+  getCharacters,
+}) => {
   return (
     <div className={style.pagination}>
       <Stack spacing={1}>
         <Pagination
-          count={42}
+          count={countPages}
           color="secondary"
           onChange={(_, num) => {
-            dispatch(getCharacters(num));
+            getCharacters(num);
           }}
         />
       </Stack>

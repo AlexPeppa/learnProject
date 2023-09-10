@@ -12,7 +12,7 @@ export const getAllCharacters = createAsyncThunk(
       const response = await axios.get(constants.BASE_URL + `page=${page}`);
       return response.data;
     } catch (error) {
-      return thunkAPI.rejectWithValue("error");
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
