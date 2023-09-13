@@ -3,6 +3,7 @@ import styles from "./App.module.css";
 import { Cars, HobbyGeneration, Home, MyRouter } from "./containers";
 import RickMorty from "./containers/RickMorty/index";
 import React from "react";
+import SelectedCharacter from "./containers/RickMorty/AllCharacters/SelectedCharacter";
 
 export const App: React.FC = () => {
   return (
@@ -17,7 +18,8 @@ export const App: React.FC = () => {
         <Route path="/cars/*" element={<Cars />} />
         <Route path="/hobbyGeneration" element={<HobbyGeneration />} />
         <Route path="/" element={<Home />} />
-        <Route path="/characters" element={<RickMorty />} />
+        <Route path="/characters/" element={<RickMorty />} />
+        <Route path="/selectedCharacter/" element={<SelectedCharacter />} />
       </Routes>
     </div>
   );

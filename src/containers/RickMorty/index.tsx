@@ -3,9 +3,9 @@ import style from "./rick&morty.module.css";
 import AllCharacters from "./AllCharacters";
 import { AppStore, selectors } from "src/store";
 import { connect } from "react-redux";
-import { PropsRickMorty } from "src/models/rickMorty";
+import { RickMortyProps } from "src/models/rickMorty";
 
-const RickMorty: FC<PropsRickMorty> = ({ loadingStatus }) => {
+const RickMorty: FC<RickMortyProps> = ({ loadingStatus }) => {
   return (
     <div className={style.wrapper}>
       <div className={style.title}>Rick & Morty</div>

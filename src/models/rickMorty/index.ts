@@ -1,16 +1,18 @@
 import { ApiRequestStatus } from "src/store/rickMorty/constants";
 import { Character } from "src/store/rickMorty/childs/characters/models";
+import { SelectedCharacterState } from "src/store/rickMorty/childs/selectedCharacter/models";
 
-export interface PropsRickMorty {
+export interface RickMortyProps {
   loadingStatus: ApiRequestStatus;
 }
 
-export interface PropsAllCharacters {
+export interface AllCharactersProps {
   characters: Character[];
   loadingStatus: ApiRequestStatus;
   countPages: number;
   errorText: string;
   getCharacters: (page: number) => void;
+  getSelectedCharacter: (character: Character) => void;
 }
 
 export interface RickMortyPaginationProps {
@@ -20,4 +22,8 @@ export interface RickMortyPaginationProps {
 
 export interface PaginationState {
   page: number;
+}
+
+export interface SelectedCharacterProps extends SelectedCharacterState {
+  getEpisode: (episodes: string[]) => void;
 }

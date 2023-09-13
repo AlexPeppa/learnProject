@@ -1,23 +1,35 @@
 import React, { FC, useEffect } from "react";
 import style from "./allCharacters.module.css";
-import { RickMortyPagination } from "./Pagination/pagination";
-import { Preloader } from "../Preloader/Preloader";
-import { PropsAllCharacters } from "src/models/rickMorty/index";
 import { ApiRequestStatus } from "src/store/rickMorty/constants";
 import { AppDispatch, AppStore, selectors } from "src/store";
 import { getAllCharacters } from "src/store/rickMorty/childs/characters";
 import { connect } from "react-redux";
+import { NavLink } from "react-router-dom";
+import { Preloader } from "../Preloader";
+import { RickMortyPagination } from "./Pagination";
+import { selectCharacterAction } from "src/store/rickMorty/childs/selectedCharacter";
+import { Character } from "src/store/rickMorty/childs/characters/models";
+import { AllCharactersProps } from "src/models/rickMorty";
 
-const AllCharacters: FC<PropsAllCharacters> = ({
+const AllCharacters: FC<AllCharactersProps> = ({
   characters,
   loadingStatus,
   countPages,
   errorText,
   getCharacters,
+  getSelectedCharacter,
 }) => {
   useEffect(() => {
     getCharacters(1);
   }, []);
+
+  const select = (id: number) => {
+    const charactersHashMap = characters.reduce((characters, selectCharacter) => {
+      return { ...characters, [selectCharacter.id]: selectCharacter };
+    }, {});
+    const selectedCharacter: Character = charactersHashMap[id];
+    getSelectedCharacter(selectedCharacter);
+  };
 
   return (
     <div>
@@ -32,20 +44,22 @@ const AllCharacters: FC<PropsAllCharacters> = ({
       ) : (
         <div className={style.infoWrapper}>
           {characters.map((character) => (
-            <div key={character.id}>
-              <div className={style.info}>
-                <div>
+            <div key={character.id} onClick={() => select(character.id)}>
+              <NavLink className={style.textName} to="/selectedCharacter">
+                <div className={style.info}>
                   <div>
-                    Name: <b className={style.text}>{character.name}</b>
+                    <div>
+                      Name: <b>{character.name}</b>
+                    </div>
+                    <div>
+                      Gender: <b>{character.gender}</b>
+                    </div>
                   </div>
                   <div>
-                    Gender: <b>{character.gender}</b>
+                    <img className={style.img} src={character.image} alt="characterPicture" />
                   </div>
                 </div>
-                <div>
-                  <img className={style.img} src={character.image} alt="characterPicture" />
-                </div>
-              </div>
+              </NavLink>
             </div>
           ))}
         </div>
@@ -63,5 +77,6 @@ const mapStateToProps = (state: AppStore) => ({
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
   getCharacters: (page: number) => dispatch(getAllCharacters(page)),
+  getSelectedCharacter: (character: Character) => dispatch(selectCharacterAction(character)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(AllCharacters);

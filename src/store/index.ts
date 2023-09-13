@@ -1,9 +1,9 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { charactersSelectors } from "./rickMorty/childs/characters/selectors";
 import { rickMortyReducer } from "./rickMorty/reducer";
+import { RickMortySelectors } from "./rickMorty/selectors";
 
 export const selectors = {
-  ...charactersSelectors,
+  ...RickMortySelectors,
 };
 
 export const store = configureStore({

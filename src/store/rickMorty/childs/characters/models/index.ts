@@ -9,15 +9,12 @@ export interface Character {
   gender: string;
   origin: {
     name: string;
-    url: string;
   };
   location: {
     name: string;
-    url: string;
   };
   image: string;
   episode: string[];
-  url: string;
 }
 
 export interface CharactersState {
@@ -28,11 +25,7 @@ export interface CharactersState {
   errorText: string;
 }
 
-export interface ApiRequestData {
+export interface ApiRequestDataAllCharacters {
   results: Character[];
   info: { next: string; pages: number };
-}
-
-export interface Users {
-  id: string;
 }

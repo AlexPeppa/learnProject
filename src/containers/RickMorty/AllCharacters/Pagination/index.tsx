@@ -1,7 +1,6 @@
 import React, { FC } from "react";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-import { useDispatch } from "react-redux";
 import style from "./pagination.module.css";
 import { RickMortyPaginationProps } from "src/models/rickMorty";
 
