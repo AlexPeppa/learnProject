@@ -1,7 +1,6 @@
 export enum RickMortyStorePath {
   Characters = "Characters",
   SelectedCharacter = "SelectedCharacter",
-  Pagination = "Pagination",
 }
 
 export enum ApiRequestStatus {

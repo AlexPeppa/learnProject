@@ -7,21 +7,24 @@ import { CharactersState } from "./models";
 const charactersState: CharactersState = {
   charactersInfo: [],
   loadingStatus: ApiRequestStatus.Pending,
-  nextPagePath: "",
   countPages: 0,
   errorText: "",
+  currentPage: 1,
 };
 
 export const characters = createSlice({
   name: RickMortyStorePath.Characters,
   initialState: charactersState,
-  reducers: {},
+  reducers: {
+    getCurrentPage(state, action: PayloadAction<number>) {
+      state.currentPage = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getAllCharacters.fulfilled, (state, action: PayloadAction<ApiRequestData>) => {
-      state.loadingStatus = ApiRequestStatus.Fulfilled;
       state.charactersInfo = action.payload.results;
-      state.nextPagePath = action.payload.info.next;
       state.countPages = action.payload.info.pages;
+      state.loadingStatus = ApiRequestStatus.Fulfilled;
     });
     builder.addCase(getAllCharacters.pending, (state) => {
       state.loadingStatus = ApiRequestStatus.Pending;
@@ -34,3 +37,4 @@ export const characters = createSlice({
 });
 
 export const charactersReducer = characters.reducer;
+export const getCurrentPage = characters.actions.getCurrentPage;

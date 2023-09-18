@@ -1,67 +1,32 @@
-import React, { FC, useEffect } from "react";
+import React, { FC } from "react";
 import style from "./allCharacters.module.css";
-import { RickMortyPagination } from "./Pagination/pagination";
-import { Preloader } from "../Preloader/Preloader";
-import { PropsAllCharacters } from "src/models/rickMorty/index";
-import { ApiRequestStatus } from "src/store/rickMorty/constants";
-import { AppDispatch, AppStore, selectors } from "src/store";
-import { getAllCharacters } from "src/store/rickMorty/childs/characters";
-import { connect } from "react-redux";
+import RickMortyPagination from "./Pagination/pagination";
+import { Character } from "src/store/rickMorty/childs/characters";
+import { PropsAllCharacters } from "src/models/rickMorty";
 
-const AllCharacters: FC<PropsAllCharacters> = ({
-  characters,
-  loadingStatus,
-  countPages,
-  errorText,
-  getCharacters,
-}) => {
-  useEffect(() => {
-    getCharacters(1);
-  }, []);
-
+export const AllCharacters: FC<PropsAllCharacters> = ({ characters }) => {
   return (
     <div>
-      {loadingStatus === ApiRequestStatus.Rejected && (
-        <div className={style.error}>{errorText}</div>
-      )}
-
-      {loadingStatus === ApiRequestStatus.Pending ? (
-        <div>
-          <Preloader />
-        </div>
-      ) : (
-        <div className={style.infoWrapper}>
-          {characters.map((character) => (
-            <div key={character.id}>
-              <div className={style.info}>
+      <div className={style.infoWrapper}>
+        {characters.map((character) => (
+          <div key={character.id}>
+            <div className={style.info}>
+              <div>
                 <div>
-                  <div>
-                    Name: <b className={style.text}>{character.name}</b>
-                  </div>
-                  <div>
-                    Gender: <b>{character.gender}</b>
-                  </div>
+                  Name: <b className={style.text}>{character.name}</b>
                 </div>
                 <div>
-                  <img className={style.img} src={character.image} alt="characterPicture" />
+                  Gender: <b>{character.gender}</b>
                 </div>
               </div>
+              <div>
+                <img className={style.img} src={character.image} alt="characterPicture" />
+              </div>
             </div>
-          ))}
-        </div>
-      )}
-      <RickMortyPagination countPages={countPages} getCharacters={getCharacters} />
+          </div>
+        ))}
+      </div>
+      <RickMortyPagination />
     </div>
   );
 };
-
-const mapStateToProps = (state: AppStore) => ({
-  characters: selectors.getAllCharacters(state),
-  countPages: selectors.getCountPages(state),
-  errorText: selectors.getErrorText(state),
-});
-
-const mapDispatchToProps = (dispatch: AppDispatch) => ({
-  getCharacters: (page: number) => dispatch(getAllCharacters(page)),
-});
-export default connect(mapStateToProps, mapDispatchToProps)(AllCharacters);

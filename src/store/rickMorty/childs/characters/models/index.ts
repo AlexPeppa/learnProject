@@ -23,16 +23,12 @@ export interface Character {
 export interface CharactersState {
   charactersInfo: Character[];
   loadingStatus: ApiRequestStatus;
-  nextPagePath: string;
   countPages: number;
   errorText: string;
+  currentPage: number;
 }
 
 export interface ApiRequestData {
   results: Character[];
   info: { next: string; pages: number };
-}
-
-export interface Users {
-  id: string;
 }
