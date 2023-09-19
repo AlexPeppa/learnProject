@@ -4,6 +4,10 @@ import { SelectedCharacterState } from "src/store/rickMorty/childs/selectedChara
 
 export interface RickMortyProps {
   loadingStatus: ApiRequestStatus;
+  errorText: string;
+  currentPage: number;
+  characters: Character[];
+  getCharacters: (page: number) => void;
 }
 
 export interface AllCharactersProps {
@@ -12,16 +16,13 @@ export interface AllCharactersProps {
   countPages: number;
   errorText: string;
   getCharacters: (page: number) => void;
-  getSelectedCharacter: (character: Character) => void;
 }
 
 export interface RickMortyPaginationProps {
   countPages: number;
+  currentPage: number;
   getCharacters: (page: number) => void;
-}
-
-export interface PaginationState {
-  page: number;
+  getSelectedPage: (page: number) => void;
 }
 
 export interface SelectedCharacterProps extends SelectedCharacterState {

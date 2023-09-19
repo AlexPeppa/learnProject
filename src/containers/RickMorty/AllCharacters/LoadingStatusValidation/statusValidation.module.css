@@ -1,0 +1,10 @@
+.error {
+    display: flex;
+    color: #f3000099;
+    justify-content: center;
+    height: 400px;
+    align-items: center;
+    text-decoration: underline;
+    font-size: 30px;
+    cursor: pointer;
+}

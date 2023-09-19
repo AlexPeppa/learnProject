@@ -20,9 +20,9 @@ export interface Character {
 export interface CharactersState {
   charactersInfo: Character[];
   loadingStatus: ApiRequestStatus;
-  nextPagePath: string;
   countPages: number;
   errorText: string;
+  currentPage: number;
 }
 
 export interface ApiRequestDataAllCharacters {
