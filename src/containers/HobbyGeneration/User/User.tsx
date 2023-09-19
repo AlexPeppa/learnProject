@@ -4,7 +4,7 @@ import { UserData } from "../models";
 
 interface OwnProps extends UserData {}
 
-export const User: React.FC<OwnProps> = ({picture,gender, name, phone,email, location}) => {
+export const User: React.FC<OwnProps> = ({ picture, gender, name, phone, email, location }) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.userInfo}>
