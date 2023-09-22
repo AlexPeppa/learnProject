@@ -25,7 +25,7 @@ export interface CharactersState {
   currentPage: number;
 }
 
-export interface ApiRequestDataAllCharacters {
+export interface ApiRequestData {
   results: Character[];
   info: { next: string; pages: number };
 }

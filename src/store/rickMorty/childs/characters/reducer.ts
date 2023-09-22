@@ -1,4 +1,4 @@
-import { ApiRequestDataAllCharacters } from "./models/index";
+import { ApiRequestData } from "./models/index";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { ApiRequestStatus, RickMortyStorePath } from "../../constants";
 import { getAllCharacters } from "./actions";
@@ -16,7 +16,7 @@ export const characters = createSlice({
   name: RickMortyStorePath.Characters,
   initialState: charactersState,
   reducers: {
-    getCurrentPage(state, action: PayloadAction<number>) {
+    setCurrentPage(state, action: PayloadAction<number>) {
       state.currentPage = action.payload;
     },
   },
@@ -37,4 +37,4 @@ export const characters = createSlice({
 });
 
 export const charactersReducer = characters.reducer;
-export const getCurrentPage = characters.actions.getCurrentPage;
+export const setCurrentPage = characters.actions.setCurrentPage;

@@ -1,8 +1,7 @@
 import { Character } from "src/store/rickMorty/childs/characters/models";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { ApiRequestStatus, RickMortyStorePath } from "../../constants";
-import { Episode, SelectedCharacterState } from "./models";
-import { getEpisodes } from "./actions";
+import { RickMortyStorePath } from "../../constants";
+import { SelectedCharacterState } from "./models";
 
 const selectedCharacterState: SelectedCharacterState = {
   character: {
@@ -21,9 +20,6 @@ const selectedCharacterState: SelectedCharacterState = {
     image: "",
     episode: [],
   },
-  episodes: [],
-  loadingStatusEpisodes: ApiRequestStatus.Pending,
-  errorText: "",
 };
 
 export const selectedCharacter = createSlice({
@@ -33,19 +29,6 @@ export const selectedCharacter = createSlice({
     selectCharacter(state, action: PayloadAction<Character>) {
       state.character = action.payload;
     },
-  },
-  extraReducers: (builder) => {
-    builder.addCase(getEpisodes.fulfilled, (state, action: PayloadAction<Episode[]>) => {
-      state.episodes = action.payload;
-      state.loadingStatusEpisodes = ApiRequestStatus.Fulfilled;
-    });
-    builder.addCase(getEpisodes.pending, (state) => {
-      state.loadingStatusEpisodes = ApiRequestStatus.Pending;
-    });
-    builder.addCase(getEpisodes.rejected, (state, action: PayloadAction<any>) => {
-      state.errorText = action.payload;
-      state.loadingStatusEpisodes = ApiRequestStatus.Rejected;
-    });
   },
 });
 

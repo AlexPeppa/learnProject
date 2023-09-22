@@ -7,13 +7,22 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import style from "./episodeTable.module.css";
-import { Episode } from "src/store/rickMorty/childs/selectedCharacter/models";
+import { AppDispatch, AppStore, selectors } from "src/store";
+import { connect } from "react-redux";
+import { Button } from "@mui/material";
+import {
+  charactersInEpisodesVisible,
+  getCharactersInEpisodes,
+} from "src/store/rickMorty/childs/selectedCharacter/charactersInEpisodes";
+import { Episode } from "src/store/rickMorty/childs/selectedCharacter";
 
-export interface EpisodeTableProps {
-  episodes: Episode[];
-}
+type Props = StateProps & DispatchProps;
 
-export const EpisodeTable: FC<EpisodeTableProps> = ({ episodes }) => {
+const EpisodeTable: FC<Props> = ({
+  episodes,
+  getCharactersInEpisode,
+  characterInEpisodeVisible,
+}) => {
   return (
     <div className={style.wrapper}>
       <div className={style.table}>
@@ -42,7 +51,16 @@ export const EpisodeTable: FC<EpisodeTableProps> = ({ episodes }) => {
                   <TableCell align="center">{episode.air_date}</TableCell>
                   <TableCell align="center">{episode.created.slice(0, 10)}</TableCell>
                   <TableCell align="center">
-                    <button>Show Character</button>
+                    <Button
+                      size="small"
+                      color="secondary"
+                      onClick={() => {
+                        characterInEpisodeVisible();
+                        getCharactersInEpisode(episode.characters);
+                      }}
+                    >
+                      Show Characters
+                    </Button>
                   </TableCell>
                 </TableRow>
               ))}
@@ -53,3 +71,24 @@ export const EpisodeTable: FC<EpisodeTableProps> = ({ episodes }) => {
     </div>
   );
 };
+
+type StateProps = {
+  episodes: Episode[];
+};
+type DispatchProps = {
+  getCharactersInEpisode: (charactersLinks: string[]) => void;
+  characterInEpisodeVisible: () => void;
+};
+const mapStateToProps = (state: AppStore): StateProps => ({
+  episodes: selectors.getEpisode(state),
+});
+const mapDispatchToProps = (dispatch: AppDispatch): DispatchProps => ({
+  getCharactersInEpisode: (charactersLinks: string[]) =>
+    dispatch(getCharactersInEpisodes(charactersLinks)),
+  characterInEpisodeVisible: () => dispatch(charactersInEpisodesVisible()),
+});
+
+export default connect<StateProps, DispatchProps>(
+  mapStateToProps,
+  mapDispatchToProps
+)(EpisodeTable);

@@ -1,5 +1,9 @@
-import { ApiRequestStatus } from "src/store/rickMorty/constants";
+import { ApiRequestStatus, Visibility } from "src/store/rickMorty/constants";
 import { Character } from "../../characters/models";
+
+export interface SelectedCharacterState {
+  character: Character;
+}
 
 export interface Episode {
   id: number;
@@ -11,9 +15,16 @@ export interface Episode {
   created: string;
 }
 
-export interface SelectedCharacterState {
-  character: Character;
+export interface EpisodesState {
   episodes: Episode[];
   loadingStatusEpisodes: ApiRequestStatus;
   errorText: string;
+  visibilityEpisodes: Visibility;
+}
+
+export interface CharactersInEpisodesState {
+  charactersInEpisodes: Character[];
+  loadingStatusCharactersInEpisodes: ApiRequestStatus;
+  errorText: string;
+  visibilityCharactersInEpisodes: Visibility;
 }

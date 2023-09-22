@@ -1,7 +1,8 @@
 import React, { FC, PropsWithChildren } from "react";
 import { ApiRequestStatus } from "src/store/rickMorty/constants";
-import { Preloader } from "../../Preloader/Preloader";
+
 import style from "./statusValidation.module.css";
+import { Preloader } from "../../Preloader";
 
 type OwnProps = {
   loadingStatus: ApiRequestStatus;

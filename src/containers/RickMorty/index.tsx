@@ -1,15 +1,15 @@
 import React, { FC, useEffect } from "react";
 import style from "./rick&morty.module.css";
-import { AllCharacters } from "./AllCharacters";
+import AllCharacters from "./AllCharacters";
 import { AppDispatch, AppStore, selectors } from "src/store";
 import { connect } from "react-redux";
-import { RickMortyProps } from "src/models/rickMorty";
-import { RickMortyProps } from "src/models/rickMorty";
 import { StatusValidation } from "./AllCharacters/LoadingStatusValidation/StatusValidation";
-import { getAllCharacters } from "src/store/rickMorty/childs/characters";
+import { Character, getAllCharacters } from "src/store/rickMorty/childs/characters";
+import { ApiRequestStatus } from "src/store/rickMorty/constants";
 
-const RickMorty: FC<RickMortyProps> = ({ loadingStatus }) => {
-const RickMorty: FC<RickMortyProps> = ({
+type Props = StateProps & DispatchProps;
+
+const RickMorty: FC<Props> = ({
   loadingStatus,
   errorText,
   currentPage,
@@ -30,14 +30,24 @@ const RickMorty: FC<RickMortyProps> = ({
   );
 };
 
-const mapStateToProps = (state: AppStore) => ({
+type StateProps = {
+  loadingStatus: ApiRequestStatus;
+  errorText: string;
+  currentPage: number;
+  characters: Character[];
+};
+type DispatchProps = {
+  getCharacters: (page: number) => void;
+};
+
+const mapStateToProps = (state: AppStore): StateProps => ({
   loadingStatus: selectors.allCharactersLoadingStatus(state),
   errorText: selectors.getErrorText(state),
   currentPage: selectors.getCurrentPage(state),
   characters: selectors.getAllCharacters(state),
 });
-const mapDispatchToProps = (dispatch: AppDispatch) => ({
+const mapDispatchToProps = (dispatch: AppDispatch): DispatchProps => ({
   getCharacters: (page: number) => dispatch(getAllCharacters(page)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(RickMorty);
+export default connect<StateProps, DispatchProps>(mapStateToProps, mapDispatchToProps)(RickMorty);

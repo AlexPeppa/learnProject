@@ -1,26 +1,42 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import { connect } from "react-redux";
 import { AppDispatch, AppStore, selectors } from "src/store";
 import style from "./selectedCharacter.module.css";
-import { getEpisodes } from "src/store/rickMorty/childs/selectedCharacter";
-import { SelectedCharacterProps } from "src/models/rickMorty";
-import { EpisodeTable } from "./EpisodeTable/EpisodeTable";
 import { Button } from "@mui/material";
-import { ApiRequestStatus } from "src/store/rickMorty/constants";
-import { Preloader } from "../../Preloader";
+import { StatusValidation } from "../LoadingStatusValidation/StatusValidation";
+import { ApiRequestStatus, Visibility } from "src/store/rickMorty/constants";
+import {
+  episodesHidden,
+  episodesVisible,
+  getEpisodes,
+} from "src/store/rickMorty/childs/selectedCharacter/episodes";
+import CharactersInEpisode from "./CharactersInEpisode";
+import EpisodeTable from "./EpisodeTable";
+import { charactersInEpisodesHidden } from "src/store/rickMorty/childs/selectedCharacter/charactersInEpisodes";
+import { Character } from "src/store/rickMorty/childs/characters";
 
-const SelectedCharacter: FC<SelectedCharacterProps> = ({
+type Props = StateProps & DispatchProps;
+
+const SelectedCharacter: FC<Props> = ({
   character,
-  episodes,
   loadingStatusEpisodes,
+  loadingStatusCharacterInEpisode,
   errorText,
+  episodesVisibility,
+  characterInEpisodeVisibility,
   getEpisode,
+  episodesVisible,
+  episodesHidden,
+  characterInEpisodeHidden,
 }) => {
+  useEffect(() => {
+    return () => {
+      episodesHidden();
+      characterInEpisodeHidden();
+    };
+  }, []);
   return (
     <div className={style.wrapper}>
-      {loadingStatusEpisodes === ApiRequestStatus.Rejected && (
-        <div className={style.error}>{errorText}</div>
-      )}
       <div className={style.infoTextName}>
         <b>{character.name}</b>
       </div>
@@ -48,32 +64,70 @@ const SelectedCharacter: FC<SelectedCharacterProps> = ({
             Location name:<b>{character.location.name}</b>
           </div>
           <div className={style.showEpisodesBtn}>
-            <Button size="medium" color="secondary" onClick={() => getEpisode(character.episode)}>
+            <Button
+              size="medium"
+              color="secondary"
+              onClick={() => {
+                episodesVisible();
+                getEpisode(character.episode);
+              }}
+              disabled={episodesVisibility === Visibility.Visible}
+            >
               Show episodes
             </Button>
           </div>
         </div>
       </div>
-      {loadingStatusEpisodes === ApiRequestStatus.Pending ? (
-        <div>
-          <Preloader />
+      <div className={style.episodeWrapper}>
+        <div className={style.episodeBox} style={{ visibility: episodesVisibility }}>
+          <StatusValidation loadingStatus={loadingStatusEpisodes} errorText={errorText}>
+            <EpisodeTable />
+          </StatusValidation>
         </div>
-      ) : (
-        <div className={style.episodeBox}>
-          <EpisodeTable episodes={episodes} />
+        <div
+          className={style.charactersInEpisodeWrapper}
+          style={{ visibility: characterInEpisodeVisibility }}
+        >
+          <StatusValidation loadingStatus={loadingStatusCharacterInEpisode} errorText={errorText}>
+            <CharactersInEpisode />
+          </StatusValidation>
         </div>
-      )}
+      </div>
     </div>
   );
 };
-const mapStateToProps = (state: AppStore) => ({
+
+type StateProps = {
+  character: Character;
+  loadingStatusEpisodes: ApiRequestStatus;
+  loadingStatusCharacterInEpisode: ApiRequestStatus;
+  errorText: string;
+  episodesVisibility: Visibility;
+  characterInEpisodeVisibility: Visibility;
+};
+type DispatchProps = {
+  getEpisode: (episodes: string[]) => void;
+  episodesVisible: () => void;
+  episodesHidden: () => void;
+  characterInEpisodeHidden: () => void;
+};
+
+const mapStateToProps = (state: AppStore): StateProps => ({
   character: selectors.getCharacter(state),
-  episodes: selectors.getEpisode(state),
   loadingStatusEpisodes: selectors.getLoadingStatusEpisodes(state),
+  loadingStatusCharacterInEpisode: selectors.getLoadingStatusCharacterInEpisodes(state),
   errorText: selectors.getErrorTextEpisodes(state),
+  episodesVisibility: selectors.getVisibilityEpisode(state),
+  characterInEpisodeVisibility: selectors.getCharacterInEpisodeVisibility(state),
 });
-const mapDispatchToProps = (dispatch: AppDispatch) => ({
+const mapDispatchToProps = (dispatch: AppDispatch): DispatchProps => ({
   getEpisode: (episodes: string[]) => dispatch(getEpisodes(episodes)),
+  episodesVisible: () => dispatch(episodesVisible()),
+  episodesHidden: () => dispatch(episodesHidden()),
+  characterInEpisodeHidden: () => dispatch(charactersInEpisodesHidden()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SelectedCharacter);
+export default connect<StateProps, DispatchProps>(
+  mapStateToProps,
+  mapDispatchToProps
+)(SelectedCharacter);
