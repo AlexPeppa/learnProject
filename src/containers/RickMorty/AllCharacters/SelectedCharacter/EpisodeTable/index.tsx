@@ -10,18 +10,16 @@ import style from "./episodeTable.module.css";
 import { AppDispatch, AppStore, selectors } from "src/store";
 import { connect } from "react-redux";
 import { Button } from "@mui/material";
-import {
-  charactersInEpisodesVisible,
-  getCharactersInEpisodes,
-} from "src/store/rickMorty/childs/selectedCharacter/charactersInEpisodes";
+import { getCharactersInEpisodes } from "src/store/rickMorty/childs/selectedCharacter/childs/charactersInEpisodes";
 import { Episode } from "src/store/rickMorty/childs/selectedCharacter";
+import { Visibility } from "src/store/rickMorty/constants";
 
-type Props = StateProps & DispatchProps;
+type Props = StateProps & DispatchProps & OwnProps;
 
 const EpisodeTable: FC<Props> = ({
   episodes,
   getCharactersInEpisode,
-  characterInEpisodeVisible,
+  setCharacterInEpisodesVisibility,
 }) => {
   return (
     <div className={style.wrapper}>
@@ -55,7 +53,7 @@ const EpisodeTable: FC<Props> = ({
                       size="small"
                       color="secondary"
                       onClick={() => {
-                        characterInEpisodeVisible();
+                        setCharacterInEpisodesVisibility(Visibility.Visible);
                         getCharactersInEpisode(episode.characters);
                       }}
                     >
@@ -77,15 +75,17 @@ type StateProps = {
 };
 type DispatchProps = {
   getCharactersInEpisode: (charactersLinks: string[]) => void;
-  characterInEpisodeVisible: () => void;
 };
+type OwnProps = {
+  setCharacterInEpisodesVisibility: (visibility: Visibility) => void;
+};
+
 const mapStateToProps = (state: AppStore): StateProps => ({
   episodes: selectors.getEpisode(state),
 });
 const mapDispatchToProps = (dispatch: AppDispatch): DispatchProps => ({
   getCharactersInEpisode: (charactersLinks: string[]) =>
     dispatch(getCharactersInEpisodes(charactersLinks)),
-  characterInEpisodeVisible: () => dispatch(charactersInEpisodesVisible()),
 });
 
 export default connect<StateProps, DispatchProps>(

@@ -19,12 +19,12 @@ export interface EpisodesState {
   episodes: Episode[];
   loadingStatusEpisodes: ApiRequestStatus;
   errorText: string;
-  visibilityEpisodes: Visibility;
 }
 
 export interface CharactersInEpisodesState {
   charactersInEpisodes: Character[];
   loadingStatusCharactersInEpisodes: ApiRequestStatus;
   errorText: string;
-  visibilityCharactersInEpisodes: Visibility;
 }
+
+export type Nope = any;

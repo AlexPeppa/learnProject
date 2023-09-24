@@ -1,5 +1,8 @@
-import { AppStore } from "src/store";
+import { charactersInEpisodeSelectors, episodeSelectors } from "./childs";
+import { selectedCharactersSelectors } from "./childs/selectors";
 
-export const selectedCharactersSelectors = {
-  getCharacter: (state: AppStore) => state.rickMorty.selectedCharacterReducer.character,
+export const selectedCharactersChildsSelectors = {
+  ...selectedCharactersSelectors,
+  ...episodeSelectors,
+  ...charactersInEpisodeSelectors,
 };

@@ -1,18 +1,13 @@
-import React, { FC, useEffect } from "react";
+import React, { FC, useState } from "react";
 import { connect } from "react-redux";
 import { AppDispatch, AppStore, selectors } from "src/store";
 import style from "./selectedCharacter.module.css";
 import { Button } from "@mui/material";
 import { StatusValidation } from "../LoadingStatusValidation/StatusValidation";
 import { ApiRequestStatus, Visibility } from "src/store/rickMorty/constants";
-import {
-  episodesHidden,
-  episodesVisible,
-  getEpisodes,
-} from "src/store/rickMorty/childs/selectedCharacter/episodes";
+import { getEpisodes } from "src/store/rickMorty/childs/selectedCharacter/childs/episodes";
 import CharactersInEpisode from "./CharactersInEpisode";
 import EpisodeTable from "./EpisodeTable";
-import { charactersInEpisodesHidden } from "src/store/rickMorty/childs/selectedCharacter/charactersInEpisodes";
 import { Character } from "src/store/rickMorty/childs/characters";
 
 type Props = StateProps & DispatchProps;
@@ -22,19 +17,13 @@ const SelectedCharacter: FC<Props> = ({
   loadingStatusEpisodes,
   loadingStatusCharacterInEpisode,
   errorText,
-  episodesVisibility,
-  characterInEpisodeVisibility,
   getEpisode,
-  episodesVisible,
-  episodesHidden,
-  characterInEpisodeHidden,
 }) => {
-  useEffect(() => {
-    return () => {
-      episodesHidden();
-      characterInEpisodeHidden();
-    };
-  }, []);
+  const [episodesVisibility, setEpisodesVisibility] = useState(Visibility.Hidden);
+  const [characterInEpisodesVisibility, setCharacterInEpisodesVisibility] = useState(
+    Visibility.Hidden
+  );
+
   return (
     <div className={style.wrapper}>
       <div className={style.infoTextName}>
@@ -68,7 +57,7 @@ const SelectedCharacter: FC<Props> = ({
               size="medium"
               color="secondary"
               onClick={() => {
-                episodesVisible();
+                setEpisodesVisibility(Visibility.Visible);
                 getEpisode(character.episode);
               }}
               disabled={episodesVisibility === Visibility.Visible}
@@ -81,12 +70,12 @@ const SelectedCharacter: FC<Props> = ({
       <div className={style.episodeWrapper}>
         <div className={style.episodeBox} style={{ visibility: episodesVisibility }}>
           <StatusValidation loadingStatus={loadingStatusEpisodes} errorText={errorText}>
-            <EpisodeTable />
+            <EpisodeTable setCharacterInEpisodesVisibility={setCharacterInEpisodesVisibility} />
           </StatusValidation>
         </div>
         <div
           className={style.charactersInEpisodeWrapper}
-          style={{ visibility: characterInEpisodeVisibility }}
+          style={{ visibility: characterInEpisodesVisibility }}
         >
           <StatusValidation loadingStatus={loadingStatusCharacterInEpisode} errorText={errorText}>
             <CharactersInEpisode />
@@ -102,14 +91,9 @@ type StateProps = {
   loadingStatusEpisodes: ApiRequestStatus;
   loadingStatusCharacterInEpisode: ApiRequestStatus;
   errorText: string;
-  episodesVisibility: Visibility;
-  characterInEpisodeVisibility: Visibility;
 };
 type DispatchProps = {
   getEpisode: (episodes: string[]) => void;
-  episodesVisible: () => void;
-  episodesHidden: () => void;
-  characterInEpisodeHidden: () => void;
 };
 
 const mapStateToProps = (state: AppStore): StateProps => ({
@@ -117,14 +101,9 @@ const mapStateToProps = (state: AppStore): StateProps => ({
   loadingStatusEpisodes: selectors.getLoadingStatusEpisodes(state),
   loadingStatusCharacterInEpisode: selectors.getLoadingStatusCharacterInEpisodes(state),
   errorText: selectors.getErrorTextEpisodes(state),
-  episodesVisibility: selectors.getVisibilityEpisode(state),
-  characterInEpisodeVisibility: selectors.getCharacterInEpisodeVisibility(state),
 });
 const mapDispatchToProps = (dispatch: AppDispatch): DispatchProps => ({
   getEpisode: (episodes: string[]) => dispatch(getEpisodes(episodes)),
-  episodesVisible: () => dispatch(episodesVisible()),
-  episodesHidden: () => dispatch(episodesHidden()),
-  characterInEpisodeHidden: () => dispatch(charactersInEpisodesHidden()),
 });
 
 export default connect<StateProps, DispatchProps>(

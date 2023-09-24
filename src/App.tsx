@@ -18,8 +18,8 @@ export const App: React.FC = () => {
         <Route path="/cars/*" element={<Cars />} />
         <Route path="/hobbyGeneration" element={<HobbyGeneration />} />
         <Route path="/" element={<Home />} />
-        <Route path="/characters/" element={<RickMorty />} />
-        <Route path="/selectedCharacter/" element={<SelectedCharacter />} />
+        <Route path="/characters/*" element={<RickMorty />} />
+        <Route path="/characters/:Name" element={<SelectedCharacter />} />
       </Routes>
     </div>
   );

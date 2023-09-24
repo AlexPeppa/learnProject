@@ -6,4 +6,6 @@ export const charactersSelectors = {
   getCountPages: (state: AppStore) => state.rickMorty.charactersReducer.countPages,
   getErrorText: (state: AppStore) => state.rickMorty.charactersReducer.errorText,
   getCurrentPage: (state: AppStore) => state.rickMorty.charactersReducer.currentPage,
+  getCharacterHashMapState: (state: AppStore) =>
+    state.rickMorty.charactersReducer.charactersHashMapState,
 };

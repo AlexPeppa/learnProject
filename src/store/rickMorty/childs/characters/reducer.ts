@@ -1,8 +1,9 @@
-import { ApiRequestData } from "./models/index";
+import { ApiRequestData, Character } from "./models/index";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { ApiRequestStatus, RickMortyStorePath } from "../../constants";
 import { getAllCharacters } from "./actions";
 import { CharactersState } from "./models";
+import { Nope } from "../selectedCharacter";
 
 const charactersState: CharactersState = {
   charactersInfo: [],
@@ -10,6 +11,7 @@ const charactersState: CharactersState = {
   countPages: 0,
   errorText: "",
   currentPage: 1,
+  charactersHashMapState: {},
 };
 
 export const characters = createSlice({
@@ -18,6 +20,9 @@ export const characters = createSlice({
   reducers: {
     setCurrentPage(state, action: PayloadAction<number>) {
       state.currentPage = action.payload;
+    },
+    setCharacterHashMap(state, action: PayloadAction<Record<number, Character>>) {
+      state.charactersHashMapState = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -29,7 +34,7 @@ export const characters = createSlice({
     builder.addCase(getAllCharacters.pending, (state) => {
       state.loadingStatus = ApiRequestStatus.Pending;
     });
-    builder.addCase(getAllCharacters.rejected, (state, action: PayloadAction<any>) => {
+    builder.addCase(getAllCharacters.rejected, (state, action: PayloadAction<Nope>) => {
       state.loadingStatus = ApiRequestStatus.Rejected;
       state.errorText = action.payload;
     });
@@ -38,3 +43,4 @@ export const characters = createSlice({
 
 export const charactersReducer = characters.reducer;
 export const setCurrentPage = characters.actions.setCurrentPage;
+export const setCharacterHashMap = characters.actions.setCharacterHashMap;

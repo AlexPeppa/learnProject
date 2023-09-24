@@ -23,6 +23,7 @@ export interface CharactersState {
   countPages: number;
   errorText: string;
   currentPage: number;
+  charactersHashMapState: Record<number, Character>;
 }
 
 export interface ApiRequestData {
