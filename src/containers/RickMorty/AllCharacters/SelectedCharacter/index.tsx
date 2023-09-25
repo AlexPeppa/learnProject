@@ -19,9 +19,9 @@ const SelectedCharacter: FC<Props> = ({
   errorText,
   getEpisode,
 }) => {
-  const [episodesVisibility, setEpisodesVisibility] = useState(Visibility.Hidden);
+  const [episodesVisibility, setEpisodesVisibility] = useState(Visibility.HIDDEN);
   const [characterInEpisodesVisibility, setCharacterInEpisodesVisibility] = useState(
-    Visibility.Hidden
+    Visibility.HIDDEN
   );
 
   return (
@@ -57,10 +57,10 @@ const SelectedCharacter: FC<Props> = ({
               size="medium"
               color="secondary"
               onClick={() => {
-                setEpisodesVisibility(Visibility.Visible);
+                setEpisodesVisibility(Visibility.VISIBLE);
                 getEpisode(character.episode);
               }}
-              disabled={episodesVisibility === Visibility.Visible}
+              disabled={episodesVisibility === Visibility.VISIBLE}
             >
               Show episodes
             </Button>

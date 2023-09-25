@@ -1,17 +1,17 @@
 export enum RickMortyStorePath {
-  Characters = "Characters",
-  SelectedCharacter = "SelectedCharacter",
-  Episodes = "Episodes",
-  CharactersInEpisode = "CharactersInEpisode",
+  CHARACTERS = "CHARACTERS",
+  SELECTEDCHARACTER = "SELECTEDCHARACTER",
+  EPISODES = "EPISODES",
+  CHARACTERINEPISODE = "CHARACTERINEPISODE",
 }
 
 export enum ApiRequestStatus {
-  Fulfilled = "Fulfilled",
-  Pending = "Pending",
-  Rejected = "Rejected",
+  FULFILLED = "FULFILLED",
+  PENDING = "PENDING",
+  REJECTED = "REJECTED",
 }
 
 export enum Visibility {
-  Visible = "visible",
-  Hidden = "hidden",
+  VISIBLE = "visible",
+  HIDDEN = "hidden",
 }

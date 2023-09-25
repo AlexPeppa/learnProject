@@ -1,0 +1,16 @@
+.navLink {
+    text-decoration: none;
+    color:#7c026ccb;
+    transition: all 0.7s
+}
+
+.navLink:hover{
+    text-decoration: underline;
+    color:#510246;
+}
+
+
+.breadcrumb {
+    display: flex;
+    margin-left: 60px;
+}

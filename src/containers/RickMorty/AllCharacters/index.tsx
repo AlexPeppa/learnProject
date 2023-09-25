@@ -32,7 +32,10 @@ const AllCharacters: FC<Props> = ({
       <div className={style.infoWrapper}>
         {characters.map((character: Character) => (
           <div key={character.id} onClick={() => selectCharacter(character.id)}>
-            <NavLink className={style.textName} to={`/characters/${character.name}`}>
+            <NavLink
+              className={style.textName}
+              to={`/Characters/${character.name.replaceAll(" ", "_")}`}
+            >
               <div className={style.info}>
                 <div>
                   <div>

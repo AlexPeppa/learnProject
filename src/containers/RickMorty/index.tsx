@@ -4,7 +4,7 @@ import AllCharacters from "./AllCharacters";
 import { AppDispatch, AppStore, selectors } from "src/store";
 import { connect } from "react-redux";
 import { StatusValidation } from "./AllCharacters/LoadingStatusValidation/StatusValidation";
-import { getAllCharacters } from "src/store/rickMorty/childs/characters";
+import { getAllCharacters, setCurrentPage } from "src/store/rickMorty/childs/characters";
 import { ApiRequestStatus } from "src/store/rickMorty/constants";
 
 type Props = StateProps & DispatchProps;

@@ -23,7 +23,7 @@ const selectedCharacterState: SelectedCharacterState = {
 };
 
 export const selectedCharacter = createSlice({
-  name: RickMortyStorePath.SelectedCharacter,
+  name: RickMortyStorePath.SELECTEDCHARACTER,
   initialState: selectedCharacterState,
   reducers: {
     selectCharacter(state, action: PayloadAction<Character>) {

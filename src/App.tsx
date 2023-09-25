@@ -4,6 +4,7 @@ import { Cars, HobbyGeneration, Home, MyRouter } from "./containers";
 import RickMorty from "./containers/RickMorty/index";
 import React from "react";
 import SelectedCharacter from "./containers/RickMorty/AllCharacters/SelectedCharacter";
+import { Breadcrumb } from "./containers/RickMorty/BreadCrumbs";
 
 export const App: React.FC = () => {
   return (
@@ -12,14 +13,15 @@ export const App: React.FC = () => {
         <NavLink className={styles.link} to="/">
           Home
         </NavLink>
+        <Breadcrumb />
       </div>
       <Routes>
         <Route path="/myRouter" element={<MyRouter />} />
         <Route path="/cars/*" element={<Cars />} />
         <Route path="/hobbyGeneration" element={<HobbyGeneration />} />
         <Route path="/" element={<Home />} />
-        <Route path="/characters/*" element={<RickMorty />} />
-        <Route path="/characters/:Name" element={<SelectedCharacter />} />
+        <Route path="/Characters/*" element={<RickMorty />} />
+        <Route path="/Characters/:Name" element={<SelectedCharacter />} />
       </Routes>
     </div>
   );

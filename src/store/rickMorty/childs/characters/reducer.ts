@@ -7,7 +7,7 @@ import { Nope } from "../selectedCharacter";
 
 const charactersState: CharactersState = {
   charactersInfo: [],
-  loadingStatus: ApiRequestStatus.Pending,
+  loadingStatus: ApiRequestStatus.PENDING,
   countPages: 0,
   errorText: "",
   currentPage: 1,
@@ -15,7 +15,7 @@ const charactersState: CharactersState = {
 };
 
 export const characters = createSlice({
-  name: RickMortyStorePath.Characters,
+  name: RickMortyStorePath.CHARACTERS,
   initialState: charactersState,
   reducers: {
     setCurrentPage(state, action: PayloadAction<number>) {
@@ -29,13 +29,13 @@ export const characters = createSlice({
     builder.addCase(getAllCharacters.fulfilled, (state, action: PayloadAction<ApiRequestData>) => {
       state.charactersInfo = action.payload.results;
       state.countPages = action.payload.info.pages;
-      state.loadingStatus = ApiRequestStatus.Fulfilled;
+      state.loadingStatus = ApiRequestStatus.FULFILLED;
     });
     builder.addCase(getAllCharacters.pending, (state) => {
-      state.loadingStatus = ApiRequestStatus.Pending;
+      state.loadingStatus = ApiRequestStatus.PENDING;
     });
     builder.addCase(getAllCharacters.rejected, (state, action: PayloadAction<Nope>) => {
-      state.loadingStatus = ApiRequestStatus.Rejected;
+      state.loadingStatus = ApiRequestStatus.REJECTED;
       state.errorText = action.payload;
     });
   },

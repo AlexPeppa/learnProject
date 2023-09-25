@@ -53,7 +53,7 @@ const EpisodeTable: FC<Props> = ({
                       size="small"
                       color="secondary"
                       onClick={() => {
-                        setCharacterInEpisodesVisibility(Visibility.Visible);
+                        setCharacterInEpisodesVisibility(Visibility.VISIBLE);
                         getCharactersInEpisode(episode.characters);
                       }}
                     >
