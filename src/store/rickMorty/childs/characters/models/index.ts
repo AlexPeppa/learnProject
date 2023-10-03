@@ -18,15 +18,14 @@ export interface Character {
 }
 
 export interface CharactersState {
-  charactersInfo: Character[];
   loadingStatus: ApiRequestStatus;
   countPages: number;
   errorText: string;
   currentPage: number;
-  charactersHashMapState: Record<number, Character>;
+  characters: Record<number, Character>;
 }
 
 export interface ApiRequestData {
-  results: Character[];
+  charactersHashMap: Record<number, Character>;
   info: { next: string; pages: number };
 }

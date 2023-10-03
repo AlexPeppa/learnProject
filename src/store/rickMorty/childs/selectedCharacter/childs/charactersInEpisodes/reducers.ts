@@ -5,7 +5,7 @@ import { getCharactersInEpisodes } from "./actions";
 import { Character } from "../../../characters";
 
 const charactersInEpisodesState: CharactersInEpisodesState = {
-  charactersInEpisodes: [],
+  charactersInEpisodes: {},
   loadingStatusCharactersInEpisodes: ApiRequestStatus.PENDING,
   errorText: "",
 };
@@ -17,7 +17,7 @@ export const charactersInEpisodes = createSlice({
   extraReducers: (builder) => {
     builder.addCase(
       getCharactersInEpisodes.fulfilled,
-      (state, action: PayloadAction<Character[]>) => {
+      (state, action: PayloadAction<Record<number, Character>>) => {
         state.charactersInEpisodes = action.payload;
         state.loadingStatusCharactersInEpisodes = ApiRequestStatus.FULFILLED;
       }
@@ -26,8 +26,8 @@ export const charactersInEpisodes = createSlice({
       state.loadingStatusCharactersInEpisodes = ApiRequestStatus.PENDING;
     });
     builder.addCase(getCharactersInEpisodes.rejected, (state, action: PayloadAction<Nope>) => {
-      state.errorText = action.payload;
       state.loadingStatusCharactersInEpisodes = ApiRequestStatus.REJECTED;
+      state.errorText = action.payload;
     });
   },
 });

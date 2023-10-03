@@ -1,4 +1,4 @@
-import { ApiRequestStatus, Visibility } from "src/store/rickMorty/constants";
+import { ApiRequestStatus } from "src/store/rickMorty/constants";
 import { Character } from "../../characters/models";
 
 export interface SelectedCharacterState {
@@ -22,7 +22,7 @@ export interface EpisodesState {
 }
 
 export interface CharactersInEpisodesState {
-  charactersInEpisodes: Character[];
+  charactersInEpisodes: Record<number, Character>;
   loadingStatusCharactersInEpisodes: ApiRequestStatus;
   errorText: string;
 }

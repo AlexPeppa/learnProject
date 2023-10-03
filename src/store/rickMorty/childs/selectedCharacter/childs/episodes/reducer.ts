@@ -1,6 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { getEpisodes } from "./actions";
-
 import { ApiRequestStatus, RickMortyStorePath } from "src/store/rickMorty/constants";
 import { Episode, EpisodesState, Nope } from "../../models";
 

@@ -12,8 +12,11 @@ export const getCharactersInEpisodes = createAsyncThunk(
       ).then((charactersInEpisodesResponse) =>
         charactersInEpisodesResponse.map((characters) => characters.data)
       );
-
-      return charactersInEpisode;
+      const hashMap = charactersInEpisode.reduce((characters, selectCharacter) => {
+        characters[selectCharacter.id] = selectCharacter;
+        return characters;
+      }, {});
+      return hashMap;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }

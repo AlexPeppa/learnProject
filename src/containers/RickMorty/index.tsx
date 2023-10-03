@@ -4,8 +4,9 @@ import AllCharacters from "./AllCharacters";
 import { AppDispatch, AppStore, selectors } from "src/store";
 import { connect } from "react-redux";
 import { StatusValidation } from "./AllCharacters/LoadingStatusValidation/StatusValidation";
-import { getAllCharacters, setCurrentPage } from "src/store/rickMorty/childs/characters";
+import { getAllCharacters } from "src/store/rickMorty/childs/characters";
 import { ApiRequestStatus } from "src/store/rickMorty/constants";
+import { Breadcrumb } from "./BreadCrumbs";
 
 type Props = StateProps & DispatchProps;
 
@@ -16,6 +17,7 @@ const RickMorty: FC<Props> = ({ loadingStatus, errorText, currentPage, getCharac
 
   return (
     <div className={style.wrapper}>
+      <Breadcrumb />
       <div className={style.title}>Rick & Morty</div>
       <StatusValidation loadingStatus={loadingStatus} errorText={errorText}>
         <AllCharacters />

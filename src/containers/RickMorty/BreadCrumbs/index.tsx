@@ -1,6 +1,5 @@
-import React from "react";
+import React, { FC } from "react";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
-import { useLocation } from "react-router";
 import { NavLink } from "react-router-dom";
 import style from "./breadCrumb.module.css";
 
@@ -8,28 +7,24 @@ function handleClick(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
   event.preventDefault();
 }
 
-export const Breadcrumb = () => {
-  const location = useLocation();
-  let currentLink: string = "";
+type Props = {
+  name?: string;
+};
 
-  const crumb = location.pathname
-    .split("/")
-    .filter((crumb) => crumb !== "")
-    .map((crumb) => {
-      currentLink += `/${crumb}`;
-
-      return (
-        <div key={currentLink}>
-          <NavLink className={style.navLink} to={currentLink}>
-            {crumb}
-          </NavLink>
-        </div>
-      );
-    });
+export const Breadcrumb: FC<Props> = ({ name }) => {
   return (
     <div className={style.breadcrumb} role="presentation" onClick={handleClick}>
       <Breadcrumbs separator="/" aria-label="breadcrumb">
-        {crumb}
+        <NavLink className={style.navLink} to="/Characters">
+          Characters
+        </NavLink>
+        {name ? (
+          <NavLink className={style.navLink} to={`/Characters/${name?.replaceAll(" ", "_")}`}>
+            {name}
+          </NavLink>
+        ) : (
+          ""
+        )}
       </Breadcrumbs>
     </div>
   );

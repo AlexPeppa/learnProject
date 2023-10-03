@@ -9,6 +9,7 @@ import { getEpisodes } from "src/store/rickMorty/childs/selectedCharacter/childs
 import CharactersInEpisode from "./CharactersInEpisode";
 import EpisodeTable from "./EpisodeTable";
 import { Character } from "src/store/rickMorty/childs/characters";
+import { Breadcrumb } from "../../BreadCrumbs";
 
 type Props = StateProps & DispatchProps;
 
@@ -16,6 +17,7 @@ const SelectedCharacter: FC<Props> = ({
   character,
   loadingStatusEpisodes,
   loadingStatusCharacterInEpisode,
+  errorTextCharactersInEpisode,
   errorText,
   getEpisode,
 }) => {
@@ -26,6 +28,7 @@ const SelectedCharacter: FC<Props> = ({
 
   return (
     <div className={style.wrapper}>
+      <Breadcrumb name={character.name} />
       <div className={style.infoTextName}>
         <b>{character.name}</b>
       </div>
@@ -77,8 +80,14 @@ const SelectedCharacter: FC<Props> = ({
           className={style.charactersInEpisodeWrapper}
           style={{ visibility: characterInEpisodesVisibility }}
         >
-          <StatusValidation loadingStatus={loadingStatusCharacterInEpisode} errorText={errorText}>
-            <CharactersInEpisode />
+          <StatusValidation
+            loadingStatus={loadingStatusCharacterInEpisode}
+            errorText={errorTextCharactersInEpisode}
+          >
+            <CharactersInEpisode
+              setEpisodesVisibility={setEpisodesVisibility}
+              setCharacterInEpisodesVisibility={setCharacterInEpisodesVisibility}
+            />
           </StatusValidation>
         </div>
       </div>
@@ -91,6 +100,7 @@ type StateProps = {
   loadingStatusEpisodes: ApiRequestStatus;
   loadingStatusCharacterInEpisode: ApiRequestStatus;
   errorText: string;
+  errorTextCharactersInEpisode: string;
 };
 type DispatchProps = {
   getEpisode: (episodes: string[]) => void;
@@ -101,6 +111,7 @@ const mapStateToProps = (state: AppStore): StateProps => ({
   loadingStatusEpisodes: selectors.getLoadingStatusEpisodes(state),
   loadingStatusCharacterInEpisode: selectors.getLoadingStatusCharacterInEpisodes(state),
   errorText: selectors.getErrorTextEpisodes(state),
+  errorTextCharactersInEpisode: selectors.getErrorTextCharacterInEpisodes(state),
 });
 const mapDispatchToProps = (dispatch: AppDispatch): DispatchProps => ({
   getEpisode: (episodes: string[]) => dispatch(getEpisodes(episodes)),

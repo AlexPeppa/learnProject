@@ -1,15 +1,32 @@
+.charactersInEpisodeWrapper {
+    color: rgb(64, 75, 75);
+    box-shadow: 0 0 0px #ffffff, 0 0 5px #ffffff, 0 0 5px #ffffff, 0 0 10px #f169df78, 0 0 20px #ff00dd7c, 0 0 22px #ff00dd7c, 0 0 25px #ff00dd7c, 0 0 37px #ff00dd7c;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(3, 80px);
+    overflow-y: scroll;
+    width: 600px;
+    height: 250px;
+}
+
 .wrapper {
-    height: 80px;
-    width: 80px;
+    height: 82px;
+    width: 82px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    text-align: center;
 }
 
 .imgCharacterInEpisode {
     border-radius: 50%;
-    width: 60px
+    width: 55px;
+    transition: all 0.8s;
+}
+
+.imgCharacterInEpisode:hover {
+    width: 60px;
+    border: 1px solid #ed48d778;
 }
 
 .name {

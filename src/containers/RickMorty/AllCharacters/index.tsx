@@ -1,7 +1,7 @@
-import React, { FC, useEffect } from "react";
+import React, { FC } from "react";
 import style from "./allCharacters.module.css";
 import RickMortyPagination from "./Pagination/index";
-import { Character, setCharacterHashMap } from "src/store/rickMorty/childs/characters";
+import { Character } from "src/store/rickMorty/childs/characters";
 import { AppDispatch, AppStore, selectors } from "src/store";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
@@ -9,28 +9,16 @@ import { selectCharacterAction } from "src/store/rickMorty/childs/selectedCharac
 
 type Props = StateProps & DispatchProps;
 
-const AllCharacters: FC<Props> = ({
-  characters,
-  characterHashMapState,
-  getSelectedCharacter,
-  setCharacterHashMap,
-}) => {
-  useEffect(() => {
-    const charactersHashMap = characters.reduce((characters, selectCharacter) => {
-      characters[selectCharacter.id] = selectCharacter;
-      return characters;
-    }, {});
-    setCharacterHashMap(charactersHashMap);
-  }, []);
-
+const AllCharacters: FC<Props> = ({ characters, setSelectedCharacter }) => {
   const selectCharacter = (id: number) => {
-    const currentCharacter: Character = characterHashMapState[id];
-    getSelectedCharacter(currentCharacter);
+    const currentCharacter: Character = characters[id];
+    setSelectedCharacter(currentCharacter);
   };
+
   return (
     <div>
       <div className={style.infoWrapper}>
-        {characters.map((character: Character) => (
+        {Object.values(characters).map((character: Character) => (
           <div key={character.id} onClick={() => selectCharacter(character.id)}>
             <NavLink
               className={style.textName}
@@ -53,32 +41,27 @@ const AllCharacters: FC<Props> = ({
           </div>
         ))}
       </div>
-
       <RickMortyPagination />
     </div>
   );
 };
 
 type StateProps = {
-  characters: Character[];
-  characterHashMapState: Record<number, Character>;
+  characters: Record<number, Character>;
 };
 
 type DispatchProps = {
-  getSelectedCharacter: (character: Character) => void;
-  setCharacterHashMap: (charactersHashMap: Record<string, Character>) => void;
+  setSelectedCharacter: (character: Character) => void;
 };
 
 const mapStateToProps = (state: AppStore): StateProps => ({
   characters: selectors.getAllCharacters(state),
-  characterHashMapState: selectors.getCharacterHashMapState(state),
 });
 
 const mapDispatchToProps = (dispatch: AppDispatch): DispatchProps => ({
-  getSelectedCharacter: (character: Character) => dispatch(selectCharacterAction(character)),
-  setCharacterHashMap: (charactersHashMap: Record<string, Character>) =>
-    dispatch(setCharacterHashMap(charactersHashMap)),
+  setSelectedCharacter: (character: Character) => dispatch(selectCharacterAction(character)),
 });
+
 export default connect<StateProps, DispatchProps>(
   mapStateToProps,
   mapDispatchToProps

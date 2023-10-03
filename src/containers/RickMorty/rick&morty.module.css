@@ -1,12 +1,15 @@
 .wrapper {
-    height: 565px;
+    height: 575px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
-.title{
-    margin-top :10px;
-    margin-bottom :15px;
+
+.title {
+    margin-bottom: 15px;
     text-align: center;
     font-size: 40px;
-    font-family:fantasy;
-    color:rgba(33, 32, 32, 0.856);
+    font-family: fantasy;
+    color: rgba(33, 32, 32, 0.856);
     letter-spacing: 1px;
 }
