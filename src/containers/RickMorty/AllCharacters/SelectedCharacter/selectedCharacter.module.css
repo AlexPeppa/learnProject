@@ -13,8 +13,7 @@
 }
 
 .infoBox {
-    position: absolute;
-    right:350px;
+    box-sizing: border-box;
     font-family: 'Courier New', Courier, monospace;
     font-size: 15px;
     padding: 10px;
@@ -28,10 +27,11 @@
 }
 
 .infoImg {
-    position: relative;
-    right: 350px;
+    position: absolute;
+    box-sizing: border-box;
+    top: 122px;
     max-width: 190px;
-    border-radius: 5px;
+    border-radius: 7px;
     transition: all 0.3s ease;
     box-shadow: 0 0 0px #ffffff, 0 0 5px #ffffff, 0 0 5px #ffffff, 0 0 10px #f169df78, 0 0 20px #ff00dd7c, 0 0 22px #ff00dd7c, 0 0 25px #ff00dd7c, 0 0 37px #ff00dd7c;
 }
@@ -78,15 +78,4 @@
 .charactersInEpisodeWrapper {
     box-sizing: border-box;
     width: 600px;
-}
-
-.btnBack {
-    transition: all 0.7s;
-    margin-bottom: 200px;
-}
-
-.btnBack:hover {
-    background-color: inherit;
-    color: aliceblue;
-    text-shadow: 0 0 0px #ffffff, 0 0 1px #ffffff, 0 0 2px #ffffff, 0 0 5px #f169df, 0 0 8px #ff00de, 0 0 8px #ff00de, 0 0 8px #ff00de, 0 0 10px #ff00de;
 }

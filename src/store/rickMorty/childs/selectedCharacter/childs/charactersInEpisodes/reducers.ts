@@ -13,7 +13,11 @@ const charactersInEpisodesState: CharactersInEpisodesState = {
 export const charactersInEpisodes = createSlice({
   name: RickMortyStorePath.CHARACTERINEPISODE,
   initialState: charactersInEpisodesState,
-  reducers: {},
+  reducers: {
+    cleanCharacterInEpisodesState(state, action: PayloadAction<[]>) {
+      state.charactersInEpisodes = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(
       getCharactersInEpisodes.fulfilled,
@@ -33,3 +37,5 @@ export const charactersInEpisodes = createSlice({
 });
 
 export const charactersInEpisodesReducer = charactersInEpisodes.reducer;
+export const cleanCharacterInEpisodesState =
+  charactersInEpisodes.actions.cleanCharacterInEpisodesState;

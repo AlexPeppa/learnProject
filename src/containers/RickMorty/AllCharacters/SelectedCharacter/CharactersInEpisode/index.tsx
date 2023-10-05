@@ -4,7 +4,10 @@ import { AppDispatch, AppStore, selectors } from "src/store";
 import { Character } from "src/store/rickMorty/childs/characters";
 import style from "./charactersInEpisode.module.css";
 import { NavLink } from "react-router-dom";
-import { selectCharacterAction } from "src/store/rickMorty/childs/selectedCharacter/childs";
+import {
+  cleanCharacterInEpisodesState,
+  selectCharacterAction,
+} from "src/store/rickMorty/childs/selectedCharacter/childs";
 import { Visibility } from "src/store/rickMorty/constants";
 
 type Props = StateProps & DispatchProps & OwnProps;
@@ -18,8 +21,10 @@ const CharactersInEpisode: FC<Props> = ({
   setSelectedCharacter,
   setEpisodesVisibility,
   setCharacterInEpisodesVisibility,
+  setCharacterInEpisodesState,
 }) => {
   const selectCharacter = (id: number) => {
+    setCharacterInEpisodesState();
     setEpisodesVisibility(Visibility.HIDDEN);
     setCharacterInEpisodesVisibility(Visibility.HIDDEN);
     const currentCharacter: Character = characters[id];
@@ -48,6 +53,7 @@ type StateProps = {
 };
 type DispatchProps = {
   setSelectedCharacter: (character: Character) => void;
+  setCharacterInEpisodesState: () => void;
 };
 
 const mapStateToProps = (state: AppStore): StateProps => ({
@@ -55,6 +61,7 @@ const mapStateToProps = (state: AppStore): StateProps => ({
 });
 const mapDispatchToProps = (dispatch: AppDispatch): DispatchProps => ({
   setSelectedCharacter: (character: Character) => dispatch(selectCharacterAction(character)),
+  setCharacterInEpisodesState: () => dispatch(cleanCharacterInEpisodesState([])),
 });
 
 export default connect<StateProps, DispatchProps>(

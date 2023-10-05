@@ -1,4 +1,4 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import styles from "./home.module.css";
 import helloPicture from '../Cars/photo/helloPicture.jpg'
 
