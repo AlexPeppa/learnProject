@@ -3,38 +3,39 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { ApiRequestStatus, RickMortyStorePath } from "../../constants";
 import { getAllCharacters } from "./actions";
 import { CharactersState } from "./models";
+import { Nope } from "../selectedCharacter";
 
 const charactersState: CharactersState = {
-  charactersInfo: [],
-  loadingStatus: ApiRequestStatus.Pending,
+  loadingStatus: ApiRequestStatus.PENDING,
   countPages: 0,
   errorText: "",
   currentPage: 1,
+  characters: {},
 };
 
 export const characters = createSlice({
-  name: RickMortyStorePath.Characters,
+  name: RickMortyStorePath.CHARACTERS,
   initialState: charactersState,
   reducers: {
-    getCurrentPage(state, action: PayloadAction<number>) {
+    setCurrentPage(state, action: PayloadAction<number>) {
       state.currentPage = action.payload;
     },
   },
   extraReducers: (builder) => {
     builder.addCase(getAllCharacters.fulfilled, (state, action: PayloadAction<ApiRequestData>) => {
-      state.charactersInfo = action.payload.results;
+      state.characters = action.payload.charactersHashMap;
       state.countPages = action.payload.info.pages;
-      state.loadingStatus = ApiRequestStatus.Fulfilled;
+      state.loadingStatus = ApiRequestStatus.FULFILLED;
     });
     builder.addCase(getAllCharacters.pending, (state) => {
-      state.loadingStatus = ApiRequestStatus.Pending;
+      state.loadingStatus = ApiRequestStatus.PENDING;
     });
-    builder.addCase(getAllCharacters.rejected, (state, action: PayloadAction<any>) => {
-      state.loadingStatus = ApiRequestStatus.Rejected;
+    builder.addCase(getAllCharacters.rejected, (state, action: PayloadAction<Nope>) => {
+      state.loadingStatus = ApiRequestStatus.REJECTED;
       state.errorText = action.payload;
     });
   },
 });
 
 export const charactersReducer = characters.reducer;
-export const getCurrentPage = characters.actions.getCurrentPage;
+export const setCurrentPage = characters.actions.setCurrentPage;

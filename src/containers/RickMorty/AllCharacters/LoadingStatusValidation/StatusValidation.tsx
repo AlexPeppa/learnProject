@@ -1,7 +1,7 @@
 import React, { FC, PropsWithChildren } from "react";
 import { ApiRequestStatus } from "src/store/rickMorty/constants";
-import { Preloader } from "../../Preloader/Preloader";
 import style from "./statusValidation.module.css";
+import { Preloader } from "../../Preloader";
 
 type OwnProps = {
   loadingStatus: ApiRequestStatus;
@@ -15,11 +15,11 @@ export const StatusValidation: FC<PropsWithChildren<OwnProps>> = ({
 }) => {
   const statusValidation = () => {
     switch (loadingStatus) {
-      case ApiRequestStatus.Pending:
+      case ApiRequestStatus.PENDING:
         return <Preloader />;
-      case ApiRequestStatus.Rejected:
+      case ApiRequestStatus.REJECTED:
         return <div className={style.error}>{errorText}</div>;
-      case ApiRequestStatus.Fulfilled:
+      case ApiRequestStatus.FULFILLED:
         return <>{children}</>;
     }
   };

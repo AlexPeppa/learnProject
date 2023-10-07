@@ -9,26 +9,23 @@ export interface Character {
   gender: string;
   origin: {
     name: string;
-    url: string;
   };
   location: {
     name: string;
-    url: string;
   };
   image: string;
   episode: string[];
-  url: string;
 }
 
 export interface CharactersState {
-  charactersInfo: Character[];
   loadingStatus: ApiRequestStatus;
   countPages: number;
   errorText: string;
   currentPage: number;
+  characters: Record<number, Character>;
 }
 
 export interface ApiRequestData {
-  results: Character[];
+  charactersHashMap: Record<number, Character>;
   info: { next: string; pages: number };
 }

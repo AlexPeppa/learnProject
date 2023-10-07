@@ -1,15 +1,10 @@
-// import { State } from "./../../models";
-// import { createSlice } from "@reduxjs/toolkit";
-// import { name } from "../../constants";
+import { charactersInEpisodesReducer, episodeReducer } from "./childs";
+import { selectedCharacterReducer } from "./childs/reducer";
 
-// const initialState: State = {
-//   status: false,
-// };
+import { combineReducers } from "redux";
 
-// export const selectedCharacter = createSlice({
-//   name: name.selectedCharacter,
-//   // initialState,
-//   reducers: {},
-// });
-
-// export const selectedCharacterReducer = selectedCharacter.reducer;
+export const selectedCharacterChildsReducer = combineReducers({
+  episodeReducer,
+  charactersInEpisodesReducer,
+  selectedCharacterReducer,
+});

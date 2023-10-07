@@ -1,0 +1,6 @@
+.wrapper {
+box-shadow:0 0 0px #ffffff, 0 0 5px #ffffff, 0 0 5px #ffffff, 0 0 10px #f169df78, 0 0 20px #ff00dd7c, 0 0 22px #ff00dd7c, 0 0 25px #ff00dd7c, 0 0 37px #ff00dd7c;
+overflow-y: scroll;
+width: 600px;
+height: 250px;
+}

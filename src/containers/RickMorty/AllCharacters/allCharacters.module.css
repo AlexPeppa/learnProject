@@ -39,10 +39,10 @@
     font-family: 'Courier New', Courier, monospace;
 }
 
-.text {
+.textName {
     color: rgb(64, 75, 75);
+    text-decoration: none;
 }
-
 
 .error {
     display: flex;

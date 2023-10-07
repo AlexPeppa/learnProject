@@ -1,41 +1,47 @@
 import React, { FC, useEffect } from "react";
 import style from "./rick&morty.module.css";
-import { AllCharacters } from "./AllCharacters";
+import AllCharacters from "./AllCharacters";
 import { AppDispatch, AppStore, selectors } from "src/store";
 import { connect } from "react-redux";
-import { RickMortyProps } from "src/models/rickMorty";
 import { StatusValidation } from "./AllCharacters/LoadingStatusValidation/StatusValidation";
 import { getAllCharacters } from "src/store/rickMorty/childs/characters";
+import { ApiRequestStatus } from "src/store/rickMorty/constants";
+import { Breadcrumb } from "./BreadCrumbs";
 
-const RickMorty: FC<RickMortyProps> = ({
-  loadingStatus,
-  errorText,
-  currentPage,
-  characters,
-  getCharacters,
-}) => {
+type Props = StateProps & DispatchProps;
+
+const RickMorty: FC<Props> = ({ loadingStatus, errorText, currentPage, getCharacters }) => {
   useEffect(() => {
     getCharacters(currentPage);
   }, []);
 
   return (
     <div className={style.wrapper}>
+      <Breadcrumb />
       <div className={style.title}>Rick & Morty</div>
       <StatusValidation loadingStatus={loadingStatus} errorText={errorText}>
-        <AllCharacters characters={characters} />
+        <AllCharacters />
       </StatusValidation>
     </div>
   );
 };
 
-const mapStateToProps = (state: AppStore) => ({
+type StateProps = {
+  loadingStatus: ApiRequestStatus;
+  errorText: string;
+  currentPage: number;
+};
+type DispatchProps = {
+  getCharacters: (page: number) => void;
+};
+
+const mapStateToProps = (state: AppStore): StateProps => ({
   loadingStatus: selectors.allCharactersLoadingStatus(state),
   errorText: selectors.getErrorText(state),
   currentPage: selectors.getCurrentPage(state),
-  characters: selectors.getAllCharacters(state),
 });
-const mapDispatchToProps = (dispatch: AppDispatch) => ({
+const mapDispatchToProps = (dispatch: AppDispatch): DispatchProps => ({
   getCharacters: (page: number) => dispatch(getAllCharacters(page)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(RickMorty);
+export default connect<StateProps, DispatchProps>(mapStateToProps, mapDispatchToProps)(RickMorty);

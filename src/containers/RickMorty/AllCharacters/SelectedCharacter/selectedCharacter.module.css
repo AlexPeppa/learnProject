@@ -1,0 +1,81 @@
+.wrapper {
+    height: 575px;
+    margin-top: 20px;
+    margin: 0;
+}
+
+.info {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 180px;
+    margin-top: 20px;
+}
+
+.infoBox {
+    box-sizing: border-box;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 15px;
+    padding: 10px;
+    border-radius: 10px;
+    color: rgb(64, 75, 75);
+    box-shadow: 0 0 0px #ffffff, 0 0 5px #ffffff, 0 0 5px #ffffff, 0 0 10px #f169df78, 0 0 20px #ff00dd7c, 0 0 22px #ff00dd7c, 0 0 25px #ff00dd7c, 0 0 37px #ff00dd7c;
+}
+
+.showEpisodesBtn {
+    text-align: center;
+}
+
+.infoImg {
+    position: absolute;
+    box-sizing: border-box;
+    top: 122px;
+    max-width: 190px;
+    border-radius: 7px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 0px #ffffff, 0 0 5px #ffffff, 0 0 5px #ffffff, 0 0 10px #f169df78, 0 0 20px #ff00dd7c, 0 0 22px #ff00dd7c, 0 0 25px #ff00dd7c, 0 0 37px #ff00dd7c;
+}
+
+.infoImg:hover {
+    max-width: 210px;
+    cursor: pointer;
+    border: 3px solid #ffffff;
+}
+
+.infoTextName {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    font-size: 33px;
+    font-family: fantasy;
+    letter-spacing: 3px;
+    text-shadow: 0 0 0px #ffffff, 0 0 1px #ffffff, 0 0 2px #ffffff, 0 0 5px #f169df, 0 0 8px #ff00de, 0 0 8px #ff00de, 0 0 8px #ff00de, 0 0 10px #ff00de;
+}
+
+.error {
+    display: flex;
+    color: #f3000099;
+    justify-content: center;
+    height: 400px;
+    align-items: center;
+    text-decoration: underline;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.episodeWrapper {
+    margin-top: 40px;
+    max-width: 1400px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.episodeBox {
+    box-sizing: border-box;
+    width: 600px;
+}
+
+.charactersInEpisodeWrapper {
+    box-sizing: border-box;
+    width: 600px;
+}

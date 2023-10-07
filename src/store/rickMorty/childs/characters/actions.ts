@@ -10,7 +10,15 @@ export const getAllCharacters = createAsyncThunk(
   async (page: number, thunkAPI) => {
     try {
       const response = await axios.get(constants.BASE_URL + `page=${page}`);
-      return response.data;
+      const charactersArr = response.data.results;
+      const hashMapCharacters = charactersArr.reduce((characters, selectCharacter) => {
+        characters[selectCharacter.id] = selectCharacter;
+        return characters;
+      }, {});
+      return {
+        charactersHashMap: hashMapCharacters,
+        info: response.data.info,
+      };
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
