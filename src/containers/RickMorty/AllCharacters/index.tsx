@@ -7,9 +7,9 @@ import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { selectCharacterAction } from "src/store/rickMorty/childs/selectedCharacter/childs";
 
-type Props = StateProps & DispatchProps;
+type Props = StateProps & DispatchProps & OwnProps;
 
-const AllCharacters: FC<Props> = ({ characters, setSelectedCharacter }) => {
+const AllCharacters: FC<Props> = ({ characters, setSelectedCharacter, searchedCharacter }) => {
   const selectCharacter = (id: number) => {
     const currentCharacter: Character = characters[id];
     setSelectedCharacter(currentCharacter);
@@ -41,7 +41,7 @@ const AllCharacters: FC<Props> = ({ characters, setSelectedCharacter }) => {
           </div>
         ))}
       </div>
-      <RickMortyPagination />
+      <RickMortyPagination searchedCharacter={searchedCharacter} />
     </div>
   );
 };
@@ -54,6 +54,10 @@ type DispatchProps = {
   setSelectedCharacter: (character: Character) => void;
 };
 
+type OwnProps = {
+  searchedCharacter: string;
+};
+
 const mapStateToProps = (state: AppStore): StateProps => ({
   characters: selectors.getAllCharacters(state),
 });
@@ -62,7 +66,7 @@ const mapDispatchToProps = (dispatch: AppDispatch): DispatchProps => ({
   setSelectedCharacter: (character: Character) => dispatch(selectCharacterAction(character)),
 });
 
-export default connect<StateProps, DispatchProps>(
+export default connect<StateProps, DispatchProps, OwnProps>(
   mapStateToProps,
   mapDispatchToProps
 )(AllCharacters);
