@@ -15,23 +15,21 @@ const SearchInput: FC<Props> = ({
   getCharacters,
   setSelectedPage,
 }) => {
-  const getCharacterDebounce = debounce((characterName: string) => {
-    getCharacters({ page: currentPage, name: characterName });
-  }, 2000);
-
-  const findCharacter = useCallback((characterName: string) => {
-    getCharacterDebounce(characterName);
-  }, []);
-
+  const getCharacterDebounce = useCallback(
+    debounce((characterName: string) => {
+      getCharacters({ page: currentPage, name: characterName });
+    }, 200),
+    []
+  );
   const handleChange = (event: { target: { value: string } }) => {
     setSearchedCharacter(event.target.value);
-    setSelectedPage((currentPage = 1));
-    findCharacter(searchedCharacter);
+    setSelectedPage(1);
+    getCharacterDebounce(event.target.value);
   };
 
   const showAllCharacters = () => {
     setSearchedCharacter("");
-    setSelectedPage((currentPage = 1));
+    setSelectedPage(1);
     getCharacters({ page: currentPage, name: "" });
   };
 
@@ -49,6 +47,7 @@ const SearchInput: FC<Props> = ({
       >
         <InputBase
           onChange={handleChange}
+          type="text"
           value={searchedCharacter}
           sx={{ ml: 2, flex: 1 }}
           placeholder="Search Characters"
@@ -68,7 +67,7 @@ const SearchInput: FC<Props> = ({
 };
 
 type OwnProps = {
-  setSearchedCharacter: (HTMLInputElement: string) => void;
+  setSearchedCharacter: (name: string) => void;
   searchedCharacter: string;
   currentPage: number;
   getCharacters: ({ page, name }: { page: number; name: string }) => void;
