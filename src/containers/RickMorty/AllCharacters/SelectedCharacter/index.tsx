@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { AppDispatch, AppStore, selectors } from "src/store";
 import style from "./selectedCharacter.module.css";
 import { Button } from "@mui/material";
-import { StatusValidation } from "../LoadingStatusValidation/StatusValidation";
+import { StatusValidation } from "../LoadingStatusValidation";
 import { ApiRequestStatus, Visibility } from "src/store/rickMorty/constants";
 import { getEpisodes } from "src/store/rickMorty/childs/selectedCharacter/childs/episodes";
 import CharactersInEpisode from "./CharactersInEpisode";

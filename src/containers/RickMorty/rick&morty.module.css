@@ -4,9 +4,17 @@
     margin-left: auto;
     margin-right: auto;
 }
+.nameSearch{
+    display: flex;
+    justify-content: right;
+    align-items: center;    
+    margin-right: 100px;
+    margin-bottom: 15px;
+    padding: 0;
+}
 
 .title {
-    margin-bottom: 15px;
+    margin-right: 220px;
     text-align: center;
     font-size: 40px;
     font-family: fantasy;
