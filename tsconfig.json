@@ -1,8 +1,11 @@
 {
     "compilerOptions": {
       "jsx": "react",
-      "target": "esnext",
-      "module": "commonjs",
+      "target": "ES2021",
+      "lib": ["dom","ES2021"],
+     "module": "commonjs",
+      "moduleResolution": "node",
+      "allowSyntheticDefaultImports": true,
       "allowJs": true,
       "checkJs": false,
       "outDir": "dist",
@@ -12,7 +15,7 @@
       "forceConsistentCasingInFileNames": true, /* Disallow inconsistently-cased references to the same file. */
       "declaration": true, /* Generates corresponding '.d.ts' file. */
       "strictNullChecks": true,
-      "resolveJsonModule": true,
+      // "resolveJsonModule": true,
       "sourceMap": true,
       "baseUrl": ".",
       "paths": {
@@ -28,7 +31,7 @@
     },
      "exclude": ["node_modules", "dist"],
      "include": [
-       "./src",
+       "src/**/*",
        "./test",
        "./*",
        "./config",

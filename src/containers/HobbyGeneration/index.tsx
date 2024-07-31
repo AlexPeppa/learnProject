@@ -3,10 +3,19 @@ import styles from "./HobbyGeneration.module.css";
 import { User } from "./User/User";
 import { Activity } from "./Activity/Activity";
 import { Alert, Box, Button, LinearProgress } from "@mui/material";
-import { UserData, UserActivity, StatusToggle, LoadingStatus, UserStatistic } from "./models";
+import {
+  UserData,
+  UserActivity,
+  StatusToggle,
+  LoadingStatus,
+  UserStatistic,
+  RequestError,
+} from "./models";
 import axios from "axios";
 import { Statistic } from "./Statistic/Statistic";
 import { v4 as uuids4 } from "uuid";
+import { withAxiosServiceErrorHandling } from "../utils/handle";
+import { ErrorDialogs } from "../ErrorDialogs/ErrorDialogs";
 
 export const HobbyGeneration: React.FC = () => {
   const [userState, setUserInfo] = useState<UserData>({
@@ -47,38 +56,55 @@ export const HobbyGeneration: React.FC = () => {
   const [statisticToggle, setStatisticToggle] = useState<StatusToggle>(StatusToggle.HIDE);
   const statisticShow = [statisticToggle === StatusToggle.SHOW].some(Boolean);
 
-  //оставлю здесь как подсказку function sleep(ms: number) {
-  //   return new Promise((resolve) => setTimeout(resolve, ms));
-  // }
+  const [error, setError] = useState<RequestError>({});
+  const userRequestId = "generateUser";
+  const activityRequestId = "generateActivity";
+
+  const saveRequestError = (requestId: string, error: Error) => {
+    setError((prevState) => ({
+      ...prevState,
+      [requestId]: error,
+    }));
+  };
+  const deleteError = (requestId: string) => {
+    setError((prevState) => ({
+      ...prevState,
+      [requestId]: null,
+    }));
+  };
 
   const generateUser = () => {
+    const getUser = () => {
+      return axios.get<{ results: UserData[] }>("https://randomuser.me/api/");
+    };
     setLoadingStatusUser(LoadingStatus.LOADING);
-    axios
-      .get<{ results: UserData[] }>("https://randomuser.me/api/")
+    withAxiosServiceErrorHandling(getUser, { requestAttempts: 4 })
       .then((response) => {
         setLoadingStatusUser(LoadingStatus.SUCCESS);
-        setUserInfo(response.data.results[0]);
+        setUserInfo(response.results[0]);
       })
-      .catch((error) => {
+      .catch((error: Error) => {
         setLoadingStatusUser(LoadingStatus.FAILED);
-        console.log(error);
+        saveRequestError(userRequestId, error);
       });
   };
 
   const generateActivity = () => {
     setLoadingStatusActivity(LoadingStatus.LOADING);
-    axios
-      .get<UserActivity>("https:www.boredapi.com/api/activity")
+    const getActivity = () => {
+      return axios.get<UserActivity>("https:www.boredapi.com/api/activity");
+    };
+    withAxiosServiceErrorHandling(getActivity, { requestAttempts: 4 })
       .then((response) => {
         setLoadingStatusActivity(LoadingStatus.SUCCESS);
-        setUserActivity(response.data);
+        setUserActivity(response);
       })
-      .catch((error) => {
+      .catch((error: Error) => {
         setLoadingStatusActivity(LoadingStatus.FAILED);
-        console.log(error);
+        saveRequestError(activityRequestId, error);
       });
   };
-
+  console.log(error);
   const generateData = () => {
     generateActivity();
     generateUser();
@@ -116,9 +142,12 @@ export const HobbyGeneration: React.FC = () => {
       case "FAILED":
         return (
           <div className={`${styles.errorMessage} ${styles.errorUserMessage}`}>
+            <ErrorDialogs
+              error={error[userRequestId]}
+              deleteError={() => deleteError(userRequestId)}
+            />
             <Alert severity="error" style={{ width: "100%", justifyContent: "center" }}>
-              {" "}
-              Error while User loading{" "}
+              Error while User loading
             </Alert>
           </div>
         );
@@ -143,9 +172,12 @@ export const HobbyGeneration: React.FC = () => {
       case "FAILED":
         return (
           <div className={`${styles.errorMessage} ${styles.errorActivityMessage} `}>
+            <ErrorDialogs
+              error={error[activityRequestId]}
+              deleteError={() => deleteError(activityRequestId)}
+            />
             <Alert severity="error" style={{ width: "100%", justifyContent: "center" }}>
-              {" "}
-              Error while User loading{" "}
+              Error while Hobby loading
             </Alert>
           </div>
         );
@@ -192,15 +224,13 @@ export const HobbyGeneration: React.FC = () => {
       {statisticShow ? (
         <div className={styles.showBtn}>
           <Button variant="outlined" onClick={() => setStatisticToggle(StatusToggle.HIDE)}>
-            {" "}
-            Back{" "}
+            Back
           </Button>
         </div>
       ) : (
         <div className={styles.showBtn}>
           <Button variant="outlined" onClick={() => setStatisticToggle(StatusToggle.SHOW)}>
-            {" "}
-            Show statistics{" "}
+            Show statistics
           </Button>
         </div>
       )}
