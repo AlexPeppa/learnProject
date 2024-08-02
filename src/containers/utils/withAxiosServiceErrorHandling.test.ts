@@ -1,6 +1,6 @@
 import { AxiosHeaders } from "axios";
 import axios from "axios";
-import { withAxiosServiceErrorHandling } from "./handle";
+import { withAxiosServiceErrorHandling } from "./withAxiosServiceErrorHandling";
 
 jest.mock("axios");
 

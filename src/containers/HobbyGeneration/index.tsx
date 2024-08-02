@@ -1,21 +1,13 @@
 import React, { useEffect, useState } from "react";
 import styles from "./HobbyGeneration.module.css";
-import { User } from "./User/User";
-import { Activity } from "./Activity/Activity";
+import { User } from "./User";
+import { Activity } from "./Activity";
 import { Alert, Box, Button, LinearProgress } from "@mui/material";
-import {
-  UserData,
-  UserActivity,
-  StatusToggle,
-  LoadingStatus,
-  UserStatistic,
-  RequestError,
-} from "./models";
-import axios from "axios";
+import { UserData, UserActivity, StatusToggle, LoadingStatus, UserStatistic } from "./models";
 import { Statistic } from "./Statistic/Statistic";
 import { v4 as uuids4 } from "uuid";
-import { withAxiosServiceErrorHandling } from "../utils/handle";
-import { ErrorDialogs } from "../ErrorDialogs/ErrorDialogs";
+import { withAxiosServiceErrorHandling } from "../utils/withAxiosServiceErrorHandling";
+import { api } from "./api";
 
 export const HobbyGeneration: React.FC = () => {
   const [userState, setUserInfo] = useState<UserData>({
@@ -56,55 +48,30 @@ export const HobbyGeneration: React.FC = () => {
   const [statisticToggle, setStatisticToggle] = useState<StatusToggle>(StatusToggle.HIDE);
   const statisticShow = [statisticToggle === StatusToggle.SHOW].some(Boolean);
 
-  const [error, setError] = useState<RequestError>({});
-  const userRequestId = "generateUser";
-  const activityRequestId = "generateActivity";
-
-  const saveRequestError = (requestId: string, error: Error) => {
-    setError((prevState) => ({
-      ...prevState,
-      [requestId]: error,
-    }));
-  };
-  const deleteError = (requestId: string) => {
-    setError((prevState) => ({
-      ...prevState,
-      [requestId]: null,
-    }));
-  };
-
   const generateUser = () => {
-    const getUser = () => {
-      return axios.get<{ results: UserData[] }>("https://randomuser.me/api/");
-    };
     setLoadingStatusUser(LoadingStatus.LOADING);
-    withAxiosServiceErrorHandling(getUser, { requestAttempts: 4 })
+    withAxiosServiceErrorHandling(api.getUser, { requestAttempts: 4 })
       .then((response) => {
         setLoadingStatusUser(LoadingStatus.SUCCESS);
         setUserInfo(response.results[0]);
       })
-      .catch((error: Error) => {
+      .catch(() => {
         setLoadingStatusUser(LoadingStatus.FAILED);
-        saveRequestError(userRequestId, error);
       });
   };
 
   const generateActivity = () => {
     setLoadingStatusActivity(LoadingStatus.LOADING);
-    const getActivity = () => {
-      return axios.get<UserActivity>("https:www.boredapi.com/api/activity");
-    };
-    withAxiosServiceErrorHandling(getActivity, { requestAttempts: 4 })
+    withAxiosServiceErrorHandling(api.getActivity, { requestAttempts: 4 })
       .then((response) => {
         setLoadingStatusActivity(LoadingStatus.SUCCESS);
         setUserActivity(response);
       })
-      .catch((error: Error) => {
+      .catch(() => {
         setLoadingStatusActivity(LoadingStatus.FAILED);
-        saveRequestError(activityRequestId, error);
       });
   };
-  console.log(error);
+
   const generateData = () => {
     generateActivity();
     generateUser();
@@ -142,10 +109,6 @@ export const HobbyGeneration: React.FC = () => {
       case "FAILED":
         return (
           <div className={`${styles.errorMessage} ${styles.errorUserMessage}`}>
-            <ErrorDialogs
-              error={error[userRequestId]}
-              deleteError={() => deleteError(userRequestId)}
-            />
             <Alert severity="error" style={{ width: "100%", justifyContent: "center" }}>
               Error while User loading
             </Alert>
@@ -172,10 +135,6 @@ export const HobbyGeneration: React.FC = () => {
       case "FAILED":
         return (
           <div className={`${styles.errorMessage} ${styles.errorActivityMessage} `}>
-            <ErrorDialogs
-              error={error[activityRequestId]}
-              deleteError={() => deleteError(activityRequestId)}
-            />
             <Alert severity="error" style={{ width: "100%", justifyContent: "center" }}>
               Error while Hobby loading
             </Alert>

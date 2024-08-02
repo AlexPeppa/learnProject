@@ -49,6 +49,5 @@ export type Total = {
   priceTotal: number;
 };
 
-export interface RequestError {
-  [key: string]: Error | null;
-}
+export type key = string;
+export type error = Error | null;

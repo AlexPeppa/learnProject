@@ -4,6 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./store";
 import { createRoot } from "react-dom/client";
+import ErrorDialogs from "./containers/ErrorDialogs";
 
 const container = document.getElementById("app");
 const root = createRoot(container!);
@@ -11,6 +12,7 @@ root.render(
   <Provider store={store}>
     <BrowserRouter>
       <App />
+      <ErrorDialogs />
     </BrowserRouter>
   </Provider>
 );

@@ -1,4 +1,6 @@
 import { AxiosResponse } from "axios";
+import { dispatch } from "src/store";
+import { addError } from "src/store/error";
 
 const delay = <Response>(ms: number): Promise<Response> => {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -18,6 +20,7 @@ export const withAxiosServiceErrorHandling = <Response>(
           requestAttempts--;
           return delay(500).then(callRequest);
         } else {
+          dispatch(addError(error));
           throw new Error(error.message);
         }
       });
