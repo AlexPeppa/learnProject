@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import styles from "./HobbyGeneration.module.css";
-import { User } from "./User/User";
-import { Activity } from "./Activity/Activity";
+import { User } from "./User";
+import { Activity } from "./Activity";
 import { Alert, Box, Button, LinearProgress } from "@mui/material";
 import { UserData, UserActivity, StatusToggle, LoadingStatus, UserStatistic } from "./models";
-import axios from "axios";
 import { Statistic } from "./Statistic/Statistic";
 import { v4 as uuids4 } from "uuid";
+import { withAxiosServiceErrorHandling } from "../utils/withAxiosServiceErrorHandling";
+import { api } from "./api";
 
 export const HobbyGeneration: React.FC = () => {
   const [userState, setUserInfo] = useState<UserData>({
@@ -47,35 +48,27 @@ export const HobbyGeneration: React.FC = () => {
   const [statisticToggle, setStatisticToggle] = useState<StatusToggle>(StatusToggle.HIDE);
   const statisticShow = [statisticToggle === StatusToggle.SHOW].some(Boolean);
 
-  //оставлю здесь как подсказку function sleep(ms: number) {
-  //   return new Promise((resolve) => setTimeout(resolve, ms));
-  // }
-
   const generateUser = () => {
     setLoadingStatusUser(LoadingStatus.LOADING);
-    axios
-      .get<{ results: UserData[] }>("https://randomuser.me/api/")
+    withAxiosServiceErrorHandling(api.getUser, { requestAttempts: 4 })
       .then((response) => {
         setLoadingStatusUser(LoadingStatus.SUCCESS);
-        setUserInfo(response.data.results[0]);
+        setUserInfo(response.results[0]);
       })
-      .catch((error) => {
+      .catch(() => {
         setLoadingStatusUser(LoadingStatus.FAILED);
-        console.log(error);
       });
   };
 
   const generateActivity = () => {
     setLoadingStatusActivity(LoadingStatus.LOADING);
-    axios
-      .get<UserActivity>("https:www.boredapi.com/api/activity")
+    withAxiosServiceErrorHandling(api.getActivity, { requestAttempts: 4 })
       .then((response) => {
         setLoadingStatusActivity(LoadingStatus.SUCCESS);
-        setUserActivity(response.data);
+        setUserActivity(response);
       })
-      .catch((error) => {
+      .catch(() => {
         setLoadingStatusActivity(LoadingStatus.FAILED);
-        console.log(error);
       });
   };
 
@@ -117,8 +110,7 @@ export const HobbyGeneration: React.FC = () => {
         return (
           <div className={`${styles.errorMessage} ${styles.errorUserMessage}`}>
             <Alert severity="error" style={{ width: "100%", justifyContent: "center" }}>
-              {" "}
-              Error while User loading{" "}
+              Error while User loading
             </Alert>
           </div>
         );
@@ -144,8 +136,7 @@ export const HobbyGeneration: React.FC = () => {
         return (
           <div className={`${styles.errorMessage} ${styles.errorActivityMessage} `}>
             <Alert severity="error" style={{ width: "100%", justifyContent: "center" }}>
-              {" "}
-              Error while User loading{" "}
+              Error while Hobby loading
             </Alert>
           </div>
         );
@@ -192,15 +183,13 @@ export const HobbyGeneration: React.FC = () => {
       {statisticShow ? (
         <div className={styles.showBtn}>
           <Button variant="outlined" onClick={() => setStatisticToggle(StatusToggle.HIDE)}>
-            {" "}
-            Back{" "}
+            Back
           </Button>
         </div>
       ) : (
         <div className={styles.showBtn}>
           <Button variant="outlined" onClick={() => setStatisticToggle(StatusToggle.SHOW)}>
-            {" "}
-            Show statistics{" "}
+            Show statistics
           </Button>
         </div>
       )}

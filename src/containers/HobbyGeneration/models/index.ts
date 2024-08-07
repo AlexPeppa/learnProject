@@ -25,8 +25,8 @@ export type UserActivity = {
 };
 
 export type UserStatistic = {
-  name:string,
-  id:string;
+  name: string;
+  id: string;
   gender: string;
   activity: string;
   accessibility: number;
@@ -44,8 +44,10 @@ export enum LoadingStatus {
   FAILED = "FAILED",
 }
 
-export type Total  = {
-  accessibilityTotal:number ;
-  priceTotal:number;
+export type Total = {
+  accessibilityTotal: number;
+  priceTotal: number;
 };
 
+export type key = string;
+export type error = Error | null;
