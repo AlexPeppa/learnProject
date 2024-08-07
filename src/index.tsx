@@ -4,7 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./store";
 import { createRoot } from "react-dom/client";
-import { ErrorDialogsWithConnect } from "./containers";
+import { ErrorDialogs } from "./containers";
 
 const container = document.getElementById("app");
 const root = createRoot(container!);
@@ -12,7 +12,7 @@ root.render(
   <Provider store={store}>
     <BrowserRouter>
       <App />
-      <ErrorDialogsWithConnect />
+      <ErrorDialogs />
     </BrowserRouter>
   </Provider>
 );

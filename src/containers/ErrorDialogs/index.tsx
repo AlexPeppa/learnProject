@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -12,67 +12,47 @@ import { deleteError } from "src/store/error";
 
 type Props = StateProps;
 
-const ErrorDialogs: React.FC<Props> = ({ firstError }) => {
-  const [open, setOpen] = React.useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  useEffect(() => {
-    handleClickOpen();
-  }, [firstError]);
-
+const ErrorDialogsComponent: React.FC<Props> = ({ firstError }) => {
   return (
-    <>
-      {firstError ? (
-        <Dialog
-          open={open}
-          TransitionComponent={Transition}
-          keepMounted
-          onClose={handleClickOpen}
-          aria-describedby="alert-dialog-slide-description"
+    <Dialog
+      open={Boolean(firstError)}
+      TransitionComponent={Transition}
+      keepMounted
+      aria-describedby="alert-dialog-slide-description"
+    >
+      <DialogTitle textAlign="center" color={"#d32f2f"}>
+        Error
+      </DialogTitle>
+      <DialogContent>
+        <DialogContentText color={"black"} id="alert-dialog-slide-description">
+          {firstError?.message}
+        </DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <Button
+          color="error"
+          onClick={() => {
+            dispatch(deleteError());
+          }}
         >
-          <DialogTitle textAlign="center" color={"#d32f2f"}>
-            Error
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText color={"black"} id="alert-dialog-slide-description">
-              {firstError.message}
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button
-              color="error"
-              onClick={() => {
-                handleClose();
-                dispatch(deleteError());
-              }}
-            >
-              <img
-                width={"40px"}
-                height={"40px"}
-                src=" https://ikonki.svgpng.ru/wp-content/uploads/2021/12/Krestiksvgpng.ru_.png"
-                alt="Х"
-              />
-            </Button>
-          </DialogActions>
-        </Dialog>
-      ) : null}
-    </>
+          <img
+            width={"40px"}
+            height={"40px"}
+            src=" https://ikonki.svgpng.ru/wp-content/uploads/2021/12/Krestiksvgpng.ru_.png"
+            alt="Х"
+          />
+        </Button>
+      </DialogActions>
+    </Dialog>
   );
 };
 
 type StateProps = {
-  firstError: Error;
+  firstError: Error | undefined;
 };
 
 const mapStateToProps = (state: AppStore): StateProps => ({
   firstError: selectors.getFirstError(state),
 });
 
-export const ErrorDialogsWithConnect = connect<StateProps, null>(mapStateToProps)(ErrorDialogs);
+export const ErrorDialogs = connect<StateProps>(mapStateToProps)(ErrorDialogsComponent);
