@@ -12,9 +12,5 @@ module.exports = {
       tsconfig: "tsconfig.json",
     },
   },
-  devDependencies: {
-    "@types/axios": "^0.14.0",
-    jest: "^27.5.1",
-  },
   jest: { transformIgnorePatterns: ["node_modules/(?!axios)"] },
 };

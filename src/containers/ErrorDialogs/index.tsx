@@ -12,7 +12,7 @@ import { deleteError } from "src/store/error";
 
 type Props = StateProps;
 
-export const ErrorDialogs: React.FC<Props> = ({ errors }) => {
+const ErrorDialogs: React.FC<Props> = ({ firstError }) => {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -22,14 +22,14 @@ export const ErrorDialogs: React.FC<Props> = ({ errors }) => {
   const handleClose = () => {
     setOpen(false);
   };
-  console.log(errors);
+
   useEffect(() => {
     handleClickOpen();
-  }, [errors]);
-  console.log(open);
+  }, [firstError]);
+
   return (
-    <div>
-      {errors.map((error) => (
+    <>
+      {firstError ? (
         <Dialog
           open={open}
           TransitionComponent={Transition}
@@ -42,7 +42,7 @@ export const ErrorDialogs: React.FC<Props> = ({ errors }) => {
           </DialogTitle>
           <DialogContent>
             <DialogContentText color={"black"} id="alert-dialog-slide-description">
-              {error.message}
+              {firstError.message}
             </DialogContentText>
           </DialogContent>
           <DialogActions>
@@ -50,7 +50,7 @@ export const ErrorDialogs: React.FC<Props> = ({ errors }) => {
               color="error"
               onClick={() => {
                 handleClose();
-                dispatch(deleteError(error.message));
+                dispatch(deleteError());
               }}
             >
               <img
@@ -62,17 +62,17 @@ export const ErrorDialogs: React.FC<Props> = ({ errors }) => {
             </Button>
           </DialogActions>
         </Dialog>
-      ))}
-    </div>
+      ) : null}
+    </>
   );
 };
 
 type StateProps = {
-  errors: Error[];
+  firstError: Error;
 };
 
 const mapStateToProps = (state: AppStore): StateProps => ({
-  errors: selectors.getErrors(state),
+  firstError: selectors.getFirstError(state),
 });
 
-export default connect<StateProps, null>(mapStateToProps)(ErrorDialogs);
+export const ErrorDialogsWithConnect = connect<StateProps, null>(mapStateToProps)(ErrorDialogs);
