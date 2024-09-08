@@ -1,11 +1,11 @@
 import React, { FC } from "react";
 import style from "./allCharacters.module.css";
 import RickMortyPagination from "./Pagination/index";
-import { Character } from "src/store/rickMorty/childs/characters";
-import { AppDispatch, AppStore, selectors } from "src/store";
+import { Character } from "store/rickMorty/childs/characters";
+import { AppDispatch, AppStore, selectors } from "store";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { selectCharacterAction } from "src/store/rickMorty/childs/selectedCharacter/childs";
+import { selectCharacterAction } from "store/rickMorty/childs/selectedCharacter/childs";
 
 type Props = StateProps & DispatchProps & OwnProps;
 

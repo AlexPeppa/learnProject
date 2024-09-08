@@ -2,15 +2,11 @@ module.exports = {
   preset: "ts-jest",
   testEnvironment: "node",
   transform: {
-    "^.+\\.tsx?$": "ts-jest",
-  },
-  moduleNameMapper: {
-    axios: require.resolve("axios"),
+    "^.+\\.ts?$": "ts-jest",
   },
   globals: {
     "ts-jest": {
       tsconfig: "tsconfig.json",
     },
   },
-  jest: { transformIgnorePatterns: ["node_modules/(?!axios)"] },
 };

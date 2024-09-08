@@ -1,6 +1,6 @@
 import { AxiosResponse } from "axios";
-import { dispatch } from "src/store";
-import { addError } from "src/store/error";
+import { dispatch } from "store";
+import { addError } from "store/error";
 
 const delay = <Response>(ms: number): Promise<Response> => {
   return new Promise((resolve) => setTimeout(resolve, ms));
