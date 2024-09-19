@@ -1,5 +1,5 @@
 import React, { FC, PropsWithChildren } from "react";
-import { ApiRequestStatus } from "store/rickMorty/constants";
+import { ApiRequestStatus } from "@store/rickMorty/constants";
 import style from "./statusValidation.module.css";
 import { Preloader } from "../../Preloader";
 

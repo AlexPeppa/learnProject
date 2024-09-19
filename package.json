@@ -16,14 +16,13 @@
     "react-redux": "^8.1.2",
     "react-router": "^6.9.0",
     "react-router-dom": "^6.9.0",
-    "react-scripts": "^5.0.1",
     "redux": "^4.2.1",
     "uuid": "^9.0.0"
   },
   "scripts": {
     "start": "webpack serve --env mode=development",
-    "build:prod": "webpack  --env mode=production",
-    "test": "react-scripts test --transformIgnorePatterns 'node_modules/(?!axios)/"
+    "build:prod": "webpack --env mode=production",
+    "test": "jest "
   },
   "eslintConfig": {
     "extends": [
@@ -44,23 +43,24 @@
     ]
   },
   "devDependencies": {
-    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.15",
+    "@babel/preset-env": "^7.25.4",
+    "@babel/preset-typescript": "^7.24.7",
+    "@babel/register": "^7.24.6",
     "@types/jest": "^27.5.2",
     "@types/lodash.debounce": "^4.0.7",
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.4",
     "css-loader": "^7.1.2",
+    "css-minimizer-webpack-plugin": "^7.0.0",
     "file-loader": "^6.2.0",
     "fork-ts-checker-webpack-plugin": "^9.0.2",
     "html-webpack-plugin": "^5.6.0",
     "jest": "^27.5.1",
     "mini-css-extract-plugin": "^2.9.0",
-    "react-refresh": "^0.14.2",
-    "react-refresh-typescript": "^2.0.9",
     "style-loader": "^4.0.0",
+    "ts-jest": "^27.1.5",
     "ts-loader": "^9.5.1",
     "typescript": "^4.8.4",
-    "typescript-plugin-css-modules": "^5.1.0",
     "webpack": "^5.93.0",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^5.0.4"

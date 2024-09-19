@@ -2,8 +2,8 @@ import React, { FC } from "react";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import style from "./pagination.module.css";
-import { getAllCharacters, setCurrentPage } from "store/rickMorty/childs/characters";
-import { AppDispatch, AppStore, selectors } from "store";
+import { getAllCharacters, setCurrentPage } from "@store/rickMorty/childs/characters";
+import { AppDispatch, AppStore, selectors } from "@store/index";
 import { connect } from "react-redux";
 
 type Props = StateProps & DispatchProps & OwnProps;

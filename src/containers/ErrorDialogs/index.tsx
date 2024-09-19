@@ -6,9 +6,9 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { Transition } from "./transition";
-import { AppStore, dispatch, selectors } from "store";
+import { AppStore, dispatch, selectors } from "@store/index";
 import { connect } from "react-redux";
-import { deleteError } from "store/error";
+import { deleteError } from "@store/error";
 import closePicture from "./photo/closePicture.png";
 
 type Props = StateProps;

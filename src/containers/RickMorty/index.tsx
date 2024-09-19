@@ -1,11 +1,11 @@
 import React, { FC, useEffect, useState } from "react";
 import style from "./rick&morty.module.css";
 import AllCharacters from "./AllCharacters";
-import { AppDispatch, AppStore, selectors } from "store";
+import { AppDispatch, AppStore, selectors } from "@store/index";
 import { connect } from "react-redux";
 import { StatusValidation } from "./AllCharacters/LoadingStatusValidation";
-import { getAllCharacters } from "store/rickMorty/childs/characters";
-import { ApiRequestStatus } from "store/rickMorty/constants";
+import { getAllCharacters } from "@store/rickMorty/childs/characters";
+import { ApiRequestStatus } from "@store/rickMorty/constants";
 import { Breadcrumb } from "./BreadCrumbs";
 import SearchInput from "./AllCharacters/SearchInput";
 

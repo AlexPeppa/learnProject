@@ -11,10 +11,11 @@
     "esModuleInterop": true,
     "baseUrl": "src",
     "paths": {
-      "*": ["*", "src/*", "src/store/*"]
+      "*": ["*"],
+      "@store/*": ["store/*"]
     }
   },
 
   "exclude": ["node_modules", "dist"],
-  "include": ["src/**/*", "webpack.config.ts", "styles.d.ts", "image.d.ts"]
+  "include": ["src/**/*", "webpack.config.ts", "global.d.ts"]
 }

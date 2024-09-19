@@ -1,4 +1,4 @@
-import { ApiRequestStatus, RickMortyStorePath } from "store/rickMorty/constants";
+import { ApiRequestStatus, RickMortyStorePath } from "@store/rickMorty/constants";
 import { CharactersInEpisodesState, Nope } from "../../models";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { getCharactersInEpisodes } from "./actions";

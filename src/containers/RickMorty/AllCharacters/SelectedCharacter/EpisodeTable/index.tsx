@@ -7,12 +7,12 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import style from "./episodeTable.module.css";
-import { AppDispatch, AppStore, selectors } from "store";
+import { AppDispatch, AppStore, selectors } from "@store/index";
 import { connect } from "react-redux";
 import { Button } from "@mui/material";
-import { getCharactersInEpisodes } from "store/rickMorty/childs/selectedCharacter/childs/charactersInEpisodes";
-import { Episode } from "store/rickMorty/childs/selectedCharacter";
-import { Visibility } from "store/rickMorty/constants";
+import { getCharactersInEpisodes } from "@store/rickMorty/childs/selectedCharacter/childs/charactersInEpisodes";
+import { Episode } from "@store/rickMorty/childs/selectedCharacter";
+import { Visibility } from "@store/rickMorty/constants";
 
 type Props = StateProps & DispatchProps & OwnProps;
 
