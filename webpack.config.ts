@@ -1,4 +1,4 @@
-import webpack, { Configuration, HotModuleReplacementPlugin } from "webpack";
+import { Configuration, HotModuleReplacementPlugin, ProgressPlugin } from "webpack";
 import "webpack-dev-server";
 import path from "path";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
@@ -20,8 +20,9 @@ module.exports = (env: Env): Configuration => {
     output: {
       filename: "[name]_[contenthash:8].js",
       path: path.resolve(__dirname, "dist"),
-      clean: true,
       publicPath: "/",
+      clean: true,
+      assetModuleFilename: "assets/[name]_[hash:8][ext]",
       library: {
         name: "project",
         type: "umd",
@@ -31,7 +32,6 @@ module.exports = (env: Env): Configuration => {
       minimize: isProduction,
       minimizer: [
         new TerserPlugin(),
-        "...",
         new CssMinimizerPlugin({
           minimizerOptions: {
             preset: [
@@ -74,18 +74,10 @@ module.exports = (env: Env): Configuration => {
             },
           ],
         },
+
         {
-          test: /\.(jpg|jpeg|png|gif|svg)$/,
-          use: [
-            {
-              loader: "file-loader",
-              options: {
-                name: "[path][name]_[contenthash:8].[ext]",
-                outputPath: "assets",
-                publicPath: "assets",
-              },
-            },
-          ],
+          test: /\.(jpg|png)$/,
+          type: "asset/resource",
         },
       ],
     },
@@ -94,7 +86,7 @@ module.exports = (env: Env): Configuration => {
         template: path.resolve("public/index.html"),
         favicon: path.resolve("public/roseIcon.jpg"),
       }),
-      new webpack.ProgressPlugin(),
+      new ProgressPlugin(),
       new MiniCssExtractPlugin({
         filename: "css/[name]_[contenthash:8].css",
         chunkFilename: "css/[id]_[contenthash:8].css",
