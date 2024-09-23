@@ -1,6 +1,6 @@
-import React from "react";
 import { LinearProgress, Stack } from "@mui/material";
 import style from "./preloader.module.css";
+import React from "react";
 
 export const Preloader = () => {
   return (

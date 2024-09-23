@@ -1,9 +1,9 @@
 import { Routes, Route, NavLink } from "react-router-dom";
 import styles from "./App.module.css";
-import { Cars, HobbyGeneration, Home, MyRouter } from "./containers";
 import RickMorty from "./containers/RickMorty/index";
 import React from "react";
 import SelectedCharacter from "./containers/RickMorty/AllCharacters/SelectedCharacter";
+import { HobbyGeneration, Cars, Home, MyRouter } from "./containers";
 
 export const App: React.FC = () => {
   return (

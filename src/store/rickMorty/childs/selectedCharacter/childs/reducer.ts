@@ -1,6 +1,6 @@
-import { Character } from "src/store/rickMorty/childs/characters/models";
+import { Character } from "store/rickMorty/childs/characters/models";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { RickMortyStorePath } from "src/store/rickMorty/constants";
+import { RickMortyStorePath } from "@store/rickMorty/constants";
 import { SelectedCharacterState } from "../models";
 
 const selectedCharacterState: SelectedCharacterState = {

@@ -6,9 +6,10 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { Transition } from "./transition";
-import { AppStore, dispatch, selectors } from "src/store";
+import { AppStore, dispatch, selectors } from "@store/index";
 import { connect } from "react-redux";
-import { deleteError } from "src/store/error";
+import { deleteError } from "@store/error";
+import closePicture from "./photo/closePicture.png";
 
 type Props = StateProps;
 
@@ -35,12 +36,7 @@ const ErrorDialogsComponent: React.FC<Props> = ({ firstError }) => {
             dispatch(deleteError());
           }}
         >
-          <img
-            width={"40px"}
-            height={"40px"}
-            src=" https://ikonki.svgpng.ru/wp-content/uploads/2021/12/Krestiksvgpng.ru_.png"
-            alt="Х"
-          />
+          <img width={"40px"} height={"40px"} src={closePicture} alt="Х" />
         </Button>
       </DialogActions>
     </Dialog>

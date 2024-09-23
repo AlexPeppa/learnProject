@@ -7,12 +7,12 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import style from "./episodeTable.module.css";
-import { AppDispatch, AppStore, selectors } from "src/store";
+import { AppDispatch, AppStore, selectors } from "@store/index";
 import { connect } from "react-redux";
 import { Button } from "@mui/material";
-import { getCharactersInEpisodes } from "src/store/rickMorty/childs/selectedCharacter/childs/charactersInEpisodes";
-import { Episode } from "src/store/rickMorty/childs/selectedCharacter";
-import { Visibility } from "src/store/rickMorty/constants";
+import { getCharactersInEpisodes } from "@store/rickMorty/childs/selectedCharacter/childs/charactersInEpisodes";
+import { Episode } from "@store/rickMorty/childs/selectedCharacter";
+import { Visibility } from "@store/rickMorty/constants";
 
 type Props = StateProps & DispatchProps & OwnProps;
 
@@ -23,7 +23,7 @@ const EpisodeTable: FC<Props> = ({
 }) => {
   return (
     <div className={style.wrapper}>
-      <div className={style.table}>
+      <div>
         <TableContainer sx={{ bgcolor: "rgba(187, 151, 151, 0.030)" }} component={Paper}>
           <Table sx={{ maxWidth: 800 }} size="small" aria-label="a dense table">
             <TableHead>

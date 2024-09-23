@@ -1,14 +1,14 @@
 import React, { FC, useState } from "react";
 import { connect } from "react-redux";
-import { AppDispatch, AppStore, selectors } from "src/store";
+import { AppDispatch, AppStore, selectors } from "@store/index";
 import style from "./selectedCharacter.module.css";
 import { Button } from "@mui/material";
 import { StatusValidation } from "../LoadingStatusValidation";
-import { ApiRequestStatus, Visibility } from "src/store/rickMorty/constants";
-import { getEpisodes } from "src/store/rickMorty/childs/selectedCharacter/childs/episodes";
+import { ApiRequestStatus, Visibility } from "@store/rickMorty/constants";
+import { getEpisodes } from "@store/rickMorty/childs/selectedCharacter/childs/episodes";
 import CharactersInEpisode from "./CharactersInEpisode";
 import EpisodeTable from "./EpisodeTable";
-import { Character } from "src/store/rickMorty/childs/characters";
+import { Character } from "@store/rickMorty/childs/characters";
 import { Breadcrumb } from "../../BreadCrumbs";
 
 type Props = StateProps & DispatchProps;

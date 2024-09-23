@@ -1,5 +1,5 @@
-import { ApiRequestStatus } from "src/store/rickMorty/constants";
-import { Character } from "../../characters/models";
+import { ApiRequestStatus } from "store/rickMorty/constants";
+import { Character } from "../../characters";
 
 export interface SelectedCharacterState {
   character: Character;

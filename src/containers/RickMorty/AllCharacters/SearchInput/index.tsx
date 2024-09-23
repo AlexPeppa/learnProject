@@ -2,8 +2,8 @@ import React, { FC, useCallback } from "react";
 import { connect } from "react-redux";
 import { Divider, IconButton, InputBase, Paper } from "@mui/material";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
-import { AppDispatch } from "src/store";
-import { setCurrentPage } from "src/store/rickMorty/childs/characters";
+import { AppDispatch } from "@store/index";
+import { setCurrentPage } from "@store/rickMorty/childs/characters";
 import debounce from "lodash.debounce";
 
 type Props = DispatchProps & OwnProps;

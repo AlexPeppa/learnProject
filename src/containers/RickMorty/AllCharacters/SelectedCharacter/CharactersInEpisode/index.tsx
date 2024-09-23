@@ -1,14 +1,14 @@
 import React, { FC } from "react";
 import { connect } from "react-redux";
-import { AppDispatch, AppStore, selectors } from "src/store";
-import { Character } from "src/store/rickMorty/childs/characters";
+import { AppDispatch, AppStore, selectors } from "@store/index";
+import { Character } from "store/rickMorty/childs/characters";
 import style from "./charactersInEpisode.module.css";
 import { NavLink } from "react-router-dom";
 import {
   cleanCharacterInEpisodesState,
   selectCharacterAction,
-} from "src/store/rickMorty/childs/selectedCharacter/childs";
-import { Visibility } from "src/store/rickMorty/constants";
+} from "@store/rickMorty/childs/selectedCharacter/childs";
+import { Visibility } from "@store/rickMorty/constants";
 
 type Props = StateProps & DispatchProps & OwnProps;
 type OwnProps = {

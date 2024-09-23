@@ -90,7 +90,7 @@ export const Statistic: React.FC<OwnProps> = ({ listOfUsers }) => {
               </ul>
             </div>
             <div>
-              <ul className={styles.percent}>
+              <ul>
                 <li> - 100 %</li>
                 <li> - {percentOfMale} %</li>
                 <li> - {percentOfFemale} %</li>
