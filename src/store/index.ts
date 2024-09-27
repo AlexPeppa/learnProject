@@ -1,18 +1,18 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { rickMortyReducer } from "./rickMorty/reducer";
-import { RickMortySelectors } from "./rickMorty/selectors";
-import { errorReducer, errorSelectors } from "./error";
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { rickMortyReducer } from './rickMorty/reducer';
+import { RickMortySelectors } from './rickMorty/selectors';
+import { errorReducer, errorSelectors } from './error';
 
 export const selectors = {
-  ...RickMortySelectors,
-  ...errorSelectors,
+	...RickMortySelectors,
+	...errorSelectors,
 };
 
 export const store = configureStore({
-  reducer: combineReducers({
-    rickMorty: rickMortyReducer,
-    error: errorReducer,
-  }),
+	reducer: combineReducers({
+		rickMorty: rickMortyReducer,
+		error: errorReducer,
+	}),
 });
 
 export type AppStore = ReturnType<typeof store.getState>;

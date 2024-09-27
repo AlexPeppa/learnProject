@@ -1,52 +1,54 @@
-import React from "react";
-import styles from "./car.module.css";
-import { Timer } from "../Timer";
-import { Box, Button, TextField } from "@mui/material";
-import { useEffect, useState } from "react";
-import DeleteIcon from "@mui/icons-material/Delete";
+import React from 'react';
+import styles from './car.module.css';
+import { Timer } from '../Timer';
+import { Box, Button, TextField } from '@mui/material';
+import { useEffect, useState } from 'react';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export const Car = ({ car, carMode, setCarMode, setCarsState }) => {
-  const canEdit = carMode === "READ";
+  const canEdit = carMode === 'READ';
   const [draftCar, setDraftCar] = useState(car);
-  const [modelInput, setModelInput] = useState("");
+  const [modelInput, setModelInput] = useState('');
 
   const addChange = () => {
     setCarsState((prevState: any) => ({
       ...prevState,
       [car.code]: draftCar,
     }));
-    setCarMode("READ");
+    setCarMode('READ');
   };
 
   const cancelChange = () => {
-    setCarMode("READ");
+    setCarMode('READ');
     setDraftCar(car);
   };
 
   useEffect(() => {
     setDraftCar(car);
-    setModelInput("");
-    setCarMode("READ");
+    setModelInput('');
+    setCarMode('READ');
   }, [car.code]);
 
   const editCar = () => {
-    setCarMode("EDIT");
+    setCarMode('EDIT');
   };
 
   const addModel = () => {
-    setDraftCar((prevState) => ({
+    setDraftCar(prevState => ({
       ...prevState,
       description: {
         ...prevState.description,
         models: prevState.description.models.concat(modelInput),
       },
     }));
-    setModelInput("");
+    setModelInput('');
   };
 
-  const deleteModel = (model) => {
-    const newModels = draftCar.description.models.filter((mark) => mark !== model);
-    setDraftCar((prevState) => ({
+  const deleteModel = model => {
+    const newModels = draftCar.description.models.filter(
+      mark => mark !== model,
+    );
+    setDraftCar(prevState => ({
       ...prevState,
       description: {
         ...prevState.description,
@@ -60,7 +62,7 @@ export const Car = ({ car, carMode, setCarMode, setCarsState }) => {
       {canEdit ? (
         <div className={styles.aditButton}>
           <Button
-            style={{ color: "black", border: "1px solid black" }}
+            style={{ color: 'black', border: '1px solid black' }}
             onClick={editCar}
             variant="outlined"
           >
@@ -69,7 +71,11 @@ export const Car = ({ car, carMode, setCarMode, setCarsState }) => {
         </div>
       ) : (
         <div className={styles.aditSaveButtons}>
-          <Button className={styles.saveBtn} onClick={addChange} variant="outlined">
+          <Button
+            className={styles.saveBtn}
+            onClick={addChange}
+            variant="outlined"
+          >
             Save
           </Button>
           <Button onClick={cancelChange} variant="outlined">
@@ -83,8 +89,11 @@ export const Car = ({ car, carMode, setCarMode, setCarsState }) => {
           <h1>{car.name}</h1>
         ) : (
           <TextField
-            onChange={(event) =>
-              setDraftCar((prevState) => ({ ...prevState, name: event.target.value }))
+            onChange={event =>
+              setDraftCar(prevState => ({
+                ...prevState,
+                name: event.target.value,
+              }))
             }
             required
             label="Car name"
@@ -97,10 +106,13 @@ export const Car = ({ car, carMode, setCarMode, setCarsState }) => {
             <p>State : {car.description.state}</p>
           ) : (
             <TextField
-              onChange={(event) =>
-                setDraftCar((prevState) => ({
+              onChange={event =>
+                setDraftCar(prevState => ({
                   ...prevState,
-                  description: { ...prevState.description, state: event.target.value },
+                  description: {
+                    ...prevState.description,
+                    state: event.target.value,
+                  },
                 }))
               }
               required
@@ -116,10 +128,13 @@ export const Car = ({ car, carMode, setCarMode, setCarsState }) => {
             <p>Founded : {car.description.founded}</p>
           ) : (
             <TextField
-              onChange={(event) =>
-                setDraftCar((prevState) => ({
+              onChange={event =>
+                setDraftCar(prevState => ({
                   ...prevState,
-                  description: { ...prevState.description, founded: event.target.value },
+                  description: {
+                    ...prevState.description,
+                    founded: event.target.value,
+                  },
                 }))
               }
               label="Founded"
@@ -133,12 +148,18 @@ export const Car = ({ car, carMode, setCarMode, setCarsState }) => {
             {canEdit ? (
               <p>{car.description.text}</p>
             ) : (
-              <Box component="form" sx={{ "& .MuiTextField-root": { m: 1, width: "1100px" } }}>
+              <Box
+                component="form"
+                sx={{ '& .MuiTextField-root': { m: 1, width: '1100px' } }}
+              >
                 <TextField
-                  onChange={(event) =>
-                    setDraftCar((prevState) => ({
+                  onChange={event =>
+                    setDraftCar(prevState => ({
                       ...prevState,
-                      description: { ...prevState.description, text: event.target.value },
+                      description: {
+                        ...prevState.description,
+                        text: event.target.value,
+                      },
                     }))
                   }
                   id="outlined-multiline-static"
@@ -161,7 +182,7 @@ export const Car = ({ car, carMode, setCarMode, setCarsState }) => {
                 id="outlined-required"
                 label="Add Mark"
                 value={modelInput}
-                onChange={(event) => setModelInput(event.target.value)}
+                onChange={event => setModelInput(event.target.value)}
               />
               <Button size="large" disabled={!modelInput} onClick={addModel}>
                 Add Model
@@ -169,21 +190,27 @@ export const Car = ({ car, carMode, setCarMode, setCarsState }) => {
             </div>
           </div>
           <div>
-            {" "}
+            {' '}
             <ul className={styles.models}>
-              {" "}
-              {draftCar.description.models.map((model) => (
-                <li key={model} className={canEdit ? styles.model : styles.modelActive}>
-                  {" "}
-                  {model}{" "}
+              {' '}
+              {draftCar.description.models.map(model => (
+                <li
+                  key={model}
+                  className={canEdit ? styles.model : styles.modelActive}
+                >
+                  {' '}
+                  {model}{' '}
                   {canEdit ? (
-                    ""
+                    ''
                   ) : (
-                    <DeleteIcon className={styles.icon} onClick={() => deleteModel(model)} />
-                  )}{" "}
+                    <DeleteIcon
+                      className={styles.icon}
+                      onClick={() => deleteModel(model)}
+                    />
+                  )}{' '}
                 </li>
-              ))}{" "}
-            </ul>{" "}
+              ))}{' '}
+            </ul>{' '}
           </div>
         </div>
       </div>
