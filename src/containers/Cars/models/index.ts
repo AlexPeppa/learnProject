@@ -1,10 +1,10 @@
 export interface CarInfo {
-  code: number;
-  name: string;
-  description: {
-    text: string;
-    state: string;
-    models: string[];
-    founded: number;
-  };
+	code: string;
+	name: string;
+	description: {
+		text: string;
+		state: string;
+		models: string[];
+		founded: string;
+	};
 }

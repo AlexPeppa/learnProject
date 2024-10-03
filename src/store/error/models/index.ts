@@ -1,3 +1,3 @@
 export interface errorState {
-  allErrors: Error[];
+	allErrors: Error[];
 }

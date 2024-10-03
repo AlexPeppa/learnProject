@@ -2,12 +2,13 @@
 module.exports = {
 	semi: true,
 	singleQuote: true,
-	jsxSingleQuote: false,
+	jsxSingleQuote: true,
 	bracketSpacing: true,
 	trailingComma: 'all',
-	printWidth: 80,
-	tabWidth: 2,
+	printWidth: 100,
 	arrowParens: 'always',
 	endOfLine: 'lf',
 	useTabs: true,
+	tabWidth: 2,
+	jsxBracketSameLine: true,
 };
