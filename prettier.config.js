@@ -8,7 +8,7 @@ module.exports = {
 	printWidth: 100,
 	arrowParens: 'always',
 	endOfLine: 'lf',
-	useTabs: true,
 	tabWidth: 2,
-	jsxBracketSameLine: true,
+	useTabs: false,
+	bracketSameLine: true,
 };

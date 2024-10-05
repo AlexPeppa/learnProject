@@ -1,70 +1,70 @@
 .wrapper {
-	height: auto;
-	margin: 10px;
+  height: auto;
+  margin: 10px;
 }
 
 .link {
-	text-decoration: none;
-	color: rgba(0, 0, 0, 0.77);
-	font-size: 20px;
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.77);
+  font-size: 20px;
 }
 
 .li {
-	cursor: pointer;
-	letter-spacing: 1px;
-	display: flex;
-	justify-content: space-between;
+  cursor: pointer;
+  letter-spacing: 1px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .deleteIcon {
-	color: rgba(102, 103, 104, 0.196);
+  color: rgba(102, 103, 104, 0.196);
 }
 
 .deleteIcon:hover {
-	color: rgba(102, 103, 104, 0.641);
+  color: rgba(102, 103, 104, 0.641);
 }
 
 ul {
-	margin-top: 15px;
-	margin-bottom: 15px;
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 
 .select {
-	font-size: larger;
-	text-decoration: underline;
+  font-size: larger;
+  text-decoration: underline;
 }
 
 .carInfo {
-	display: flex;
-	flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 .carSideBar {
-	width: 250px;
+  width: 250px;
 }
 
 .createCarBtn {
-	padding: 5px;
-	margin-left: 10px;
+  padding: 5px;
+  margin-left: 10px;
 }
 
 .car {
-	width: 100%;
-	padding: 30px;
+  width: 100%;
+  padding: 30px;
 }
 
 .carPhotoText {
-	text-align: center;
+  text-align: center;
 }
 
 .carPhotoText_text {
-	padding-bottom: 20px;
-	margin: 0;
-	color: rgba(102, 103, 104, 0.848);
+  padding-bottom: 20px;
+  margin: 0;
+  color: rgba(102, 103, 104, 0.848);
 }
 
 .carPhotoText_photo {
-	width: 670px;
-	border-radius: 10px;
-	border: 2px solid rgba(102, 103, 104, 0.641);
+  width: 670px;
+  border-radius: 10px;
+  border: 2px solid rgba(102, 103, 104, 0.641);
 }

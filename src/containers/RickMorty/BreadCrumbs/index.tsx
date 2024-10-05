@@ -4,26 +4,26 @@ import { NavLink } from 'react-router-dom';
 import style from './breadCrumb.module.css';
 
 function handleClick(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
-	event.preventDefault();
+  event.preventDefault();
 }
 
 type Props = {
-	name: string | '';
+  name: string | '';
 };
 
 export const Breadcrumb: FC<Props> = ({ name }) => (
-	<div className={style.breadcrumb} role='presentation' onClick={handleClick}>
-		<Breadcrumbs separator='/' aria-label='breadcrumb'>
-			<NavLink className={style.navLink} to='/Characters'>
-				Characters
-			</NavLink>
-			{name ? (
-				<NavLink className={style.navLink} to={`/Characters/${name?.replaceAll(' ', '_')}`}>
-					{name}
-				</NavLink>
-			) : (
-				''
-			)}
-		</Breadcrumbs>
-	</div>
+  <div className={style.breadcrumb} role='presentation' onClick={handleClick}>
+    <Breadcrumbs separator='/' aria-label='breadcrumb'>
+      <NavLink className={style.navLink} to='/Characters'>
+        Characters
+      </NavLink>
+      {name ? (
+        <NavLink className={style.navLink} to={`/Characters/${name?.replaceAll(' ', '_')}`}>
+          {name}
+        </NavLink>
+      ) : (
+        ''
+      )}
+    </Breadcrumbs>
+  </div>
 );

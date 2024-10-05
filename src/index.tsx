@@ -9,10 +9,10 @@ import { ErrorDialogs } from './containers';
 const container = document.getElementById('app');
 const root = createRoot(container!);
 root.render(
-	<Provider store={store}>
-		<BrowserRouter>
-			<App />
-			<ErrorDialogs />
-		</BrowserRouter>
-	</Provider>,
+  <Provider store={store}>
+    <BrowserRouter>
+      <App />
+      <ErrorDialogs />
+    </BrowserRouter>
+  </Provider>,
 );

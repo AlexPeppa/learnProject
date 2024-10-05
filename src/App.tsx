@@ -6,19 +6,19 @@ import SelectedCharacter from './containers/RickMorty/AllCharacters/SelectedChar
 import { HobbyGeneration, Cars, Home, MyRouter } from './containers';
 
 export const App: React.FC = () => (
-	<div className={styles.wrapper}>
-		<div className={styles.navLink}>
-			<NavLink className={styles.link} to='/'>
-				Home
-			</NavLink>
-		</div>
-		<Routes>
-			<Route path='/myRouter' element={<MyRouter />} />
-			<Route path='/cars' element={<Cars />} />
-			<Route path='/hobbyGeneration' element={<HobbyGeneration />} />
-			<Route path='/' element={<Home />} />
-			<Route path='/Characters' element={<RickMorty />} />
-			<Route path='/Characters/:name/' element={<SelectedCharacter />} />
-		</Routes>
-	</div>
+  <div className={styles.wrapper}>
+    <div className={styles.navLink}>
+      <NavLink className={styles.link} to='/'>
+        Home
+      </NavLink>
+    </div>
+    <Routes>
+      <Route path='/myRouter' element={<MyRouter />} />
+      <Route path='/cars' element={<Cars />} />
+      <Route path='/hobbyGeneration' element={<HobbyGeneration />} />
+      <Route path='/' element={<Home />} />
+      <Route path='/Characters' element={<RickMorty />} />
+      <Route path='/Characters/:name/' element={<SelectedCharacter />} />
+    </Routes>
+  </div>
 );
