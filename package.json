@@ -27,7 +27,8 @@
     "lint": "eslint . && echo 'No problems'",
     "format": "prettier --write .",
     "lint-staged": "lint-staged",
-    "prepare": "husky"
+    "prepare": "husky",
+    "report": "webpack-bundle-analyzer  dist/stats.json"
   },
   "eslintConfig": {
     "extends": [

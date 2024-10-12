@@ -94,7 +94,11 @@ module.exports = (env: Env): Configuration => {
       }),
       new ForkTsCheckerWebpackPlugin(),
       new HotModuleReplacementPlugin(),
-      new BundleAnalyzerPlugin.BundleAnalyzerPlugin(),
+      new BundleAnalyzerPlugin.BundleAnalyzerPlugin({
+        analyzerMode: 'disabled',
+        generateStatsFile: true,
+        statsOptions: { source: false },
+      }),
     ],
     resolve: {
       extensions: ['.tsx', '.ts', '.jsx', '.js'],
