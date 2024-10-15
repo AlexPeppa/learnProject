@@ -28,7 +28,7 @@
     "format": "prettier --write .",
     "lint-staged": "lint-staged",
     "prepare": "husky",
-    "report": "webpack-bundle-analyzer  dist/stats.json"
+    "report": "webpack --profile --json > stats.json && webpack-bundle-analyzer stats.json dist"
   },
   "eslintConfig": {
     "extends": [

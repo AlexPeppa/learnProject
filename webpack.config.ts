@@ -6,7 +6,6 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import TerserPlugin from 'terser-webpack-plugin';
 import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
-import BundleAnalyzerPlugin from 'webpack-bundle-analyzer';
 
 interface Env {
   mode: Configuration['mode'];
@@ -94,11 +93,6 @@ module.exports = (env: Env): Configuration => {
       }),
       new ForkTsCheckerWebpackPlugin(),
       new HotModuleReplacementPlugin(),
-      new BundleAnalyzerPlugin.BundleAnalyzerPlugin({
-        analyzerMode: 'disabled',
-        generateStatsFile: true,
-        statsOptions: { source: false },
-      }),
     ],
     resolve: {
       extensions: ['.tsx', '.ts', '.jsx', '.js'],
