@@ -1,10 +1,8 @@
-import styles from "./myrouter.module.css";
-import React from "react";
+import React from 'react';
+import styles from './myrouter.module.css';
 
-export const MyRouter = () => {
-  return (
-    <div className={styles.wrapper}>
-      <div> Настроил роутинг, вроде работает </div>
-    </div>
-  );
-};
+export const MyRouter = () => (
+  <div className={styles.wrapper}>
+    <div> Настроил роутинг, вроде работает </div>
+  </div>
+);

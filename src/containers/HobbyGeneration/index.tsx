@@ -1,44 +1,44 @@
-import React, { useEffect, useState } from "react";
-import styles from "./HobbyGeneration.module.css";
-import { User } from "./User";
-import { Activity } from "./Activity";
-import { Alert, Box, Button, LinearProgress } from "@mui/material";
-import { UserData, UserActivity, StatusToggle, LoadingStatus, UserStatistic } from "./models";
-import { Statistic } from "./Statistic/Statistic";
-import { v4 as uuids4 } from "uuid";
-import { withAxiosServiceErrorHandling } from "../utils/withAxiosServiceErrorHandling";
-import { api } from "./api";
+import React, { useEffect, useState } from 'react';
+import { Alert, Box, Button, LinearProgress } from '@mui/material';
+import { v4 as uuids4 } from 'uuid';
+import styles from './HobbyGeneration.module.css';
+import { User } from './User';
+import { Activity } from './Activity';
+import { UserData, UserActivity, StatusToggle, LoadingStatus, UserStatistic } from './models';
+import { Statistic } from './Statistic/Statistic';
+import { withAxiosServiceErrorHandling } from '../utils/withAxiosServiceErrorHandling';
+import { api } from './api';
 
 export const HobbyGeneration: React.FC = () => {
   const [userState, setUserInfo] = useState<UserData>({
-    gender: "",
+    gender: '',
     name: {
-      title: "",
-      first: "",
-      last: "",
+      title: '',
+      first: '',
+      last: '',
     },
-    picture: { medium: "" },
-    email: "",
-    phone: "",
+    picture: { medium: '' },
+    email: '',
+    phone: '',
     location: {
-      city: "",
-      state: "",
-      country: "",
+      city: '',
+      state: '',
+      country: '',
       timezone: {
-        offset: "",
+        offset: '',
       },
     },
   });
 
   const [userActivityState, setUserActivity] = useState<UserActivity>({
-    activity: "",
+    activity: '',
     price: 0,
     accessibility: 0,
   });
 
   const [loadingStatusUser, setLoadingStatusUser] = useState<LoadingStatus>(LoadingStatus.LOADING);
   const [loadingStatusActivity, setLoadingStatusActivity] = useState<LoadingStatus>(
-    LoadingStatus.LOADING
+    LoadingStatus.LOADING,
   );
   const disabled = [
     loadingStatusActivity !== LoadingStatus.SUCCESS || loadingStatusUser !== LoadingStatus.SUCCESS,
@@ -85,10 +85,10 @@ export const HobbyGeneration: React.FC = () => {
       activity: userActivityState.activity,
       accessibility: userActivityState.accessibility,
       price: userActivityState.price,
+      accessibilityTotal: 0,
+      priceTotal: 0,
     };
-    setListOfUsers(() => {
-      return listOfUsers.concat(userDataForStatistic);
-    });
+    setListOfUsers(() => listOfUsers.concat(userDataForStatistic));
     generateData();
   };
 
@@ -96,20 +96,23 @@ export const HobbyGeneration: React.FC = () => {
     generateData();
   }, []);
 
+  const { picture, gender, name, phone, email, location } = userState;
+  const { activity, price, accessibility } = userActivityState;
+
   const renderUserDataWithLoadingStatusValidation = () => {
     switch (loadingStatusUser) {
-      case "LOADING":
+      case 'LOADING':
         return (
           <div className={styles.spinner}>
-            <Box sx={{ width: "90%" }}>
-              <LinearProgress color="secondary" />
+            <Box sx={{ width: '90%' }}>
+              <LinearProgress color='secondary' />
             </Box>
           </div>
         );
-      case "FAILED":
+      case 'FAILED':
         return (
           <div className={`${styles.errorMessage} ${styles.errorUserMessage}`}>
-            <Alert severity="error" style={{ width: "100%", justifyContent: "center" }}>
+            <Alert severity='error' style={{ width: '100%', justifyContent: 'center' }}>
               Error while User loading
             </Alert>
           </div>
@@ -117,25 +120,32 @@ export const HobbyGeneration: React.FC = () => {
       default:
         return (
           <div>
-            <User {...userState} />
+            <User
+              picture={picture}
+              gender={gender}
+              name={name}
+              phone={phone}
+              email={email}
+              location={location}
+            />
           </div>
         );
     }
   };
   const renderUserActivityWithLoadingStatusValidation = () => {
     switch (loadingStatusActivity) {
-      case "LOADING":
+      case 'LOADING':
         return (
           <div className={styles.loadingLine}>
-            <Box sx={{ width: "90%" }}>
-              <LinearProgress color="secondary" />
+            <Box sx={{ width: '90%' }}>
+              <LinearProgress color='secondary' />
             </Box>
           </div>
         );
-      case "FAILED":
+      case 'FAILED':
         return (
           <div className={`${styles.errorMessage} ${styles.errorActivityMessage} `}>
-            <Alert severity="error" style={{ width: "100%", justifyContent: "center" }}>
+            <Alert severity='error' style={{ width: '100%', justifyContent: 'center' }}>
               Error while Hobby loading
             </Alert>
           </div>
@@ -143,7 +153,7 @@ export const HobbyGeneration: React.FC = () => {
       default:
         return (
           <div>
-            <Activity {...userActivityState} />
+            <Activity activity={activity} price={price} accessibility={accessibility} />
           </div>
         );
     }
@@ -158,22 +168,21 @@ export const HobbyGeneration: React.FC = () => {
           {renderUserActivityWithLoadingStatusValidation()}
           <div className={styles.btn}>
             <div>
-              <Button variant="outlined" disabled={disabled} onClick={generateActivity}>
+              <Button variant='outlined' disabled={disabled} onClick={generateActivity}>
                 Generate Hobby
               </Button>
             </div>
             <div>
-              <Button variant="outlined" disabled={disabled} onClick={generateData}>
+              <Button variant='outlined' disabled={disabled} onClick={generateData}>
                 Generate User and Hobby
               </Button>
             </div>
             <div>
               <Button
-                variant="outlined"
-                color="success"
+                variant='outlined'
+                color='success'
                 disabled={disabled}
-                onClick={saveUserAndGenerateData}
-              >
+                onClick={saveUserAndGenerateData}>
                 Access
               </Button>
             </div>
@@ -182,13 +191,13 @@ export const HobbyGeneration: React.FC = () => {
       )}
       {statisticShow ? (
         <div className={styles.showBtn}>
-          <Button variant="outlined" onClick={() => setStatisticToggle(StatusToggle.HIDE)}>
+          <Button variant='outlined' onClick={() => setStatisticToggle(StatusToggle.HIDE)}>
             Back
           </Button>
         </div>
       ) : (
         <div className={styles.showBtn}>
-          <Button variant="outlined" onClick={() => setStatisticToggle(StatusToggle.SHOW)}>
+          <Button variant='outlined' onClick={() => setStatisticToggle(StatusToggle.SHOW)}>
             Show statistics
           </Button>
         </div>

@@ -1,7 +1,7 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { rickMortyReducer } from "./rickMorty/reducer";
-import { RickMortySelectors } from "./rickMorty/selectors";
-import { errorReducer, errorSelectors } from "./error";
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { rickMortyReducer } from './rickMorty/reducer';
+import { RickMortySelectors } from './rickMorty/selectors';
+import { errorReducer, errorSelectors } from './error';
 
 export const selectors = {
   ...RickMortySelectors,
@@ -17,4 +17,4 @@ export const store = configureStore({
 
 export type AppStore = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
-export const dispatch = store.dispatch;
+export const { dispatch } = store;

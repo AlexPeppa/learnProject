@@ -1,36 +1,43 @@
-import React from "react";
-import styles from "./car.module.css";
-import { Timer } from "../Timer";
-import { Box, Button, TextField } from "@mui/material";
-import { useEffect, useState } from "react";
-import DeleteIcon from "@mui/icons-material/Delete";
+import React, { FC, useEffect, useState } from 'react';
+import { Box, Button, TextField } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import styles from './car.module.css';
+import { Timer } from '../Timer';
+import { CarInfo } from '../models';
 
-export const Car = ({ car, carMode, setCarMode, setCarsState }) => {
-  const canEdit = carMode === "READ";
-  const [draftCar, setDraftCar] = useState(car);
-  const [modelInput, setModelInput] = useState("");
+type Props = {
+  car: CarInfo;
+  carMode: string;
+  setCarMode: (state: string) => void;
+  setCarsState: (state) => void;
+};
+
+export const Car: FC<Props> = ({ car, carMode, setCarMode, setCarsState }) => {
+  const canEdit = carMode === 'READ';
+  const [draftCar, setDraftCar] = useState<CarInfo>(car);
+  const [modelInput, setModelInput] = useState<string>('');
 
   const addChange = () => {
-    setCarsState((prevState: any) => ({
+    setCarsState((prevState) => ({
       ...prevState,
       [car.code]: draftCar,
     }));
-    setCarMode("READ");
+    setCarMode('READ');
   };
 
   const cancelChange = () => {
-    setCarMode("READ");
+    setCarMode('READ');
     setDraftCar(car);
   };
 
   useEffect(() => {
     setDraftCar(car);
-    setModelInput("");
-    setCarMode("READ");
+    setModelInput('');
+    setCarMode('READ');
   }, [car.code]);
 
   const editCar = () => {
-    setCarMode("EDIT");
+    setCarMode('EDIT');
   };
 
   const addModel = () => {
@@ -41,10 +48,10 @@ export const Car = ({ car, carMode, setCarMode, setCarsState }) => {
         models: prevState.description.models.concat(modelInput),
       },
     }));
-    setModelInput("");
+    setModelInput('');
   };
 
-  const deleteModel = (model) => {
+  const deleteModel = (model: string) => {
     const newModels = draftCar.description.models.filter((mark) => mark !== model);
     setDraftCar((prevState) => ({
       ...prevState,
@@ -60,19 +67,18 @@ export const Car = ({ car, carMode, setCarMode, setCarsState }) => {
       {canEdit ? (
         <div className={styles.aditButton}>
           <Button
-            style={{ color: "black", border: "1px solid black" }}
+            style={{ color: 'black', border: '1px solid black' }}
             onClick={editCar}
-            variant="outlined"
-          >
+            variant='outlined'>
             Edit
           </Button>
         </div>
       ) : (
         <div className={styles.aditSaveButtons}>
-          <Button className={styles.saveBtn} onClick={addChange} variant="outlined">
+          <Button className={styles.saveBtn} onClick={addChange} variant='outlined'>
             Save
           </Button>
-          <Button onClick={cancelChange} variant="outlined">
+          <Button onClick={cancelChange} variant='outlined'>
             Cancel
           </Button>
         </div>
@@ -84,10 +90,13 @@ export const Car = ({ car, carMode, setCarMode, setCarsState }) => {
         ) : (
           <TextField
             onChange={(event) =>
-              setDraftCar((prevState) => ({ ...prevState, name: event.target.value }))
+              setDraftCar((prevState) => ({
+                ...prevState,
+                name: event.target.value,
+              }))
             }
             required
-            label="Car name"
+            label='Car name'
             defaultValue={draftCar.name}
           />
         )}
@@ -100,11 +109,14 @@ export const Car = ({ car, carMode, setCarMode, setCarsState }) => {
               onChange={(event) =>
                 setDraftCar((prevState) => ({
                   ...prevState,
-                  description: { ...prevState.description, state: event.target.value },
+                  description: {
+                    ...prevState.description,
+                    state: event.target.value,
+                  },
                 }))
               }
               required
-              label="State"
+              label='State'
               defaultValue={draftCar.description.state}
             />
           )}
@@ -119,38 +131,42 @@ export const Car = ({ car, carMode, setCarMode, setCarsState }) => {
               onChange={(event) =>
                 setDraftCar((prevState) => ({
                   ...prevState,
-                  description: { ...prevState.description, founded: event.target.value },
+                  description: {
+                    ...prevState.description,
+                    founded: event.target.value,
+                  },
                 }))
               }
-              label="Founded"
+              label='Founded'
               defaultValue={draftCar.description.founded}
             />
           )}
         </div>
 
-        {
-          <div>
-            {canEdit ? (
-              <p>{car.description.text}</p>
-            ) : (
-              <Box component="form" sx={{ "& .MuiTextField-root": { m: 1, width: "1100px" } }}>
-                <TextField
-                  onChange={(event) =>
-                    setDraftCar((prevState) => ({
-                      ...prevState,
-                      description: { ...prevState.description, text: event.target.value },
-                    }))
-                  }
-                  id="outlined-multiline-static"
-                  label="Text"
-                  multiline
-                  rows={4}
-                  defaultValue={draftCar.description.text}
-                />
-              </Box>
-            )}
-          </div>
-        }
+        <div>
+          {canEdit ? (
+            <p>{car.description.text}</p>
+          ) : (
+            <Box component='form' sx={{ '& .MuiTextField-root': { m: 1, width: '1100px' } }}>
+              <TextField
+                onChange={(event) =>
+                  setDraftCar((prevState) => ({
+                    ...prevState,
+                    description: {
+                      ...prevState.description,
+                      text: event.target.value,
+                    },
+                  }))
+                }
+                id='outlined-multiline-static'
+                label='Text'
+                multiline
+                rows={4}
+                defaultValue={draftCar.description.text}
+              />
+            </Box>
+          )}
+        </div>
         <hr />
 
         <div>
@@ -158,32 +174,32 @@ export const Car = ({ car, carMode, setCarMode, setCarsState }) => {
             <h3>Models :</h3>
             <div className={canEdit ? styles.hiddenMarks : styles.addMarks}>
               <TextField
-                id="outlined-required"
-                label="Add Mark"
+                id='outlined-required'
+                label='Add Mark'
                 value={modelInput}
                 onChange={(event) => setModelInput(event.target.value)}
               />
-              <Button size="large" disabled={!modelInput} onClick={addModel}>
+              <Button size='large' disabled={!modelInput} onClick={addModel}>
                 Add Model
               </Button>
             </div>
           </div>
           <div>
-            {" "}
+            {' '}
             <ul className={styles.models}>
-              {" "}
+              {' '}
               {draftCar.description.models.map((model) => (
                 <li key={model} className={canEdit ? styles.model : styles.modelActive}>
-                  {" "}
-                  {model}{" "}
+                  {' '}
+                  {model}{' '}
                   {canEdit ? (
-                    ""
+                    ''
                   ) : (
                     <DeleteIcon className={styles.icon} onClick={() => deleteModel(model)} />
-                  )}{" "}
+                  )}{' '}
                 </li>
-              ))}{" "}
-            </ul>{" "}
+              ))}{' '}
+            </ul>{' '}
           </div>
         </div>
       </div>

@@ -1,13 +1,13 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-import { Character } from "./models";
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
+import { Character } from './models';
 
 const constants = {
-  BASE_URL: "https://rickandmortyapi.com/api/character",
+  BASE_URL: 'https://rickandmortyapi.com/api/character',
 };
 
 export const getAllCharacters = createAsyncThunk(
-  "getCharacters",
+  'getCharacters',
   async ({ page, name }: { page: number; name: string }, thunkAPI) => {
     try {
       const response = await axios.get(constants.BASE_URL, {
@@ -22,7 +22,7 @@ export const getAllCharacters = createAsyncThunk(
           characters[selectCharacter.id] = selectCharacter;
           return characters;
         },
-        {}
+        {},
       );
       return {
         charactersHashMap: hashMapCharacters,
@@ -31,5 +31,5 @@ export const getAllCharacters = createAsyncThunk(
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
-  }
+  },
 );

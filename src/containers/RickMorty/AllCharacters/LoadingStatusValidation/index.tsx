@@ -1,7 +1,7 @@
-import React, { FC, PropsWithChildren } from "react";
-import { ApiRequestStatus } from "@store/rickMorty/constants";
-import style from "./statusValidation.module.css";
-import { Preloader } from "../../Preloader";
+import React, { FC, PropsWithChildren } from 'react';
+import { ApiRequestStatus } from '@store/rickMorty/constants';
+import style from './statusValidation.module.css';
+import { Preloader } from '../../Preloader';
 
 type OwnProps = {
   loadingStatus: ApiRequestStatus;
@@ -20,8 +20,10 @@ export const StatusValidation: FC<PropsWithChildren<OwnProps>> = ({
       case ApiRequestStatus.REJECTED:
         return <div className={style.error}>{errorText}</div>;
       case ApiRequestStatus.FULFILLED:
-        return <>{children}</>;
+        return <div>{children}</div>;
+      default:
+        return <div />;
     }
   };
-  return <>{statusValidation()} </>;
+  return <>{statusValidation()}</>;
 };

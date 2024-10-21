@@ -1,11 +1,10 @@
-import React, { useMemo } from "react";
-import styles from "./Activity.module.css";
-import { Box, Slider } from "@mui/material";
-import { UserActivity } from "../models";
-import { generateDefaultPoints } from "../utils";
+import React, { useMemo } from 'react';
+import { Box, Slider } from '@mui/material';
+import styles from './Activity.module.css';
+import { UserActivity } from '../models';
+import { generateDefaultPoints } from '../utils';
 
-interface OwnProps extends UserActivity {}
-export const Activity: React.FC<OwnProps> = ({ activity, price, accessibility }) => {
+export const Activity: React.FC<UserActivity> = ({ activity, price, accessibility }) => {
   const marks = useMemo(() => generateDefaultPoints(), []);
 
   return (
@@ -18,7 +17,7 @@ export const Activity: React.FC<OwnProps> = ({ activity, price, accessibility })
             <div className={styles.accessibilitySlider}>
               <Box sx={{ width: 700 }}>
                 <Slider
-                  aria-label="Restricted values"
+                  aria-label='Restricted values'
                   value={accessibility * 100}
                   defaultValue={0}
                   step={0.0001}
@@ -32,7 +31,7 @@ export const Activity: React.FC<OwnProps> = ({ activity, price, accessibility })
             <div className={styles.priceSlider}>
               <Box sx={{ width: 700 }}>
                 <Slider
-                  aria-label="Restricted values"
+                  aria-label='Restricted values'
                   value={price * 100}
                   defaultValue={0}
                   step={0.0001}

@@ -1,12 +1,12 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { errorState } from "./models";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { errorState } from './models';
 
 const initialState: errorState = {
   allErrors: [],
 };
 
 const error = createSlice({
-  name: "Error",
+  name: 'Error',
   initialState,
   reducers: {
     addError: (state, action: PayloadAction<Error>) => {

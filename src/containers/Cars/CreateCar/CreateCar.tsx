@@ -1,21 +1,28 @@
-import React from "react";
-import { Button, TextField } from "@mui/material";
-import { useMemo, useState } from "react";
-import CarStyles from "./createCar.module.css";
-import { v4 as uuid4 } from "uuid";
-import { Box } from "@mui/system";
+import React, { FC, useMemo, useRef, useState } from 'react';
+import { Button, TextField } from '@mui/material';
+import { v4 as uuid4 } from 'uuid';
+import { Box } from '@mui/system';
+import CarStyles from './createCar.module.css';
+import { CarInfo } from '../models';
 
-export const CreateCar = ({ setCarsState, setCarMode, setSelectedCar, carsState }) => {
+type Props = {
+  setCarsState: (carsState) => void;
+  setCarMode: (state: string) => void;
+  setSelectedCar: (mode: string) => void;
+  carsState: Record<string, CarInfo>;
+};
+export const CreateCar: FC<Props> = ({ carsState, setCarsState, setCarMode, setSelectedCar }) => {
+  const ref = useRef(null);
   const codeCar = useMemo(() => uuid4(), [setCarMode]);
-  const [newCarInputModels, setNewCarInputModels] = useState("");
-  const [newDataCar, setNewDataCar] = useState({
-    name: "",
+  const [newCarInputModels, setNewCarInputModels] = useState<string>('');
+  const [newDataCar, setNewDataCar] = useState<CarInfo>({
+    name: '',
     code: codeCar,
     description: {
-      text: "",
-      state: "",
+      text: '',
+      state: '',
       models: [],
-      founded: "",
+      founded: '',
     },
   });
 
@@ -26,21 +33,13 @@ export const CreateCar = ({ setCarsState, setCarMode, setSelectedCar, carsState 
       },
     };
 
-    for (let cars in carsState) {
-      if (newCar[newDataCar.code].name === carsState[cars].name) {
-        setCarMode("READ");
-        alert("Такое имя машины уже существет!");
-        return;
-      }
-    }
-
     setCarsState((prevState) => ({
       ...prevState,
       ...newCar,
     }));
 
     setSelectedCar(newDataCar.code);
-    setCarMode("READ");
+    setCarMode('READ');
   };
   const addModels = () => {
     setNewDataCar((prevState) => ({
@@ -50,28 +49,26 @@ export const CreateCar = ({ setCarsState, setCarMode, setSelectedCar, carsState 
         models: [...prevState.description.models, newCarInputModels],
       },
     }));
-    setNewCarInputModels("");
+    setNewCarInputModels('');
   };
 
   const cancelCar = () => {
-    setCarMode("READ");
+    setCarMode('READ');
   };
-
+  const keys = Object.keys(carsState);
   return (
     <div>
       <div className={CarStyles.addCancelCarButtonDiv}>
         <Button
-          variant="outlined"
+          ref={ref}
+          variant='outlined'
           disabled={!newDataCar.name}
           className={CarStyles.addCarButton}
-          onClick={addCar}
-        >
-          {" "}
-          Add Car{" "}
+          onClick={addCar}>
+          Add Car
         </Button>
-        <Button variant="outlined" onClick={cancelCar} className={CarStyles.cancelCarBtn}>
-          {" "}
-          Cancel{" "}
+        <Button variant='outlined' onClick={cancelCar} className={CarStyles.cancelCarBtn}>
+          Cancel
         </Button>
       </div>
       <div className={CarStyles.dataCar}>
@@ -79,72 +76,92 @@ export const CreateCar = ({ setCarsState, setCarMode, setSelectedCar, carsState 
           <div>
             <TextField
               required
-              label="Car name"
-              onChange={(event) =>
-                setNewDataCar((prevState) => ({ ...prevState, name: event.target.value }))
-              }
-              defaultValue=""
+              label='Car name'
+              onChange={(event) => {
+                keys.map((car) => {
+                  if (event.target.value === carsState[car].name) {
+                    ref.current.style.display = 'none';
+                  } else {
+                    ref.current.style.display = '';
+                  }
+                  return null;
+                });
+
+                setNewDataCar((prevState) => ({
+                  ...prevState,
+                  name: event.target.value,
+                }));
+              }}
+              defaultValue=''
             />
           </div>
           <div>
             <TextField
               required
-              label="Car founded"
+              label='Car founded'
               onChange={(event) =>
                 setNewDataCar((prevState) => ({
                   ...prevState,
-                  description: { ...prevState.description, founded: event.target.value },
+                  description: {
+                    ...prevState.description,
+                    founded: event.target.value,
+                  },
                 }))
               }
-              defaultValue=""
+              defaultValue=''
             />
           </div>
           <div>
-            {" "}
+            {' '}
             <TextField
               required
-              label="Car state"
+              label='Car state'
               onChange={(event) =>
                 setNewDataCar((prevState) => ({
                   ...prevState,
-                  description: { ...prevState.description, state: event.target.value },
+                  description: {
+                    ...prevState.description,
+                    state: event.target.value,
+                  },
                 }))
               }
-              defaultValue=""
+              defaultValue=''
             />
-          </div>{" "}
+          </div>{' '}
         </div>
         <div className={CarStyles.text}>
-          <Box component="form" sx={{ "& .MuiTextField-root": { m: 1, width: "1100px" } }}>
+          <Box component='form' sx={{ '& .MuiTextField-root': { m: 1, width: '1100px' } }}>
             <TextField
               onChange={(event) =>
                 setNewDataCar((prevState) => ({
                   ...prevState,
-                  description: { ...prevState.description, text: event.target.value },
+                  description: {
+                    ...prevState.description,
+                    text: event.target.value,
+                  },
                 }))
               }
-              id="outlined-multiline-static"
-              label="Car text"
+              id='outlined-multiline-static'
+              label='Car text'
               multiline
               rows={4}
-              defaultValue=""
+              defaultValue=''
             />
-          </Box>{" "}
+          </Box>{' '}
         </div>
 
         <div>
           <div className={CarStyles.models}>
             <TextField
               required
-              label="Car models"
+              label='Car models'
               onChange={(event) => setNewCarInputModels(event.target.value)}
               value={newCarInputModels}
             />
             <Button
               className={CarStyles.addModelButton}
               disabled={!newCarInputModels}
-              onClick={addModels}
-            >
+              onClick={addModels}>
               Add Models
             </Button>
           </div>
@@ -153,7 +170,7 @@ export const CreateCar = ({ setCarsState, setCarMode, setSelectedCar, carsState 
               <ul key={model}>
                 <li>{model}</li>
               </ul>
-            ))}{" "}
+            ))}{' '}
           </div>
         </div>
       </div>

@@ -1,38 +1,10 @@
-import React, { FC } from "react";
-import Pagination from "@mui/material/Pagination";
-import Stack from "@mui/material/Stack";
-import style from "./pagination.module.css";
-import { getAllCharacters, setCurrentPage } from "@store/rickMorty/childs/characters";
-import { AppDispatch, AppStore, selectors } from "@store/index";
-import { connect } from "react-redux";
-
-type Props = StateProps & DispatchProps & OwnProps;
-
-const RickMortyPagination: FC<Props> = ({
-  countPages,
-  currentPage,
-  getCharacters,
-  setSelectedPage,
-  searchedCharacter,
-}) => {
-  return (
-    <div className={style.pagination}>
-      <Stack spacing={2}>
-        <Pagination
-          page={currentPage}
-          count={countPages}
-          defaultPage={currentPage}
-          boundaryCount={1}
-          color="secondary"
-          onChange={(_, num) => {
-            setSelectedPage(num);
-            getCharacters({ page: num, name: searchedCharacter });
-          }}
-        />
-      </Stack>
-    </div>
-  );
-};
+import React, { FC } from 'react';
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
+import { getAllCharacters, setCurrentPage } from '@store/rickMorty/childs/characters';
+import { AppDispatch, AppStore, selectors } from '@store/index';
+import { connect } from 'react-redux';
+import style from './pagination.module.css';
 
 type StateProps = {
   countPages: number;
@@ -47,6 +19,31 @@ type DispatchProps = {
 type OwnProps = {
   searchedCharacter: string;
 };
+type Props = StateProps & DispatchProps & OwnProps;
+
+const RickMortyPagination: FC<Props> = ({
+  countPages,
+  currentPage,
+  getCharacters,
+  setSelectedPage,
+  searchedCharacter,
+}) => (
+  <div className={style.pagination}>
+    <Stack spacing={2}>
+      <Pagination
+        page={currentPage}
+        count={countPages}
+        defaultPage={currentPage}
+        boundaryCount={1}
+        color='secondary'
+        onChange={(_, num) => {
+          setSelectedPage(num);
+          getCharacters({ page: num, name: searchedCharacter });
+        }}
+      />
+    </Stack>
+  </div>
+);
 
 const mapStateToProps = (state: AppStore): StateProps => ({
   currentPage: selectors.getCurrentPage(state),
@@ -60,5 +57,5 @@ const mapDispatchToProps = (dispatch: AppDispatch): DispatchProps => ({
 
 export default connect<StateProps, DispatchProps, OwnProps>(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(RickMortyPagination);

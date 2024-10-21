@@ -1,12 +1,12 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { getEpisodes } from "./actions";
-import { Episode, EpisodesState, Nope } from "../../models";
-import { ApiRequestStatus, RickMortyStorePath } from "@store/rickMorty/constants";
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { ApiRequestStatus, RickMortyStorePath } from '@store/rickMorty/constants';
+import { getEpisodes } from './actions';
+import { Episode, EpisodesState, Nope } from '../../models';
 
 const episodesState: EpisodesState = {
   episodes: [],
   loadingStatusEpisodes: ApiRequestStatus.PENDING,
-  errorText: "",
+  errorText: '',
 };
 
 export const episodes = createSlice({

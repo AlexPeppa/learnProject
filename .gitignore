@@ -4,12 +4,11 @@
 /node_modules
 /.pnp
 .pnp.js
-
+.stats.json
 # testing
 /coverage
 
 # production
-/build
 /dist
 
 

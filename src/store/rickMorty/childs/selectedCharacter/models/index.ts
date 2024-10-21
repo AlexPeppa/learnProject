@@ -1,5 +1,5 @@
-import { ApiRequestStatus } from "store/rickMorty/constants";
-import { Character } from "../../characters";
+import { ApiRequestStatus } from 'store/rickMorty/constants';
+import { Character } from '../../characters';
 
 export interface SelectedCharacterState {
   character: Character;
@@ -27,4 +27,5 @@ export interface CharactersInEpisodesState {
   errorText: string;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type Nope = any;

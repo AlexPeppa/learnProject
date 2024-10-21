@@ -1,5 +1,5 @@
-import { charactersInEpisodeSelectors, episodeSelectors } from "./childs";
-import { selectedCharactersSelectors } from "./childs/selectors";
+import { charactersInEpisodeSelectors, episodeSelectors } from './childs';
+import { selectedCharactersSelectors } from './childs/selectors';
 
 export const selectedCharactersChildsSelectors = {
   ...selectedCharactersSelectors,

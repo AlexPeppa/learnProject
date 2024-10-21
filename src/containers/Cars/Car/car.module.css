@@ -1,83 +1,80 @@
 .name {
-    text-align: center;
-    letter-spacing: 1px;
+  text-align: center;
+  letter-spacing: 1px;
 }
 
 .timer {
-    text-align: center;
-    font-size: 40px;
-    color: rgba(17, 17, 16, 0.303);
+  text-align: center;
+  font-size: 40px;
+  color: rgba(17, 17, 16, 0.303);
 }
 
 .text {
-    display: flex;
-    justify-content: space-around;
-    font-size: 20px;
+  display: flex;
+  justify-content: space-around;
+  font-size: 20px;
 }
 
 .models {
-    display: flex;
-    justify-content: space-around;
-    align-items: baseline;
-
+  display: flex;
+  justify-content: space-around;
+  align-items: baseline;
 }
 
 .model {
-    display: flex;
-    align-items: center;
-
+  display: flex;
+  align-items: center;
 }
 
 .modelActive {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
 }
 
 .modelActive:hover {
-    color: rgba(17, 17, 16, 0.303);
+  color: rgba(17, 17, 16, 0.303);
 }
 
 .deleteIcon {
-    visibility: hidden;
+  visibility: hidden;
 }
 
 .icon {
-    color: rgba(17, 17, 16, 0.303)
+  color: rgba(17, 17, 16, 0.303);
 }
 
-
 .aditButton {
-    text-align: right;
-    margin-right: 200px;
+  text-align: right;
+  margin-right: 200px;
 }
 
 .aditSaveButtons {
-    display: flex;
-    justify-content: space-between;
-    text-align: right;
-    margin-right: 200px;
+  display: flex;
+  justify-content: space-between;
+  text-align: right;
+  margin-right: 200px;
 }
 
 .saveBtn {
-    margin-right: 10px;
+  margin-right: 10px;
 }
 
 .marksTitle {
-    align-items: center;
-    display: flex;
-    justify-content: space-around;
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
 }
 
 .addMarks {
-    display: flex;
-    text-align: center;
+  display: flex;
+  text-align: center;
 }
 
 .hiddenMarks {
-    visibility: hidden;
+  visibility: hidden;
 }
 
 .showIcon {
-    visibility: inherit;
+  visibility: inherit;
 }

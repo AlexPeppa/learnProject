@@ -1,15 +1,26 @@
-import React, { FC, useState } from "react";
-import { connect } from "react-redux";
-import { AppDispatch, AppStore, selectors } from "@store/index";
-import style from "./selectedCharacter.module.css";
-import { Button } from "@mui/material";
-import { StatusValidation } from "../LoadingStatusValidation";
-import { ApiRequestStatus, Visibility } from "@store/rickMorty/constants";
-import { getEpisodes } from "@store/rickMorty/childs/selectedCharacter/childs/episodes";
-import CharactersInEpisode from "./CharactersInEpisode";
-import EpisodeTable from "./EpisodeTable";
-import { Character } from "@store/rickMorty/childs/characters";
-import { Breadcrumb } from "../../BreadCrumbs";
+import React, { FC, useState } from 'react';
+import { connect } from 'react-redux';
+import { AppDispatch, AppStore, selectors } from '@store/index';
+import { Button } from '@mui/material';
+import { ApiRequestStatus, Visibility } from '@store/rickMorty/constants';
+import { getEpisodes } from '@store/rickMorty/childs/selectedCharacter/childs/episodes';
+import { Character } from '@store/rickMorty/childs/characters';
+import style from './selectedCharacter.module.css';
+import { StatusValidation } from '../LoadingStatusValidation';
+import CharactersInEpisode from './CharactersInEpisode';
+import EpisodeTable from './EpisodeTable';
+import { Breadcrumb } from '../../BreadCrumbs';
+
+type StateProps = {
+  character: Character;
+  loadingStatusEpisodes: ApiRequestStatus;
+  loadingStatusCharacterInEpisode: ApiRequestStatus;
+  errorText: string;
+  errorTextCharactersInEpisode: string;
+};
+type DispatchProps = {
+  getEpisode: (episodes: string[]) => void;
+};
 
 type Props = StateProps & DispatchProps;
 
@@ -23,7 +34,7 @@ const SelectedCharacter: FC<Props> = ({
 }) => {
   const [episodesVisibility, setEpisodesVisibility] = useState(Visibility.HIDDEN);
   const [characterInEpisodesVisibility, setCharacterInEpisodesVisibility] = useState(
-    Visibility.HIDDEN
+    Visibility.HIDDEN,
   );
 
   return (
@@ -34,7 +45,7 @@ const SelectedCharacter: FC<Props> = ({
       </div>
       <div className={style.info}>
         <div>
-          <img className={style.infoImg} src={character.image} alt="" />
+          <img className={style.infoImg} src={character.image} alt='' />
         </div>
         <div className={style.infoBox}>
           <div>
@@ -47,7 +58,7 @@ const SelectedCharacter: FC<Props> = ({
             Species:<b>{character.species}</b>
           </div>
           <div>
-            Type:<b>{character.type === "" ? "unknown" : character.type}</b>
+            Type:<b>{character.type === '' ? 'unknown' : character.type}</b>
           </div>
           <div>
             Origin name:<b> {character.origin.name}</b>
@@ -57,14 +68,13 @@ const SelectedCharacter: FC<Props> = ({
           </div>
           <div className={style.showEpisodesBtn}>
             <Button
-              size="medium"
-              color="secondary"
+              size='medium'
+              color='secondary'
               onClick={() => {
                 setEpisodesVisibility(Visibility.VISIBLE);
                 getEpisode(character.episode);
               }}
-              disabled={episodesVisibility === Visibility.VISIBLE}
-            >
+              disabled={episodesVisibility === Visibility.VISIBLE}>
               Show episodes
             </Button>
           </div>
@@ -78,12 +88,10 @@ const SelectedCharacter: FC<Props> = ({
         </div>
         <div
           className={style.charactersInEpisodeWrapper}
-          style={{ visibility: characterInEpisodesVisibility }}
-        >
+          style={{ visibility: characterInEpisodesVisibility }}>
           <StatusValidation
             loadingStatus={loadingStatusCharacterInEpisode}
-            errorText={errorTextCharactersInEpisode}
-          >
+            errorText={errorTextCharactersInEpisode}>
             <CharactersInEpisode
               setEpisodesVisibility={setEpisodesVisibility}
               setCharacterInEpisodesVisibility={setCharacterInEpisodesVisibility}
@@ -93,17 +101,6 @@ const SelectedCharacter: FC<Props> = ({
       </div>
     </div>
   );
-};
-
-type StateProps = {
-  character: Character;
-  loadingStatusEpisodes: ApiRequestStatus;
-  loadingStatusCharacterInEpisode: ApiRequestStatus;
-  errorText: string;
-  errorTextCharactersInEpisode: string;
-};
-type DispatchProps = {
-  getEpisode: (episodes: string[]) => void;
 };
 
 const mapStateToProps = (state: AppStore): StateProps => ({
@@ -119,5 +116,5 @@ const mapDispatchToProps = (dispatch: AppDispatch): DispatchProps => ({
 
 export default connect<StateProps, DispatchProps>(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(SelectedCharacter);

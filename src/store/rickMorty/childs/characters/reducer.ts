@@ -1,14 +1,14 @@
-import { ApiRequestData } from "./models/index";
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { ApiRequestStatus, RickMortyStorePath } from "../../constants";
-import { getAllCharacters } from "./actions";
-import { CharactersState } from "./models";
-import { Nope } from "../selectedCharacter";
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { ApiRequestData, CharactersState } from './models/index';
+import { ApiRequestStatus, RickMortyStorePath } from '../../constants';
+import { getAllCharacters } from './actions';
+
+import { Nope } from '../selectedCharacter';
 
 const charactersState: CharactersState = {
   loadingStatus: ApiRequestStatus.PENDING,
   countPages: 0,
-  errorText: "",
+  errorText: '',
   currentPage: 1,
   characters: {},
 };
@@ -38,4 +38,4 @@ export const characters = createSlice({
 });
 
 export const charactersReducer = characters.reducer;
-export const setCurrentPage = characters.actions.setCurrentPage;
+export const { setCurrentPage } = characters.actions;

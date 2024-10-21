@@ -1,13 +1,13 @@
-import { ApiRequestStatus, RickMortyStorePath } from "@store/rickMorty/constants";
-import { CharactersInEpisodesState, Nope } from "../../models";
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { getCharactersInEpisodes } from "./actions";
-import { Character } from "../../../characters";
+import { ApiRequestStatus, RickMortyStorePath } from '@store/rickMorty/constants';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { CharactersInEpisodesState, Nope } from '../../models';
+import { getCharactersInEpisodes } from './actions';
+import { Character } from '../../../characters';
 
 const charactersInEpisodesState: CharactersInEpisodesState = {
   charactersInEpisodes: {},
   loadingStatusCharactersInEpisodes: ApiRequestStatus.PENDING,
-  errorText: "",
+  errorText: '',
 };
 
 export const charactersInEpisodes = createSlice({
@@ -24,7 +24,7 @@ export const charactersInEpisodes = createSlice({
       (state, action: PayloadAction<Record<number, Character>>) => {
         state.charactersInEpisodes = action.payload;
         state.loadingStatusCharactersInEpisodes = ApiRequestStatus.FULFILLED;
-      }
+      },
     );
     builder.addCase(getCharactersInEpisodes.pending, (state) => {
       state.loadingStatusCharactersInEpisodes = ApiRequestStatus.PENDING;
@@ -37,5 +37,4 @@ export const charactersInEpisodes = createSlice({
 });
 
 export const charactersInEpisodesReducer = charactersInEpisodes.reducer;
-export const cleanCharacterInEpisodesState =
-  charactersInEpisodes.actions.cleanCharacterInEpisodesState;
+export const { cleanCharacterInEpisodesState } = charactersInEpisodes.actions;

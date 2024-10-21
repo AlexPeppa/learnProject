@@ -1,4 +1,4 @@
-import { AppStore } from "store";
+import { AppStore } from 'store';
 
 export const charactersSelectors = {
   getAllCharacters: (state: AppStore) => state.rickMorty.charactersReducer.characters,

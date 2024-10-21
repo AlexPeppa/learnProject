@@ -1,4 +1,4 @@
-import { ApiRequestStatus } from "../../../constants";
+import { ApiRequestStatus } from '../../../constants';
 
 export interface Character {
   id: number;

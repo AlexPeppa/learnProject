@@ -31,17 +31,19 @@ export type UserStatistic = {
   activity: string;
   accessibility: number;
   price: number;
+  accessibilityTotal: number;
+  priceTotal: number;
 };
 
 export enum StatusToggle {
-  HIDE = "HIDE",
-  SHOW = "SHOW",
+  HIDE = 'HIDE',
+  SHOW = 'SHOW',
 }
 
 export enum LoadingStatus {
-  SUCCESS = "SUCCESS",
-  LOADING = "LOADING",
-  FAILED = "FAILED",
+  SUCCESS = 'SUCCESS',
+  LOADING = 'LOADING',
+  FAILED = 'FAILED',
 }
 
 export type Total = {
@@ -49,5 +51,4 @@ export type Total = {
   priceTotal: number;
 };
 
-export type key = string;
 export type error = Error | null;
