@@ -1,0 +1,8 @@
+import { deleteDraftCarModel } from '.';
+
+describe('deleteDraftCarModel', () => {
+  test('should return filter Models', () => {
+    const models = ['bmw', 'audi', 'mercedes'];
+    expect(deleteDraftCarModel(models, 'audi')).toEqual(['bmw', 'mercedes']);
+  });
+});

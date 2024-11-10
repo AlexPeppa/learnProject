@@ -44,6 +44,7 @@ export default tseslint.config(
       globals: globals.browser,
       parser: tseslint.parser,
       parserOptions: {
+        sourceType: 'module',
         ecmaFeatures: { modules: true },
         ecmaVersion: 'latest',
         projectService: true,

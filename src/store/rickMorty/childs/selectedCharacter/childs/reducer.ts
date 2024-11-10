@@ -7,7 +7,7 @@ const selectedCharacterState: SelectedCharacterState = {
   character: {
     id: 0,
     name: '',
-    status: false,
+    status: 'false',
     species: '',
     type: '',
     gender: '',
@@ -19,6 +19,8 @@ const selectedCharacterState: SelectedCharacterState = {
     },
     image: '',
     episode: [],
+    created: '',
+    url: '',
   },
 };
 

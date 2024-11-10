@@ -5,7 +5,7 @@ import styles from './HobbyGeneration.module.css';
 import { User } from './User';
 import { Activity } from './Activity';
 import { UserData, UserActivity, StatusToggle, LoadingStatus, UserStatistic } from './models';
-import { Statistic } from './Statistic/Statistic';
+import { Statistic } from './Statistic';
 import { withAxiosServiceErrorHandling } from '../utils/withAxiosServiceErrorHandling';
 import { api } from './api';
 
@@ -85,8 +85,6 @@ export const HobbyGeneration: React.FC = () => {
       activity: userActivityState.activity,
       accessibility: userActivityState.accessibility,
       price: userActivityState.price,
-      accessibilityTotal: 0,
-      priceTotal: 0,
     };
     setListOfUsers(() => listOfUsers.concat(userDataForStatistic));
     generateData();

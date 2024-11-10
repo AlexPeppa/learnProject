@@ -1,9 +1,8 @@
 import { Routes, Route, NavLink } from 'react-router-dom';
 import React from 'react';
 import styles from './App.module.css';
-import RickMorty from './containers/RickMorty/index';
-import SelectedCharacter from './containers/RickMorty/AllCharacters/SelectedCharacter';
-import { HobbyGeneration, Cars, Home, MyRouter } from './containers';
+import { HobbyGeneration, Cars, Home, MyRouter, RickMorty } from './containers';
+import { SelectedCharacter } from './containers/RickMorty/AllCharacters/SelectedCharacter';
 
 export const App: React.FC = () => (
   <div className={styles.wrapper}>

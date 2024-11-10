@@ -24,7 +24,7 @@ type DispatchProps = {
 
 type Props = StateProps & DispatchProps;
 
-const SelectedCharacter: FC<Props> = ({
+const SelectedCharacterComponent: FC<Props> = ({
   character,
   loadingStatusEpisodes,
   loadingStatusCharacterInEpisode,
@@ -114,7 +114,7 @@ const mapDispatchToProps = (dispatch: AppDispatch): DispatchProps => ({
   getEpisode: (episodes: string[]) => dispatch(getEpisodes(episodes)),
 });
 
-export default connect<StateProps, DispatchProps>(
+export const SelectedCharacter = connect<StateProps, DispatchProps>(
   mapStateToProps,
   mapDispatchToProps,
-)(SelectedCharacter);
+)(SelectedCharacterComponent);

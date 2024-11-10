@@ -19,7 +19,12 @@ type DispatchProps = {
 };
 type Props = StateProps & DispatchProps;
 
-const RickMorty: FC<Props> = ({ loadingStatus, errorText, currentPage, getCharacters }) => {
+const RickMortyComponent: FC<Props> = ({
+  loadingStatus,
+  errorText,
+  currentPage,
+  getCharacters,
+}) => {
   useEffect(() => {
     getCharacters({ page: currentPage, name: '' });
   }, []);
@@ -56,4 +61,7 @@ const mapDispatchToProps = (dispatch: AppDispatch): DispatchProps => ({
     dispatch(getAllCharacters({ page, name })),
 });
 
-export default connect<StateProps, DispatchProps>(mapStateToProps, mapDispatchToProps)(RickMorty);
+export const RickMorty = connect<StateProps, DispatchProps>(
+  mapStateToProps,
+  mapDispatchToProps,
+)(RickMortyComponent);

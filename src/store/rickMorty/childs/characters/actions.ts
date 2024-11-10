@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { Character } from './models';
+import { createHashMapCharacter } from './utils/createHashMapCharacters';
 
 const constants = {
   BASE_URL: 'https://rickandmortyapi.com/api/character',
@@ -17,13 +17,7 @@ export const getAllCharacters = createAsyncThunk(
         },
       });
       const charactersArr = response.data.results;
-      const hashMapCharacters = charactersArr.reduce(
-        (characters: Character[], selectCharacter: Character) => {
-          characters[selectCharacter.id] = selectCharacter;
-          return characters;
-        },
-        {},
-      );
+      const hashMapCharacters = createHashMapCharacter(charactersArr);
       return {
         charactersHashMap: hashMapCharacters,
         info: response.data.info,

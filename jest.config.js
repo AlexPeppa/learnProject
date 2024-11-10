@@ -1,6 +1,6 @@
 module.exports = {
   preset: 'ts-jest',
-  testEnvironment: 'node',
+  testEnvironment: 'jsdom',
   transform: {
     '^.+\\.ts?$': 'ts-jest',
   },
@@ -13,5 +13,7 @@ module.exports = {
   moduleNameMapper: {
     axios: require.resolve('axios'),
     '^@store(.*)$': '<rootDir>/src/store$1',
+    '\\.(css|less|sass|scss)$': 'identity-obj-proxy',
+    '\\.(jpg|jpeg|png|gif|svg)$': '<rootDir>/imgMok.ts',
   },
 };
