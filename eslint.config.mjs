@@ -19,6 +19,7 @@ export default tseslint.config(
   {
     rules: {
       'import/prefer-default-export': 'off',
+      'import/no-unresolved': 'error',
       'no-param-reassign': 'off',
       'no-unused-vars': 'off',
       'no-shadow': 'off',

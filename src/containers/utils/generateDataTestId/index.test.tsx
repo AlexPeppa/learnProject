@@ -1,37 +1,30 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
 import { generateDataTestId } from '.';
 import '@testing-library/jest-dom';
 
-const TestComponent = () => {
-  const data = [{ name: 'Alex' }, { name: 'John' }, { name: 'Peter' }];
-
-  return (
-    <div>
-      {data.map((user) => (
-        <ul
-          key={data.indexOf(user)}
-          data-testid={generateDataTestId('component', 'user', `${data.indexOf(user)}`)}>
-          {user.name}
-        </ul>
-      ))}
-    </div>
-  );
-};
-
 describe('generateTestId', () => {
-  test('should find element with unique test id', () => {
-    render(<TestComponent />);
-    const uniqueTestId: string[] = [
-      'testId_component_user_0',
-      'testId_component_user_1',
-      'testId_component_user_2',
-    ];
-    const element1 = screen.queryByTestId(uniqueTestId[0]);
-    const element2 = screen.queryByTestId(uniqueTestId[1]);
-    const element3 = screen.queryByTestId(uniqueTestId[2]);
-    expect(element1).toBeInTheDocument();
-    expect(element2).toBeInTheDocument();
-    expect(element3).toBeInTheDocument();
+  test('should return uniq id', () => {
+    const entityPointer = 'user';
+    const elementName = 'name';
+    const suffix = '23';
+    expect(generateDataTestId(entityPointer, elementName)).toEqual('testId_user_name');
+    expect(generateDataTestId(entityPointer, elementName, suffix)).toEqual('testId_user_name_23');
+  });
+  test('should return uniq id with undefined', () => {
+    const entityPointer = undefined;
+    const elementName = undefined;
+    const suffix = undefined;
+    expect(generateDataTestId(entityPointer, elementName)).toEqual('testId_undefined_undefined');
+    expect(generateDataTestId(entityPointer, elementName, suffix)).toEqual(
+      'testId_undefined_undefined',
+    );
+  });
+  test('should return uniq id  with spaces and special signs', () => {
+    const entityPointer = 'Car';
+    const elementName = '@#$%&_BMW';
+    const suffix = '  5  ';
+    expect(generateDataTestId(entityPointer, elementName)).toEqual('testId_Car_@#$%&_BMW');
+    expect(generateDataTestId(entityPointer, elementName, suffix)).toEqual(
+      'testId_Car_@#$%&_BMW_  5  ',
+    );
   });
 });

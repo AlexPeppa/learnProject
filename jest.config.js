@@ -13,6 +13,8 @@ module.exports = {
   moduleNameMapper: {
     axios: require.resolve('axios'),
     '^@store(.*)$': '<rootDir>/src/store$1',
+    '^@rickMorty(.*)$': '<rootDir>/src/store/rickMorty$1',
+    '^@utils(.*)$': '<rootDir>/src/containers/utils$1',
     '\\.(css|less|sass|scss)$': 'identity-obj-proxy',
     '\\.(jpg|jpeg|png|gif|svg)$': '<rootDir>/imgMok.ts',
   },

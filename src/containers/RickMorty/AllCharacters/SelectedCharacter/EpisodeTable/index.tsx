@@ -9,9 +9,10 @@ import Paper from '@mui/material/Paper';
 import { AppDispatch, AppStore, selectors } from '@store/index';
 import { connect } from 'react-redux';
 import { Button } from '@mui/material';
-import { getCharactersInEpisodes } from '@store/rickMorty/childs/selectedCharacter/childs/charactersInEpisodes';
-import { Episode } from '@store/rickMorty/childs/selectedCharacter';
-import { Visibility } from '@store/rickMorty/constants';
+import { getCharactersInEpisodes } from '@rickMorty/childs/selectedCharacter/childs/charactersInEpisodes';
+import { Episode } from '@rickMorty/childs/selectedCharacter';
+import { Visibility } from '@rickMorty/constants';
+import { generateDataTestId } from '@utils/generateDataTestId';
 import style from './episodeTable.module.css';
 
 type StateProps = {
@@ -32,21 +33,33 @@ const EpisodeTable: FC<Props> = ({
   setCharacterInEpisodesVisibility,
 }) => (
   <div className={style.wrapper}>
-    <div>
+    <div data-testid={generateDataTestId('EpisodeTable', 'table')}>
       <TableContainer sx={{ bgcolor: 'rgba(187, 151, 151, 0.030)' }} component={Paper}>
         <Table sx={{ maxWidth: 800 }} size='small' aria-label='a dense table'>
           <TableHead>
             <TableRow>
-              <TableCell width='200px' align='center'>
+              <TableCell
+                data-testid={generateDataTestId('EpisodeTable', 'episode')}
+                width='200px'
+                align='center'>
                 <h3>Episode</h3>
               </TableCell>
-              <TableCell width='400px' align='center'>
+              <TableCell
+                data-testid={generateDataTestId('EpisodeTable', 'data')}
+                width='400px'
+                align='center'>
                 <h3>Data</h3>
               </TableCell>
-              <TableCell width='200px' align='center'>
+              <TableCell
+                data-testid={generateDataTestId('EpisodeTable', 'created')}
+                width='200px'
+                align='center'>
                 <h3>Created</h3>
               </TableCell>
-              <TableCell width='200px' align='center'>
+              <TableCell
+                data-testid={generateDataTestId('EpisodeTable', 'characters')}
+                width='200px'
+                align='center'>
                 <h3>Characters</h3>
               </TableCell>
             </TableRow>
@@ -59,6 +72,11 @@ const EpisodeTable: FC<Props> = ({
                 <TableCell align='center'>{episode.created.slice(0, 10)}</TableCell>
                 <TableCell align='center'>
                   <Button
+                    data-testid={generateDataTestId(
+                      'EpisodeTable',
+                      ' showCharacters',
+                      `${episode.id}`,
+                    )}
                     size='small'
                     color='secondary'
                     onClick={() => {

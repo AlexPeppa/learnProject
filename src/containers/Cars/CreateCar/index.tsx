@@ -2,9 +2,9 @@ import React, { FC, useMemo, useRef, useState } from 'react';
 import { Button, TextField } from '@mui/material';
 import { v4 as uuid4 } from 'uuid';
 import { Box } from '@mui/system';
+import { generateDataTestId } from '@utils/generateDataTestId';
 import CarStyles from './createCar.module.css';
 import { CarInfo } from '../models';
-import { generateDataTestId } from '../../utils/generateDataTestId';
 
 type Props = {
   setCarsState: (carsState) => void;

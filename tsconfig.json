@@ -12,7 +12,9 @@
     "baseUrl": "src",
     "paths": {
       "*": ["*"],
-      "@store/*": ["store/*"]
+      "@store/*": ["store/*"],
+      "@rickMorty/*": ["store/rickMorty/*"],
+      "@utils/*": ["containers/utils/*"]
     }
   },
   "exclude": ["node_modules", "dist"],

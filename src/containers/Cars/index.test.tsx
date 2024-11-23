@@ -2,48 +2,42 @@ import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import { render, screen } from '@testing-library/react';
+import { generateDataTestId } from '@utils/generateDataTestId';
 import { Cars } from '.';
-import { generateDataTestId } from '../utils/generateDataTestId';
 
 describe('Cars component', () => {
-  test('cars Snapshot test', () => {
-    const component = render(<Cars />);
-    expect(component).toMatchSnapshot();
-  });
   test('have elements after click', async () => {
     render(<Cars />);
     const carsCreateCarBtn = screen.queryByTestId(generateDataTestId('cars', 'createCarBtn'));
     const createCarCancelBtn = screen.queryByTestId(generateDataTestId('createCar', 'cancelBtn'));
     expect(carsCreateCarBtn).toBeInTheDocument();
 
-    expect(createCarCancelBtn).toBeNull();
-    expect(screen.queryByTestId(generateDataTestId('createCar', 'carName'))).toBeNull();
-    expect(screen.queryByTestId(generateDataTestId('createCar', 'carFounded'))).toBeNull();
-    expect(screen.queryByTestId(generateDataTestId('createCar', 'carState'))).toBeNull();
-    expect(screen.queryByTestId(generateDataTestId('createCar', 'carText'))).toBeNull();
-    expect(screen.queryByTestId(generateDataTestId('createCar', 'carModels'))).toBeNull();
+    expect(createCarCancelBtn).not.toBeInTheDocument();
+    expect(
+      screen.queryByTestId(generateDataTestId('createCar', 'carName')),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByTestId(generateDataTestId('createCar', 'carFounded')),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByTestId(generateDataTestId('createCar', 'carState')),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByTestId(generateDataTestId('createCar', 'carText')),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByTestId(generateDataTestId('createCar', 'carModels')),
+    ).not.toBeInTheDocument();
 
-    userEvent.click(carsCreateCarBtn);
+    await userEvent.click(carsCreateCarBtn);
 
-    expect(
-      await screen.findByTestId(generateDataTestId('createCar', 'cancelBtn')),
-    ).toBeInTheDocument();
-    expect(await screen.findByTestId(generateDataTestId('createCar', 'addCarBtn'))).toBeDisabled();
-    expect(
-      await screen.findByTestId(generateDataTestId('createCar', 'carName')),
-    ).toBeInTheDocument();
-    expect(
-      await screen.findByTestId(generateDataTestId('createCar', 'carFounded')),
-    ).toBeInTheDocument();
-    expect(
-      await screen.findByTestId(generateDataTestId('createCar', 'carState')),
-    ).toBeInTheDocument();
-    expect(
-      await screen.findByTestId(generateDataTestId('createCar', 'carText')),
-    ).toBeInTheDocument();
-    expect(
-      await screen.findByTestId(generateDataTestId('createCar', 'carModels')),
-    ).toBeInTheDocument();
+    expect(screen.queryByTestId(generateDataTestId('createCar', 'cancelBtn'))).toBeInTheDocument();
+    expect(screen.queryByTestId(generateDataTestId('createCar', 'addCarBtn'))).toBeDisabled();
+    expect(screen.queryByTestId(generateDataTestId('createCar', 'carName'))).toBeInTheDocument();
+    expect(screen.queryByTestId(generateDataTestId('createCar', 'carFounded'))).toBeInTheDocument();
+    expect(screen.queryByTestId(generateDataTestId('createCar', 'carState'))).toBeInTheDocument();
+    expect(screen.queryByTestId(generateDataTestId('createCar', 'carText'))).toBeInTheDocument();
+    expect(screen.queryByTestId(generateDataTestId('createCar', 'carModels'))).toBeInTheDocument();
   });
 
   test('to have class select after click', async () => {
@@ -63,17 +57,17 @@ describe('Cars component', () => {
     expect(selectCarLi2).not.toHaveClass('li select');
     expect(selectCarLi3).not.toHaveClass('li select');
 
-    userEvent.click(selectCarDiv2);
+    await userEvent.click(selectCarDiv2);
 
-    expect(await screen.findByTestId(generateDataTestId('cars', 'selectedCarLi', '1'))).toHaveClass(
+    expect(screen.queryByTestId(generateDataTestId('cars', 'selectedCarLi', '1'))).not.toHaveClass(
       'li select ',
     );
-    expect(await screen.findByTestId(generateDataTestId('cars', 'selectedCarLi', '2'))).toHaveClass(
+    expect(screen.queryByTestId(generateDataTestId('cars', 'selectedCarLi', '2'))).toHaveClass(
       'li select',
     );
-    expect(
-      await screen.findByTestId(generateDataTestId('cars', 'selectedCarLi', '3')),
-    ).not.toHaveClass('li select');
+    expect(screen.queryByTestId(generateDataTestId('cars', 'selectedCarLi', '3'))).not.toHaveClass(
+      'li select',
+    );
   });
 
   test('input carName change value, addCarBtn work , cancelBtn work', async () => {

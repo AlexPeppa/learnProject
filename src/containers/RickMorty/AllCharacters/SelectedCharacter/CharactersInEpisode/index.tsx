@@ -1,13 +1,14 @@
 import React, { FC } from 'react';
 import { connect } from 'react-redux';
 import { AppDispatch, AppStore, selectors } from '@store/index';
-import { Character } from 'store/rickMorty/childs/characters';
+import { Character } from '@rickMorty/childs/characters';
 import { NavLink } from 'react-router-dom';
+import { Visibility } from '@store/rickMorty/constants';
 import {
   cleanCharacterInEpisodesState,
   selectCharacterAction,
 } from '@store/rickMorty/childs/selectedCharacter/childs';
-import { Visibility } from '@store/rickMorty/constants';
+import { generateDataTestId } from '@utils/generateDataTestId';
 import style from './charactersInEpisode.module.css';
 
 type StateProps = {
@@ -39,9 +40,16 @@ const CharactersInEpisode: FC<Props> = ({
     setSelectedCharacter(currentCharacter);
   };
   return (
-    <div className={style.charactersInEpisodeWrapper}>
+    <div
+      data-testid={generateDataTestId('CharactersInEpisode', 'characters')}
+      className={style.charactersInEpisodeWrapper}>
       {Object.values(characters).map((character) => (
         <div
+          data-testid={generateDataTestId(
+            'CharactersInEpisode',
+            'selectCharacters',
+            `${character.id}`,
+          )}
           tabIndex={0}
           role='button'
           className={style.wrapper}

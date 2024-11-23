@@ -5,6 +5,7 @@ import { Button } from '@mui/material';
 import { ApiRequestStatus, Visibility } from '@store/rickMorty/constants';
 import { getEpisodes } from '@store/rickMorty/childs/selectedCharacter/childs/episodes';
 import { Character } from '@store/rickMorty/childs/characters';
+import { generateDataTestId } from '@utils/generateDataTestId';
 import style from './selectedCharacter.module.css';
 import { StatusValidation } from '../LoadingStatusValidation';
 import CharactersInEpisode from './CharactersInEpisode';
@@ -38,9 +39,11 @@ const SelectedCharacterComponent: FC<Props> = ({
   );
 
   return (
-    <div className={style.wrapper}>
+    <div data-testid={generateDataTestId('selectCharacter', 'info')} className={style.wrapper}>
       <Breadcrumb name={character.name} />
-      <div className={style.infoTextName}>
+      <div
+        data-testid={generateDataTestId('selectCharacter', 'name')}
+        className={style.infoTextName}>
         <b>{character.name}</b>
       </div>
       <div className={style.info}>
@@ -48,10 +51,10 @@ const SelectedCharacterComponent: FC<Props> = ({
           <img className={style.infoImg} src={character.image} alt='' />
         </div>
         <div className={style.infoBox}>
-          <div>
+          <div data-testid={generateDataTestId('selectCharacter', 'gender')}>
             Gender:<b>{character.gender}</b>
           </div>
-          <div>
+          <div data-testid={generateDataTestId('selectCharacter', 'status')}>
             Status:<b>{character.status}</b>
           </div>
           <div>
@@ -68,6 +71,7 @@ const SelectedCharacterComponent: FC<Props> = ({
           </div>
           <div className={style.showEpisodesBtn}>
             <Button
+              data-testid={generateDataTestId('selectCharacter', 'showEpisodesBtn')}
               size='medium'
               color='secondary'
               onClick={() => {

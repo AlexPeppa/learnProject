@@ -5,6 +5,7 @@ import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined
 import { AppDispatch } from '@store/index';
 import { setCurrentPage } from '@store/rickMorty/childs/characters';
 import debounce from 'lodash.debounce';
+import { generateDataTestId } from '@utils/generateDataTestId';
 
 type OwnProps = {
   setSearchedCharacter: (name: string) => void;
@@ -47,6 +48,7 @@ const SearchInput: FC<Props> = ({
 
   return (
     <Paper
+      data-testid={generateDataTestId('RickMorty', 'searchInput')}
       component='form'
       sx={{
         p: '1px 5px',

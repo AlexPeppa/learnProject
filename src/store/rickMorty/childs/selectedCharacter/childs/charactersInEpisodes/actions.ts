@@ -1,8 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios, { AxiosResponse } from 'axios';
-import { Character } from 'store/rickMorty/childs/characters';
+import { Character } from '@rickMorty/childs/characters';
+import { arrayToMap } from '../../../characters/utils/createHashMapFromArray';
 import { getCharacterInEpisode } from './utils/getCharacterInEpisodeData';
-import { createCharacterInEpisodeHashMap } from './utils/createCharacterInEpisodeHashMap';
 
 export const getCharactersInEpisodes = createAsyncThunk(
   'getCharactersInEpisode',
@@ -15,7 +15,7 @@ export const getCharactersInEpisodes = createAsyncThunk(
       ).then((charactersInEpisodesResponse: AxiosResponse<Character>[]) =>
         getCharacterInEpisode(charactersInEpisodesResponse),
       );
-      return createCharacterInEpisodeHashMap(charactersInEpisode);
+      return arrayToMap(charactersInEpisode, 'id');
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }

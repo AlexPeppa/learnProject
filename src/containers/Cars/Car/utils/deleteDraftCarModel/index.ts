@@ -1,2 +1,2 @@
-export const deleteDraftCarModel = (array: string[], model: string) =>
-  array.filter((mark) => mark !== model);
+export const deleteDraftCarModel = (models: string[], model: string) =>
+  models.filter((mark) => mark !== model);

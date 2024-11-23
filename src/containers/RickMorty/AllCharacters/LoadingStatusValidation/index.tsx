@@ -1,5 +1,6 @@
 import React, { FC, PropsWithChildren } from 'react';
 import { ApiRequestStatus } from '@store/rickMorty/constants';
+import { generateDataTestId } from '@utils/generateDataTestId';
 import style from './statusValidation.module.css';
 import { Preloader } from '../../Preloader';
 
@@ -16,7 +17,7 @@ export const StatusValidation: FC<PropsWithChildren<OwnProps>> = ({
   const statusValidation = () => {
     switch (loadingStatus) {
       case ApiRequestStatus.PENDING:
-        return <Preloader />;
+        return <Preloader data-testid={generateDataTestId('RickMorty', 'preloader')} />;
       case ApiRequestStatus.REJECTED:
         return <div className={style.error}>{errorText}</div>;
       case ApiRequestStatus.FULFILLED:

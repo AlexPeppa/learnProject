@@ -1,13 +1,13 @@
 import React, { FC, useMemo, useState } from 'react';
 import { Button } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { generateDataTestId } from '@utils/generateDataTestId';
 import { cars } from './constants';
 import styles from './cars.module.css';
 import { CreateCar } from './CreateCar';
 import CarPhoto from './photo/CarPhoto.jpg';
 import { CarInfo } from './models';
 import { Car } from './Car';
-import { generateDataTestId } from '../utils/generateDataTestId';
 
 export const Cars: FC = () => {
   const [carMode, setCarMode] = useState<string>('READ');

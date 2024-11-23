@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
 import { Character } from 'store/rickMorty/childs/characters';
 
-export const getCharacterInEpisode = (array: AxiosResponse<Character>[]) =>
-  array.map((characters) => characters.data);
+export const getCharacterInEpisode = (charactersResponse: AxiosResponse<Character>[]) =>
+  charactersResponse.map((characters) => characters.data);

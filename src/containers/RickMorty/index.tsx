@@ -1,8 +1,9 @@
 import React, { FC, useEffect, useState } from 'react';
 import { AppDispatch, AppStore, selectors } from '@store/index';
 import { connect } from 'react-redux';
-import { getAllCharacters } from '@store/rickMorty/childs/characters';
-import { ApiRequestStatus } from '@store/rickMorty/constants';
+import { getAllCharacters } from '@rickMorty/childs/characters';
+import { ApiRequestStatus } from '@rickMorty/constants';
+import { generateDataTestId } from '@utils/generateDataTestId';
 import { StatusValidation } from './AllCharacters/LoadingStatusValidation';
 import AllCharacters from './AllCharacters';
 import style from './rick&morty.module.css';
@@ -35,7 +36,9 @@ const RickMortyComponent: FC<Props> = ({
     <div className={style.wrapper}>
       <Breadcrumb name='' />
       <div className={style.nameSearch}>
-        <div className={style.title}>Rick & Morty</div>
+        <div data-testid={generateDataTestId('RickMorty', 'title')} className={style.title}>
+          Rick & Morty
+        </div>
         <SearchInput
           setSearchedCharacter={setSearchedCharacter}
           searchedCharacter={searchedCharacter}

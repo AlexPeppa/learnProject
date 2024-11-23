@@ -1,11 +1,11 @@
 import React, { FC, useEffect, useState } from 'react';
 import { Box, Button, TextField } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { generateDataTestId } from '@utils/generateDataTestId';
 import styles from './car.module.css';
 import { Timer } from '../Timer';
 import { CarInfo } from '../models';
 import { deleteDraftCarModel } from './utils/deleteDraftCarModel';
-import { generateDataTestId } from '../../utils/generateDataTestId';
 
 type Props = {
   car: CarInfo;

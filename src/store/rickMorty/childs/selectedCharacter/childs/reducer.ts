@@ -7,7 +7,7 @@ const selectedCharacterState: SelectedCharacterState = {
   character: {
     id: 0,
     name: '',
-    status: 'false',
+    status: '',
     species: '',
     type: '',
     gender: '',

@@ -18,3 +18,13 @@ export const store = configureStore({
 export type AppStore = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 export const { dispatch } = store;
+export type RootStore = typeof store;
+
+export const setupStore = (preloadedState?: Partial<AppStore>) =>
+  configureStore({
+    reducer: combineReducers({
+      rickMorty: rickMortyReducer,
+      error: errorReducer,
+    }),
+    preloadedState,
+  });
