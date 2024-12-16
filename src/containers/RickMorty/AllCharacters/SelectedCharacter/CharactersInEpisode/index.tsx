@@ -45,18 +45,19 @@ const CharactersInEpisode: FC<Props> = ({
       className={style.charactersInEpisodeWrapper}>
       {Object.values(characters).map((character) => (
         <div
-          data-testid={generateDataTestId(
-            'CharactersInEpisode',
-            'selectCharacters',
-            `${character.id}`,
-          )}
           tabIndex={0}
           role='button'
           className={style.wrapper}
           key={character.id}
           onClick={() => selectCharacter(character.id)}
           onKeyDown={() => selectCharacter(character.id)}>
-          <NavLink to={`/Characters/${character.name.replaceAll(' ', '_')}`}>
+          <NavLink
+            data-testid={generateDataTestId(
+              'CharactersInEpisode',
+              'selectCharacters',
+              `${character.id}`,
+            )}
+            to={`/Characters/${character.name.replaceAll(' ', '_')}`}>
             <img className={style.imgCharacterInEpisode} src={character.image} alt='img' />
           </NavLink>
           <div className={style.name}>{character.name}</div>

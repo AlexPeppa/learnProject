@@ -31,3 +31,8 @@ export interface ApiRequestData {
   charactersHashMap: Record<number, Character>;
   info: { next: string; pages: number };
 }
+
+export interface MockApiRequestData {
+  info: { next: string; pages: number };
+  results: Character[];
+}

@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios, { AxiosResponse } from 'axios';
 import { Character } from '@rickMorty/childs/characters';
-import { arrayToMap } from '../../../characters/utils/createHashMapFromArray';
+import { arrayToMap } from '../../../../../../utils/createHashMapFromArray';
 import { getCharacterInEpisode } from './utils/getCharacterInEpisodeData';
 
 export const getCharactersInEpisodes = createAsyncThunk(

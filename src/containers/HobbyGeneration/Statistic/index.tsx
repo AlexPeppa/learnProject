@@ -8,7 +8,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Total, UserStatistic } from '../models';
 import styles from './Statistic.module.css';
-import { accessibilityAndPriseTotal } from './utils/accessibilityAndPriseTotal';
+import { accessibilityAndPriceTotal } from './utils/accessibilityAndPriceTotal';
 
 interface OwnProps {
   listOfUsers: UserStatistic[];
@@ -23,7 +23,7 @@ export const Statistic: React.FC<OwnProps> = ({ listOfUsers }) => {
   const percentOfFemale: number = 100 - percentOfMale;
 
   const { accessibilityTotal, priceTotal } = useMemo<Total>(
-    () => accessibilityAndPriseTotal(listOfUsers),
+    () => accessibilityAndPriceTotal(listOfUsers),
     [],
   );
 
@@ -102,7 +102,6 @@ export const Statistic: React.FC<OwnProps> = ({ listOfUsers }) => {
           <div>
             <ul>
               <li className={styles.averageAccessibility}>
-                {' '}
                 Accessibility : {averageAccessibility}
               </li>
               <li>Prices : {averagePrices}</li>

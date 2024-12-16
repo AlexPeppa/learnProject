@@ -1,17 +1,22 @@
 module.exports = {
   preset: 'ts-jest',
-  testEnvironment: 'jsdom',
+  testEnvironment: 'jest-fixed-jsdom',
+  testEnvironmentOptions: {
+    customExportConditions: [''],
+  },
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
   transform: {
-    '^.+\\.ts?$': 'ts-jest',
+    '^.+\\.tsx?$': [
+      'ts-jest',
+      {
+        tsconfig: 'tsconfig.json',
+      },
+    ],
   },
-  globals: {
-    'ts-jest': {
-      tsconfig: 'tsconfig.json',
-    },
-  },
-  transformIgnorePatterns: ['node_modules/(?!axios)'],
+  transformIgnorePatterns: ['/node_modules/(?!axios|msw)/'],
   moduleNameMapper: {
     axios: require.resolve('axios'),
+    uuid: require.resolve('uuid'),
     '^@store(.*)$': '<rootDir>/src/store$1',
     '^@rickMorty(.*)$': '<rootDir>/src/store/rickMorty$1',
     '^@utils(.*)$': '<rootDir>/src/containers/utils$1',

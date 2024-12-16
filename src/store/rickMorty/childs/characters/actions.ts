@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { arrayToMap } from './utils/createHashMapFromArray';
+import { arrayToMap } from '../../../../utils/createHashMapFromArray';
 import { Character } from './models';
 
 const constants = {

@@ -6,3 +6,4 @@ export * from './RickMorty';
 export * from './ErrorDialogs';
 export * from './utils/generateDataTestId';
 export * from './utils/withAxiosServiceErrorHandling';
+export * from './utils/renderWithProvider';

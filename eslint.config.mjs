@@ -53,13 +53,14 @@ export default tseslint.config(
     },
   },
   {
-    ignores: ['node_modules', 'dist'],
+    ignores: ['node_modules', 'dist', 'coverage'],
   },
   {
     settings: {
       react: { version: '18.2.0' },
       'import/resolver': {
         typescript: {
+          project: ['./tsconfig.json'],
           alwaysTryTypes: true,
         },
       },

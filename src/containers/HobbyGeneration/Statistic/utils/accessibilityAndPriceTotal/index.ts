@@ -1,7 +1,7 @@
 import { Total, UserStatistic } from 'containers/HobbyGeneration/models';
 
-export const accessibilityAndPriseTotal = (array: UserStatistic[]) =>
-  array.reduce<Total>(
+export const accessibilityAndPriceTotal = (users: UserStatistic[]) =>
+  users.reduce<Total>(
     (acc, { accessibility, price }) => ({
       priceTotal: acc.priceTotal + (price || 0),
       accessibilityTotal: acc.accessibilityTotal + (accessibility || 0),
