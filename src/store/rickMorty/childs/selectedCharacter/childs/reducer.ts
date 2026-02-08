@@ -1,0 +1,38 @@
+import { Character } from 'store/rickMorty/childs/characters/models';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { RickMortyStorePath } from '@store/rickMorty/constants';
+import { SelectedCharacterState } from '../models';
+
+const selectedCharacterState: SelectedCharacterState = {
+  character: {
+    id: 0,
+    name: '',
+    status: '',
+    species: '',
+    type: '',
+    gender: '',
+    origin: {
+      name: '',
+    },
+    location: {
+      name: '',
+    },
+    image: '',
+    episode: [],
+    created: '',
+    url: '',
+  },
+};
+
+export const selectedCharacter = createSlice({
+  name: RickMortyStorePath.SELECTEDCHARACTER,
+  initialState: selectedCharacterState,
+  reducers: {
+    selectCharacter(state, action: PayloadAction<Character>) {
+      state.character = action.payload;
+    },
+  },
+});
+
+export const selectedCharacterReducer = selectedCharacter.reducer;
+export const selectCharacterAction = selectedCharacter.actions.selectCharacter;

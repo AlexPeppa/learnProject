@@ -1,0 +1,38 @@
+.wrapper {
+  height: 500px;
+  max-width: 1200px;
+  margin: 20px;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.navLink {
+  width: 120px;
+  display: flex;
+  flex-direction: column;
+}
+
+.link {
+  padding: 10px;
+  margin: 5px;
+  border: 1px solid rgba(187, 151, 151, 0.742);
+  border-radius: 5px;
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.889);
+  font-size: 20px;
+}
+
+.link:hover {
+  color: rgb(142, 52, 52);
+}
+
+.link:active {
+  color: rgba(142, 11, 11, 0.262);
+}
+
+.helloPicture {
+  border-radius: 20px;
+  margin-bottom: 30px;
+  border: 1px solid rgba(0, 0, 0, 0.889);
+}
