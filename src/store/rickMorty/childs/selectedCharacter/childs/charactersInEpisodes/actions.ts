@@ -1,5 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
+import { Character } from '@rickMorty/childs/characters';
+import { arrayToMap } from '../../../../../../utils/createHashMapFromArray';
+import { getCharacterInEpisode } from './utils/getCharacterInEpisodeData';
 
 export const getCharactersInEpisodes = createAsyncThunk(
   'getCharactersInEpisode',
@@ -9,14 +12,10 @@ export const getCharactersInEpisodes = createAsyncThunk(
         charactersInEpisodesLinks.map((charactersInEpisodesResponses) =>
           axios.get(charactersInEpisodesResponses),
         ),
-      ).then((charactersInEpisodesResponse) =>
-        charactersInEpisodesResponse.map((characters) => characters.data),
+      ).then((charactersInEpisodesResponse: AxiosResponse<Character>[]) =>
+        getCharacterInEpisode(charactersInEpisodesResponse),
       );
-      const hashMap = charactersInEpisode.reduce((characters, selectCharacter) => {
-        characters[selectCharacter.id] = selectCharacter;
-        return characters;
-      }, {});
-      return hashMap;
+      return arrayToMap(charactersInEpisode, 'id');
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }

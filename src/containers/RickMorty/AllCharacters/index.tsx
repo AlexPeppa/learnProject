@@ -1,9 +1,10 @@
 import React, { FC } from 'react';
-import { Character } from '@store/rickMorty/childs/characters';
+import { Character } from '@rickMorty/childs/characters';
 import { AppDispatch, AppStore, selectors } from '@store/index';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { selectCharacterAction } from '@store/rickMorty/childs/selectedCharacter/childs';
+import { selectCharacterAction } from '@rickMorty/childs/selectedCharacter/childs';
+import { generateDataTestId } from '@utils/generateDataTestId';
 import RickMortyPagination from './Pagination/index';
 import style from './allCharacters.module.css';
 
@@ -28,7 +29,7 @@ const AllCharacters: FC<Props> = ({ characters, setSelectedCharacter, searchedCh
   };
 
   return (
-    <div>
+    <div data-testid={generateDataTestId('RickMorty', 'allCharacters')}>
       <div className={style.infoWrapper}>
         {Object.values(characters).map((character: Character) => (
           <div
@@ -38,6 +39,7 @@ const AllCharacters: FC<Props> = ({ characters, setSelectedCharacter, searchedCh
             onClick={() => selectCharacter(character.id)}
             onKeyDown={() => selectCharacter(character.id)}>
             <NavLink
+              data-testid={generateDataTestId('RickMorty', 'allCharacters', `${character.id}`)}
               className={style.textName}
               to={`/Characters/${character.name.replaceAll(' ', '_')}`}>
               <div className={style.info}>

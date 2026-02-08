@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { Box, Slider } from '@mui/material';
 import styles from './Activity.module.css';
 import { UserActivity } from '../models';
-import { generateDefaultPoints } from '../utils';
+import { generateDefaultPoints } from './utils/generateDefaultPoints';
 
 export const Activity: React.FC<UserActivity> = ({ activity, price, accessibility }) => {
   const marks = useMemo(() => generateDefaultPoints(), []);

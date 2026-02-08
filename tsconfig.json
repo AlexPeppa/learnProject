@@ -12,10 +12,19 @@
     "baseUrl": "src",
     "paths": {
       "*": ["*"],
-      "@store/*": ["store/*"]
+      "@store/*": ["store/*"],
+      "@rickMorty/*": ["store/rickMorty/*"],
+      "@utils/*": ["containers/utils/*"]
     }
   },
   "exclude": ["node_modules", "dist"],
-  "include": ["src/**/*", "webpack.config.ts", "global.d.ts", "eslint.config.mjs"],
+  "include": [
+    "src/**/*",
+    "webpack.config.ts",
+    "global.d.ts",
+    "eslint.config.mjs",
+    "imgMok.ts",
+    "jest.setup.ts"
+  ],
   "files": ["eslint.config.mjs", "prettier.config.js", "jest.config.js", "lint-staged.config.js"]
 }

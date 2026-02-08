@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { arrayToMap } from '../../../../utils/createHashMapFromArray';
 import { Character } from './models';
 
 const constants = {
@@ -16,14 +17,8 @@ export const getAllCharacters = createAsyncThunk(
           name,
         },
       });
-      const charactersArr = response.data.results;
-      const hashMapCharacters = charactersArr.reduce(
-        (characters: Character[], selectCharacter: Character) => {
-          characters[selectCharacter.id] = selectCharacter;
-          return characters;
-        },
-        {},
-      );
+      const charactersArr: Character[] = response.data.results;
+      const hashMapCharacters = arrayToMap(charactersArr, 'id');
       return {
         charactersHashMap: hashMapCharacters,
         info: response.data.info,

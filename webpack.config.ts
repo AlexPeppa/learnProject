@@ -98,6 +98,8 @@ module.exports = (env: Env): Configuration => {
       extensions: ['.tsx', '.ts', '.jsx', '.js'],
       alias: {
         '@store': path.resolve(__dirname, 'src/store'),
+        '@rickMorty': path.resolve(__dirname, 'src/store/rickMorty'),
+        '@utils': path.resolve(__dirname, 'src/containers/utils'),
       },
     },
     devServer: isDevelopment

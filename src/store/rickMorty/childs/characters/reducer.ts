@@ -2,7 +2,6 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { ApiRequestData, CharactersState } from './models/index';
 import { ApiRequestStatus, RickMortyStorePath } from '../../constants';
 import { getAllCharacters } from './actions';
-
 import { Nope } from '../selectedCharacter';
 
 const charactersState: CharactersState = {

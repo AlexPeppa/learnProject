@@ -19,6 +19,7 @@ export default tseslint.config(
   {
     rules: {
       'import/prefer-default-export': 'off',
+      'import/no-unresolved': 'error',
       'no-param-reassign': 'off',
       'no-unused-vars': 'off',
       'no-shadow': 'off',
@@ -44,6 +45,7 @@ export default tseslint.config(
       globals: globals.browser,
       parser: tseslint.parser,
       parserOptions: {
+        sourceType: 'module',
         ecmaFeatures: { modules: true },
         ecmaVersion: 'latest',
         projectService: true,
@@ -51,13 +53,14 @@ export default tseslint.config(
     },
   },
   {
-    ignores: ['node_modules', 'dist'],
+    ignores: ['node_modules', 'dist', 'coverage'],
   },
   {
     settings: {
       react: { version: '18.2.0' },
       'import/resolver': {
         typescript: {
+          project: ['./tsconfig.json'],
           alwaysTryTypes: true,
         },
       },

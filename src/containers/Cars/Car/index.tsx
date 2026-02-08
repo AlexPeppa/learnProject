@@ -1,9 +1,11 @@
 import React, { FC, useEffect, useState } from 'react';
 import { Box, Button, TextField } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { generateDataTestId } from '@utils/generateDataTestId';
 import styles from './car.module.css';
 import { Timer } from '../Timer';
 import { CarInfo } from '../models';
+import { deleteDraftCarModel } from './utils/deleteDraftCarModel';
 
 type Props = {
   car: CarInfo;
@@ -52,7 +54,7 @@ export const Car: FC<Props> = ({ car, carMode, setCarMode, setCarsState }) => {
   };
 
   const deleteModel = (model: string) => {
-    const newModels = draftCar.description.models.filter((mark) => mark !== model);
+    const newModels = deleteDraftCarModel(draftCar.description.models, model);
     setDraftCar((prevState) => ({
       ...prevState,
       description: {
@@ -86,7 +88,7 @@ export const Car: FC<Props> = ({ car, carMode, setCarMode, setCarsState }) => {
 
       <div className={styles.name}>
         {canEdit ? (
-          <h1>{car.name}</h1>
+          <h1 data-testid={generateDataTestId('car', 'name')}>{car.name}</h1>
         ) : (
           <TextField
             onChange={(event) =>
@@ -185,21 +187,18 @@ export const Car: FC<Props> = ({ car, carMode, setCarMode, setCarsState }) => {
             </div>
           </div>
           <div>
-            {' '}
             <ul className={styles.models}>
-              {' '}
               {draftCar.description.models.map((model) => (
                 <li key={model} className={canEdit ? styles.model : styles.modelActive}>
-                  {' '}
-                  {model}{' '}
+                  {model}
                   {canEdit ? (
                     ''
                   ) : (
                     <DeleteIcon className={styles.icon} onClick={() => deleteModel(model)} />
-                  )}{' '}
+                  )}
                 </li>
-              ))}{' '}
-            </ul>{' '}
+              ))}
+            </ul>
           </div>
         </div>
       </div>

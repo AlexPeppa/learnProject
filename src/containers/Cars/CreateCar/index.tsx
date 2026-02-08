@@ -2,6 +2,7 @@ import React, { FC, useMemo, useRef, useState } from 'react';
 import { Button, TextField } from '@mui/material';
 import { v4 as uuid4 } from 'uuid';
 import { Box } from '@mui/system';
+import { generateDataTestId } from '@utils/generateDataTestId';
 import CarStyles from './createCar.module.css';
 import { CarInfo } from '../models';
 
@@ -60,6 +61,7 @@ export const CreateCar: FC<Props> = ({ carsState, setCarsState, setCarMode, setS
     <div>
       <div className={CarStyles.addCancelCarButtonDiv}>
         <Button
+          data-testid={generateDataTestId('createCar', 'addCarBtn')}
           ref={ref}
           variant='outlined'
           disabled={!newDataCar.name}
@@ -67,7 +69,11 @@ export const CreateCar: FC<Props> = ({ carsState, setCarsState, setCarMode, setS
           onClick={addCar}>
           Add Car
         </Button>
-        <Button variant='outlined' onClick={cancelCar} className={CarStyles.cancelCarBtn}>
+        <Button
+          data-testid={generateDataTestId('createCar', 'cancelBtn')}
+          variant='outlined'
+          onClick={cancelCar}
+          className={CarStyles.cancelCarBtn}>
           Cancel
         </Button>
       </div>
@@ -75,8 +81,9 @@ export const CreateCar: FC<Props> = ({ carsState, setCarsState, setCarMode, setS
         <div className={CarStyles.nameFoundState}>
           <div>
             <TextField
-              required
+              data-testid={generateDataTestId('createCar', 'carName')}
               label='Car name'
+              value={newDataCar.name}
               onChange={(event) => {
                 keys.map((car) => {
                   if (event.target.value === carsState[car].name) {
@@ -92,12 +99,10 @@ export const CreateCar: FC<Props> = ({ carsState, setCarsState, setCarMode, setS
                   name: event.target.value,
                 }));
               }}
-              defaultValue=''
             />
           </div>
-          <div>
+          <div data-testid={generateDataTestId('createCar', 'carFounded')}>
             <TextField
-              required
               label='Car founded'
               onChange={(event) =>
                 setNewDataCar((prevState) => ({
@@ -112,8 +117,8 @@ export const CreateCar: FC<Props> = ({ carsState, setCarsState, setCarMode, setS
             />
           </div>
           <div>
-            {' '}
             <TextField
+              data-testid={generateDataTestId('createCar', 'carState')}
               required
               label='Car state'
               onChange={(event) =>
@@ -132,6 +137,7 @@ export const CreateCar: FC<Props> = ({ carsState, setCarsState, setCarMode, setS
         <div className={CarStyles.text}>
           <Box component='form' sx={{ '& .MuiTextField-root': { m: 1, width: '1100px' } }}>
             <TextField
+              data-testid={generateDataTestId('createCar', 'carText')}
               onChange={(event) =>
                 setNewDataCar((prevState) => ({
                   ...prevState,
@@ -147,12 +153,13 @@ export const CreateCar: FC<Props> = ({ carsState, setCarsState, setCarMode, setS
               rows={4}
               defaultValue=''
             />
-          </Box>{' '}
+          </Box>
         </div>
 
         <div>
           <div className={CarStyles.models}>
             <TextField
+              data-testid={generateDataTestId('createCar', 'carModels')}
               required
               label='Car models'
               onChange={(event) => setNewCarInputModels(event.target.value)}

@@ -1,12 +1,13 @@
 import React, { FC, useMemo, useState } from 'react';
 import { Button } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { generateDataTestId } from '@utils/generateDataTestId';
 import { cars } from './constants';
 import styles from './cars.module.css';
-import { CreateCar } from './CreateCar/CreateCar';
+import { CreateCar } from './CreateCar';
 import CarPhoto from './photo/CarPhoto.jpg';
 import { CarInfo } from './models';
-import { Car } from './Car/Car';
+import { Car } from './Car';
 
 export const Cars: FC = () => {
   const [carMode, setCarMode] = useState<string>('READ');
@@ -32,7 +33,7 @@ export const Cars: FC = () => {
   };
 
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.wrapper} data-testid={generateDataTestId('carsComponent', 'mainDiv')}>
       {canCreate ? (
         <div>
           <CreateCar
@@ -47,6 +48,7 @@ export const Cars: FC = () => {
           <div className={styles.carSideBar}>
             <div className={styles.createCarBtn}>
               <Button
+                data-testid={generateDataTestId('cars', 'createCarBtn')}
                 style={{ color: 'black', border: '1px solid black' }}
                 onClick={createCar}
                 variant='outlined'>
@@ -56,11 +58,14 @@ export const Cars: FC = () => {
             {carsArr.map((car) => (
               <ul key={car.code}>
                 <div
+                  data-testid={generateDataTestId('cars', 'selectedCarDiv', `${car.code}`)}
                   tabIndex={0}
                   role='button'
                   onClick={() => setSelectedCar(car.code)}
                   onKeyDown={() => setSelectedCar(car.code)}>
-                  <li className={`${styles.li} ${selectedCar === car.code ? styles.select : null}`}>
+                  <li
+                    data-testid={generateDataTestId('cars', 'selectedCarLi', `${car.code}`)}
+                    className={`${styles.li} ${selectedCar === car.code ? styles.select : null}`}>
                     {car.name}
                     {carMode === 'READ' ? null : (
                       <DeleteIcon
@@ -84,9 +89,8 @@ export const Cars: FC = () => {
               />
             ) : (
               <div className={styles.carPhotoText}>
-                {' '}
-                <h1 className={styles.carPhotoText_text}>Coздай Машину</h1>{' '}
-                <img className={styles.carPhotoText_photo} src={CarPhoto} alt='createCar' />
+                <h1 className={styles.carPhotoText_text}>Coздай Машину</h1>
+                <img className={styles.carPhotoText_photo} src={CarPhoto} alt='createCarPhoto' />
               </div>
             )}
           </div>

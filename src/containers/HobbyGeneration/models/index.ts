@@ -31,8 +31,6 @@ export type UserStatistic = {
   activity: string;
   accessibility: number;
   price: number;
-  accessibilityTotal: number;
-  priceTotal: number;
 };
 
 export enum StatusToggle {

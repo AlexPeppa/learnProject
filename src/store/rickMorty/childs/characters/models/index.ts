@@ -3,7 +3,7 @@ import { ApiRequestStatus } from '../../../constants';
 export interface Character {
   id: number;
   name: string;
-  status: boolean;
+  status: string;
   species: string;
   type: string;
   gender: string;
@@ -15,6 +15,8 @@ export interface Character {
   };
   image: string;
   episode: string[];
+  created: string;
+  url: string;
 }
 
 export interface CharactersState {
@@ -28,4 +30,9 @@ export interface CharactersState {
 export interface ApiRequestData {
   charactersHashMap: Record<number, Character>;
   info: { next: string; pages: number };
+}
+
+export interface MockApiRequestData {
+  info: { next: string; pages: number };
+  results: Character[];
 }
